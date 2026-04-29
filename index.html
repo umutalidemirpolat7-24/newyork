@@ -3,64 +3,81 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Manhattan Muse | NYC Date Planner</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .itinerary-line {
+            position: relative;
+        }
+        .itinerary-line::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #6B1D23;
+            opacity: 0.2;
+        }
+    </style>
 <script id="tailwind-config">
         tailwind.config = {
           darkMode: "class",
           theme: {
             extend: {
               "colors": {
-                      "on-tertiary-fixed": "#241a00",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#735c00",
+                      "tertiary-fixed-dim": "#e9c349",
                       "primary-fixed-dim": "#ffb3b3",
-                      "inverse-primary": "#ffb3b3",
+                      "on-tertiary-fixed": "#241a00",
+                      "on-primary-container": "#f08486",
+                      "surface-bright": "#fbf9f4",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary-container": "#4e3d00",
+                      "on-background": "#1b1c19",
+                      "surface-tint": "#9b4145",
+                      "primary-fixed": "#ffdad9",
+                      "secondary-container": "#d7e0f4",
+                      "secondary-fixed-dim": "#bec7db",
+                      "surface-dim": "#dbdad5",
+                      "surface-container": "#f0eee9",
+                      "surface-container-low": "#f5f3ee",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#565f70",
+                      "on-surface-variant": "#554242",
+                      "on-secondary-fixed-variant": "#3e4758",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "on-error": "#ffffff",
+                      "on-surface": "#1b1c19",
+                      "secondary-fixed": "#dae3f7",
+                      "primary-container": "#6b1d23",
+                      "tertiary-container": "#cca72f",
+                      "on-secondary-fixed": "#131c2a",
+                      "on-primary-fixed-variant": "#7d2a2f",
+                      "inverse-on-surface": "#f2f1ec",
+                      "surface": "#fbf9f4",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#30312e",
                       "surface-container-lowest": "#ffffff",
                       "surface-container-high": "#eae8e3",
-                      "surface-dim": "#dbdad5",
-                      "surface-container-low": "#f5f3ee",
-                      "secondary-fixed-dim": "#bec7db",
-                      "primary-container": "#6b1d23",
-                      "inverse-surface": "#30312e",
-                      "background": "#fbf9f4",
-                      "surface-container": "#f0eee9",
-                      "on-tertiary-container": "#4e3d00",
+                      "outline": "#887271",
+                      "inverse-primary": "#ffb3b3",
+                      "error": "#ba1a1a",
                       "outline-variant": "#dbc0c0",
-                      "on-error-container": "#93000a",
-                      "tertiary-container": "#cca72f",
+                      "on-primary": "#ffffff",
+                      "primary": "#4d0610",
                       "on-secondary-container": "#5a6374",
                       "on-primary-fixed": "#400009",
-                      "surface-bright": "#fbf9f4",
-                      "secondary": "#565f70",
-                      "on-secondary-fixed": "#131c2a",
-                      "error-container": "#ffdad6",
                       "tertiary-fixed": "#ffe088",
-                      "primary-fixed": "#ffdad9",
-                      "on-tertiary-fixed-variant": "#574500",
-                      "on-secondary-fixed-variant": "#3e4758",
-                      "inverse-on-surface": "#f2f1ec",
-                      "error": "#ba1a1a",
-                      "on-primary-fixed-variant": "#7d2a2f",
-                      "on-surface": "#1b1c19",
-                      "on-surface-variant": "#554242",
                       "surface-container-highest": "#e4e2dd",
-                      "secondary-container": "#d7e0f4",
-                      "surface-variant": "#e4e2dd",
-                      "outline": "#887271",
-                      "on-error": "#ffffff",
-                      "surface-tint": "#9b4145",
-                      "primary": "#4d0610",
-                      "tertiary-fixed-dim": "#e9c349",
-                      "on-background": "#1b1c19",
-                      "on-tertiary": "#ffffff",
-                      "on-primary-container": "#f08486",
-                      "on-primary": "#ffffff",
-                      "secondary-fixed": "#dae3f7",
-                      "on-secondary": "#ffffff",
-                      "surface": "#fbf9f4",
-                      "tertiary": "#735c00"
+                      "background": "#fbf9f4",
+                      "surface-variant": "#e4e2dd"
               },
               "borderRadius": {
                       "DEFAULT": "0.25rem",
@@ -70,419 +87,445 @@
               },
               "spacing": {
                       "md": "24px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "margin-mobile": "20px",
+                      "lg": "40px",
+                      "margin-desktop": "120px",
                       "xl": "64px",
                       "sm": "12px",
-                      "gutter": "16px",
-                      "xs": "4px",
-                      "margin-desktop": "120px",
-                      "lg": "40px",
-                      "margin-mobile": "20px",
-                      "base": "8px"
+                      "gutter": "16px"
               },
               "fontFamily": {
-                      "h1": ["Noto Serif"],
-                      "body-md": ["Plus Jakarta Sans"],
-                      "label-caps": ["Plus Jakarta Sans"],
-                      "body-lg": ["Plus Jakarta Sans"],
-                      "h2": ["Noto Serif"],
                       "button": ["Plus Jakarta Sans"],
-                      "h3": ["Noto Serif"]
+                      "h2": ["Noto Serif"],
+                      "h3": ["Noto Serif"],
+                      "h1": ["Noto Serif"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "label-caps": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"]
               },
               "fontSize": {
-                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
-                      "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
-                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
-                      "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
                       "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
-                      "h3": ["24px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}]
+                      "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "h3": ["24px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}]
               }
             },
           },
         }
     </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
 </head>
-<body class="bg-background text-on-surface font-body-md min-h-screen">
-<!-- Top Navigation Bar -->
-<header class="bg-[#FDFCFB] dark:bg-[#121212] border-b border-[#E5E0DA] dark:border-[#2C2C2C] flex justify-between items-center px-6 py-4 w-full z-50 sticky top-0">
-<div class="font-serif text-2xl tracking-tight text-[#6B1D23] dark:text-[#E57373] font-serif antialiased">
-            Manhattan Muse
-        </div>
-<div class="hidden md:flex items-center gap-8">
-<a class="text-[#6B1D23] font-bold font-h3 text-body-md hover:opacity-80 transition-opacity" href="#">Planner</a>
-<a class="text-[#4A4A4A] dark:text-[#A0A0A0] font-h3 text-body-md hover:opacity-80 transition-opacity" href="#">Radar</a>
-<a class="text-[#4A4A4A] dark:text-[#A0A0A0] font-h3 text-body-md hover:opacity-80 transition-opacity" href="#">Insights</a>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#FFFDF5] dark:bg-stone-950 border-b border-stone-200 dark:border-stone-800 fixed top-0 z-50 w-full h-20">
+<div class="flex justify-between items-center px-8 h-full w-full max-w-screen-2xl mx-auto">
+<div class="text-2xl font-serif font-bold text-[#6B1D23] dark:text-red-400 italic">Manhattan Muse</div>
+<nav class="hidden md:flex items-center space-x-8 font-serif text-sm tracking-wide uppercase">
+<a class="text-[#6B1D23] border-b-2 border-[#6B1D23] pb-1 font-bold" href="#">Date Planner</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors" href="#">Party Radar</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors" href="#">Host a Vibe</a>
+</nav>
+<div class="flex items-center space-x-6">
+<div class="hidden sm:flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline-variant">
+<span class="material-symbols-outlined text-stone-500 mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48" placeholder="Search experiences..." type="text"/>
 </div>
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-[#6B1D23] cursor-pointer" data-icon="notifications">notifications</span>
-<span class="material-symbols-outlined text-[#6B1D23] cursor-pointer" data-icon="account_circle">account_circle</span>
+<div class="flex items-center space-x-4">
+<button class="material-symbols-outlined text-on-surface hover:bg-stone-100/50 p-2 rounded-full transition-all" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-on-surface hover:bg-stone-100/50 p-2 rounded-full transition-all" data-icon="favorite">favorite</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a stylish young woman in a high-end Manhattan lounge with warm ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr-TCwUCFuJf__IiuB6R-7zUl471kS28N-Fff_K5zYbytwbSUsK4RgEBFJJ4o2Qn2nUPxGKppvEK-vo8bMxRiJRAuT-p3C6x2MdcCIx_YymaX_VouIv3lZ4gvnLkKvt-MiOalYLS495SEuv1R7QYgYIec20bfxAVfoJHRflvsyn9n5GsvnmR9loxCyYn3ql3rX7eBfQkKggzAIzh0xAoq64XYlOKteWFxdkUI9VBspv-yuY0NgJgEdTwjrIWARiTYlz3ZpX3QGUgc"/>
+</div>
+</div>
+</div>
 </div>
 </header>
-<main class="max-w-7xl mx-auto px-4 md:px-margin-desktop py-8">
-<!-- Mode Switcher -->
-<section class="mb-12">
-<div class="flex flex-wrap gap-4 bg-surface-container p-2 rounded-xl w-fit mx-auto">
-<button class="px-8 py-3 bg-primary-container text-on-primary-container rounded-lg font-button shadow-sm">
-                    Date Planner
-                </button>
-<button class="px-8 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-button transition-colors">
-                    Party Radar
-                </button>
-<button class="px-8 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-button transition-colors">
-                    Host a Vibe
-                </button>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 flex flex-col py-6 space-y-2 h-screen w-72 z-40 bg-[#FFFDF5] dark:bg-stone-950 border-r border-stone-200 dark:border-stone-800 shadow-sm dark:shadow-none pt-24">
+<div class="px-6 mb-8">
+<div class="flex items-center space-x-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-primary-container/20">
+<span class="material-symbols-outlined text-[#6B1D23]" data-icon="hub">hub</span>
 </div>
-</section>
-<!-- Search & Discovery Layout: Asymmetric Grid -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-<!-- Left Sidebar: Filters (4 Columns) -->
-<aside class="lg:col-span-4 space-y-8">
-<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30">
-<h3 class="font-h3 text-h3 mb-6 text-primary">Refine Your Evening</h3>
-<!-- Mood Selection -->
-<div class="mb-8">
-<label class="font-label-caps text-label-caps text-on-surface-variant block mb-3 uppercase">Setting the Mood</label>
-<div class="grid grid-cols-2 gap-3">
-<button class="flex items-center gap-2 p-3 rounded-lg border border-primary text-primary bg-primary-fixed/20 transition-all">
-<span class="material-symbols-outlined text-sm" data-icon="favorite">favorite</span>
-<span class="text-button">Romantic</span>
-</button>
-<button class="flex items-center gap-2 p-3 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-all">
-<span class="material-symbols-outlined text-sm" data-icon="celebration">celebration</span>
-<span class="text-button">Vibrant</span>
-</button>
-<button class="flex items-center gap-2 p-3 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-all">
-<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
-<span class="text-button">Mystic</span>
-</button>
-<button class="flex items-center gap-2 p-3 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-all">
-<span class="material-symbols-outlined text-sm" data-icon="palette">palette</span>
-<span class="text-button">Artistic</span>
-</button>
-</div>
-</div>
-<!-- Budget Range -->
-<div class="mb-8">
-<label class="font-label-caps text-label-caps text-on-surface-variant block mb-3 uppercase">Budget Per Person</label>
-<div class="space-y-4">
-<div class="flex justify-between text-xs font-bold text-on-surface-variant">
-<span>$40</span>
-<span>$250+</span>
-</div>
-<input class="w-full accent-primary-container" max="250" min="40" step="10" type="range"/>
-<div class="bg-surface-container-highest p-3 rounded-lg flex justify-between items-center">
-<span class="text-body-md font-semibold text-primary">Approx. Total</span>
-<span class="text-body-lg font-bold">$120 - $180</span>
-</div>
-</div>
-</div>
-<!-- Neighborhood Chips -->
 <div>
-<label class="font-label-caps text-label-caps text-on-surface-variant block mb-3 uppercase">Neighborhood</label>
-<div class="flex flex-wrap gap-2">
-<span class="px-3 py-1 rounded-full bg-primary-container text-on-primary-container text-xs font-bold cursor-pointer">West Village</span>
-<span class="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant text-xs hover:bg-surface-variant cursor-pointer">SoHo</span>
-<span class="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant text-xs hover:bg-surface-variant cursor-pointer">Tribeca</span>
-<span class="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant text-xs hover:bg-surface-variant cursor-pointer">UES</span>
-<span class="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant text-xs hover:bg-surface-variant cursor-pointer">DUMBO</span>
+<h4 class="font-serif font-black text-[#6B1D23] text-lg">The Wests</h4>
+<p class="text-xs text-stone-500 font-serif">Upper West Side</p>
 </div>
 </div>
 </div>
-<!-- Mutual Likes Card -->
-<div class="bg-secondary-container p-6 rounded-2xl border border-secondary/20">
-<div class="flex items-center gap-3 mb-4">
-<span class="material-symbols-outlined text-secondary" data-icon="group">group</span>
-<h4 class="font-h3 text-body-lg text-on-secondary-container">Mutual Sparks</h4>
-</div>
-<p class="text-sm text-on-secondary-container/80 mb-4 italic">"Chloe also saved Le Coucou for Saturday night."</p>
-<button class="w-full bg-white text-secondary font-button py-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                        View Shared List
-                    </button>
-</div>
-</aside>
-<!-- Right Content: Date Results (8 Columns) -->
-<div class="lg:col-span-8">
-<div class="flex justify-between items-end mb-8">
-<div>
-<h2 class="font-h2 text-h2 text-primary">Curated for Tonight</h2>
-<p class="text-on-surface-variant">3 hidden gems matching your 'Romantic' vibe.</p>
-</div>
-<div class="flex items-center gap-2 text-on-surface-variant font-button text-sm">
-<span>Sort by:</span>
-<select class="bg-transparent border-none focus:ring-0 cursor-pointer font-bold text-primary">
-<option>Exclusivity</option>
-<option>Proximity</option>
-<option>Trending</option>
-</select>
-</div>
-</div>
-<!-- Results Grid (Bento Style) -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<!-- Venue Card 1: Main Highlight -->
-<div class="md:col-span-2 group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-low transition-all hover:shadow-lg">
-<div class="grid md:grid-cols-2 h-full">
-<div class="relative h-64 md:h-full">
-<img class="w-full h-full object-cover" data-alt="opulent french restaurant interior with crystal chandeliers, white tablecloths, and high arched windows in New York City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcCjnjpt8VdoKwG2Qf91si4j-b1xZBapAzhu5hhYYxl7g-F8RDGAxOSGtrw59zgMeFTHykHVmpXLvUbgHRUa6JFDoGKi3-2GjH2LWAwsHRwKGVeolwkfgUs_1s7R6DIR4QjLyl4TO_3OAymsMoaO6Ugtl2cHDllh4r9saWd726NZ7JS8N0j0XMy6eP0boinon3JxscxE0kS0CXf0IVo9lGWqalSZosSscaGAjCCFAngwmlXO3wABI0irltdpojKNm6rXq8hXAn21w"/>
-<div class="absolute top-4 left-4">
-<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]" data-icon="star" data-weight="fill">star</span>
-                                        Expert Pick
-                                    </span>
-</div>
-</div>
-<div class="p-8 flex flex-col justify-between">
-<div>
-<div class="flex justify-between items-start mb-2">
-<h3 class="font-h3 text-h3 text-primary">Le Coucou</h3>
-<span class="text-primary font-bold">$$$$</span>
-</div>
-<p class="text-on-surface-variant mb-4">Old-world European elegance meets modern SoHo. Perfect for anniversaries or deep conversations.</p>
-<div class="flex flex-wrap gap-2 mb-6">
-<span class="bg-surface-container px-2 py-1 rounded text-xs text-on-surface">French</span>
-<span class="bg-surface-container px-2 py-1 rounded text-xs text-on-surface">Intimate Lighting</span>
-<span class="bg-surface-container px-2 py-1 rounded text-xs text-on-surface">Live Strings</span>
-</div>
-</div>
-<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-lg font-button hover:opacity-90 transition-opacity">
-                                    View Details &amp; Book
-                                </button>
-</div>
-</div>
-</div>
-<!-- Venue Card 2 -->
-<div class="bg-surface-container-low rounded-2xl border border-outline-variant/30 overflow-hidden group hover:shadow-lg transition-all">
-<div class="h-48 relative">
-<img class="w-full h-full object-cover" data-alt="moody dimly lit jazz club cocktail bar with velvet seating and warm glow from tabletop candles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC52i3I3KSXj5CJdkGb4DqJerH5KBkdpe7_vEq_ryNm34ixMW1xddLnt8_nBzRpmSW9RjAKA2gcMxV0J8eMXT9gDpbKmN-RMj5KpEQkHFDeC87KTY-bciF3VTW6dQ_my5jjyA93qroz7XdtZfYH685SOQJ73GxlxSVTInNgn6X4udE8O21A7Q3X3SY5a8LxXERU7C6wfD_B6Y0cDm6bYEprf2B9qkwrLPESWSqndJuNCuNW38uUhmSlZP2yRaV45dRf5i-i0HYMLu8"/>
-<button class="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors">
-<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
-</button>
-</div>
-<div class="p-6">
-<div class="flex justify-between items-center mb-1">
-<h4 class="font-h3 text-body-lg text-primary">The Nines</h4>
-<span class="text-on-surface-variant text-sm font-bold">$$$</span>
-</div>
-<p class="text-sm text-on-surface-variant mb-4">A piano bar with red velvet walls and timeless allure.</p>
-<div class="flex justify-between items-center">
-<span class="text-xs text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
-                                    NoHo
-                                </span>
-<button class="text-primary font-button text-sm border-b border-primary/30 hover:border-primary transition-all">View Details</button>
-</div>
-</div>
-</div>
-<!-- Venue Card 3 -->
-<div class="bg-surface-container-low rounded-2xl border border-outline-variant/30 overflow-hidden group hover:shadow-lg transition-all">
-<div class="h-48 relative">
-<img class="w-full h-full object-cover" data-alt="modern minimalist italian restaurant with marble counter and open kitchen viewing chefs at work" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtYGzJd_2NneQDfCknk9jC4sMn5qERM_5qLtvLb_O9FwvTu5GKEfJAPiGVTM_Da81sUY1thIi3bbJ6tvL9L3csj_mmlaHqjGmiLOkLK_aKY6vVfQ6DE7rhg9qunPggCkrCVdBQXJ4J8lhhGcbx9CfSPNIopEmsbkDY0kLfoSylorwMs5FhGOIpPtFLTmaVnGGsD0xErE2W-eM8WCqhuMWYt3UkQenJKUA-m9P8ZOLAPJM8nyzgaQyHzMelVhDshCj4NXYMjIIN9zs"/>
-<button class="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors">
-<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
-</button>
-</div>
-<div class="p-6">
-<div class="flex justify-between items-center mb-1">
-<h4 class="font-h3 text-body-lg text-primary">Lilia</h4>
-<span class="text-on-surface-variant text-sm font-bold">$$$</span>
-</div>
-<p class="text-sm text-on-surface-variant mb-4">Industrial-chic pasta haven in a former auto-body shop.</p>
-<div class="flex justify-between items-center">
-<span class="text-xs text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
-                                    Williamsburg
-                                </span>
-<button class="text-primary font-button text-sm border-b border-primary/30 hover:border-primary transition-all">View Details</button>
-</div>
-</div>
-</div>
-</div>
-<!-- "Host a Vibe" CTA Section -->
-<section class="mt-12 bg-primary p-8 rounded-3xl text-on-primary flex flex-col md:flex-row items-center gap-8 overflow-hidden relative">
-<div class="z-10 text-center md:text-left">
-<h3 class="font-h2 text-h2 mb-2 text-white">Can't find the right beat?</h3>
-<p class="text-primary-fixed opacity-90 mb-6 max-w-md">Create your own bespoke event. Curate the crowd, the venue, and the mood. We'll broadcast it to the Muse community.</p>
-<button class="bg-tertiary-fixed text-on-tertiary-fixed font-button px-8 py-4 rounded-xl shadow-xl hover:scale-105 transition-transform">
-                            Create Custom Experience
-                        </button>
-</div>
-<div class="relative w-full md:w-1/2 h-64 z-10">
-<img class="w-full h-full object-cover rounded-2xl shadow-2xl" data-alt="lifestyle shot of elegant couple enjoying wine on a rooftop at sunset overlooking Manhattan skyline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGygijIu9_avpMVEBCwnxvil5hjTi4mAVzjtajjjTV-YNk4tUKEokfJN3sc0HGprRZwqkIdPv__JRefCMLMmYE2J3FP4nl8jope6HqxieWFF_hOQrudrPR9gX7EpnFljCbN2VM4Rz6WetOwtf5QSlTD10hYPXeIf8Zreodfv_HXnmpzwGnwhd32xwrJiErKf17oOxYlxz1SSbf-4sF6We_iRfAtF-tenWClWFwoBbf0t2AvVHCdAmgqH5ID0iz7yFePrQzjrXtNSU"/>
-</div>
-<!-- Abstract decorative background element -->
-<div class="absolute -right-20 -bottom-20 w-80 h-80 bg-primary-container rounded-full blur-3xl opacity-30"></div>
-</section>
-</div>
-</div>
-</main>
-<!-- Side Chat Panel (Social Layer) -->
-<div class="fixed right-0 top-0 h-full w-80 bg-white shadow-2xl z-[60] border-l border-outline-variant transform translate-x-full transition-transform duration-300 md:translate-x-0 hidden md:block">
-<div class="flex flex-col h-full">
-<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
-<h4 class="font-h3 text-body-lg text-primary">Inner Circle</h4>
-<div class="flex gap-2">
-<span class="material-symbols-outlined text-on-surface-variant cursor-pointer text-sm" data-icon="search">search</span>
-<span class="material-symbols-outlined text-on-surface-variant cursor-pointer text-sm" data-icon="settings">settings</span>
-</div>
-</div>
-<div class="flex-1 overflow-y-auto p-4 space-y-4 hide-scrollbar">
-<!-- Chat Entry 1 -->
-<div class="flex gap-3 items-center p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer group">
-<div class="relative">
-<img class="w-12 h-12 rounded-full object-cover" data-alt="portrait of a stylish young woman with a warm smile and natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6ck_PKFQ65YtBHL-jE3mSuzXZNvJKCQOOJU7EvPa-Jro6UFH8TChnhgGgnEYW_KRTr7WIQMfM0dQRDfeyJKy9WO7fhytFAdq6pJ5J7sv1xyvUZTxhnkF1P03Nbqjk4yLf_5QgM9Gj0mnjPOwBRWplxOxndqlrVfzgKUiC1VOLZ7YMsUz9Y1_mnBDLnAQy5SwPHTkuPc3b-dOUrqsiI-QxEEihFGvgaNTiywCQfUj8LbhLh57-qXERwsL3QCT_1NcR1d9T-HR8mGQ"/>
-<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-baseline">
-<span class="font-bold text-sm text-primary">Chloe</span>
-<span class="text-[10px] text-on-surface-variant">2m</span>
-</div>
-<p class="text-xs text-on-surface-variant truncate">That rooftop spot looks perfect...</p>
-</div>
-</div>
-<!-- Chat Entry 2 (Mutual Match) -->
-<div class="flex gap-3 items-center p-3 rounded-xl bg-primary-fixed/30 border border-primary/10 cursor-pointer">
-<div class="relative">
-<img class="w-12 h-12 rounded-full object-cover" data-alt="portrait of a smiling man in a tailored coat with an urban backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgxI_8JR81Fn6YCLyExkyzu4UbcaMmxcdSghDi27_XRj6MS0QE6NyiGnEFVmPKGAegCLDbuajBPpw521TelwBJMpqu_EyJpayIwJnyQ0scgi40yDWN86SyUyQGRUA4eUQPzYZ3j6QzZQ0tn1HfXtkhdJ8Q_txY1EhEB9-vrfRuNvuvifJaVbeEMRKlfQSxRLR-xSHSG_FmWugeQ9c3i4ZWQGLhdEsZEUrSN_NploIvoisPDTHD-Wo1n0XDWg-UT5IiAI5k4wz8jak"/>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-baseline">
-<span class="font-bold text-sm text-primary">Marcus</span>
-<span class="bg-primary-container text-white text-[8px] px-1 rounded uppercase">New Match</span>
-</div>
-<p class="text-xs text-primary font-medium">Shared interest in 'The Nines'</p>
-</div>
-</div>
-<!-- Chat Entry 3 -->
-<div class="flex gap-3 items-center p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer opacity-70">
-<div class="relative">
-<img class="w-12 h-12 rounded-full object-cover" data-alt="stylish man with glasses looking thoughtfully at the camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOIJua_A1SG_mc8IXAyRM-0QbNXGiynw3bTEpLBb5xWZWqnKnFtLeyavwAwuw9Ou-JnvBU2F0IYDuA4XTVG2thAhoXpKUhMB0VswgLPm6TeMFbHuP_iWSwtSSykNVq5TcVsA4NFPxunaIWgwq7UW0MxxyW1y0SL1PFbLN2jXPvTzSXDHuc0NVHDhYnjImbNZDsw9cOW1PbPFGdJL4eWncEpHBWMZN8GYyMursIOnyQ5Ak_5AdMwwdzVWA5glzCq0LPttsTjoTOwZo"/>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-baseline">
-<span class="font-bold text-sm text-primary">Julian</span>
-<span class="text-[10px] text-on-surface-variant">1h</span>
-</div>
-<p class="text-xs text-on-surface-variant truncate">Let me know if you need a resy...</p>
-</div>
-</div>
-</div>
-<!-- Quick Action: Host a Group -->
-<div class="p-6 bg-surface-container-highest">
-<button class="w-full flex items-center justify-center gap-2 bg-white border border-outline-variant p-3 rounded-xl font-button text-sm hover:bg-primary-fixed transition-colors">
-<span class="material-symbols-outlined text-sm" data-icon="chat_add_on">chat_add_on</span>
-                    New Group Thread
-                </button>
-</div>
-</div>
-</div>
-<!-- Details Modal (Hidden Overlay) -->
-<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm hidden">
-<div class="bg-background w-full max-w-4xl max-h-[921px] rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
-<!-- Left: Gallery -->
-<div class="w-full md:w-1/2 h-64 md:h-auto relative">
-<img class="w-full h-full object-cover" data-alt="close up of a gourmet dinner plate with artistic plating in a luxury restaurant setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAjZLvwbDeTQPJMvWL5JeKR_99Y-qykC5SuvFxAN0jigIkKlpjTu2Ay9wuJZp2bKiXt4r3k2-bHBNj6YyiA-jzf4qVhx4iXrUyFVA1E1ZjloogyBRrEh-EDW2WFNWqFln4VuGSXh4wdkUhVmrKdlXu_MTuJWGHqR46r-POcjNzvTKlg9tLqfLP9ziS48p5fGu0S4bLdePOQHzoXCSiztTlr0ktpZ4bi7WqfUmhLWauGfc88A49SwN8ukJ-l1ebdBqoc0f2a3mFIRg"/>
-<div class="absolute bottom-4 left-4 flex gap-2">
-<div class="w-12 h-12 rounded-lg border-2 border-white overflow-hidden shadow-lg">
-<img class="w-full h-full object-cover" data-alt="interior view of bar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtWX7i2PKzIKBV8bbEfev6fH4JsobttDE4gIlBBRIxEUUJx2BJe5sxIWfEGFF5ZQzD--rWfVcn-jJN4b6K6fIs9plw4Yvvmmm0yCDOrCkdrFJFOn75gPV5IhGBnWwAGIoJOhEdbdUr2XP1Cxo3ButkTGHSrPCD0mJE0Uo0bvZW2_sSLYaNnyF70U3EDF0woMRYFotga7CgNS8_5t4rxb2MSMeBtiNZc1-DV91vzveLEEDlVQfLeOhrBFuTws8xuscGs83naCM6Zyg"/>
-</div>
-<div class="w-12 h-12 rounded-lg border-2 border-white/50 overflow-hidden shadow-lg grayscale">
-<img class="w-full h-full object-cover" data-alt="cocktail detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnmiNED6EnFzeG8wBacpjngPMLiTSxNBVSTDJNPPAO206txBYXAn8aC-DPI_3WyYJwF9Gd60Y0IdYWuCeITHrjor017icJ0PkJGpYl56siG-LqvvA9l3asAOmFh6oUJ5-0SRpiWRMk8yq9o2OWRonv5O6hwYkwv9ar_8IKV7X_1yhiWuL9K3B-ZtCrGeI5vM-iJU8cEZSwsr2eJVxK3Do5fVPEN_FfCtEI4rzfu1p8HO-I1pr4GQmxRvBAIwXM2empcBSxCj1FcXs"/>
-</div>
-</div>
-</div>
-<!-- Right: Details Content -->
-<div class="flex-1 p-8 overflow-y-auto bg-surface flex flex-col">
-<div class="flex justify-between items-start mb-6">
-<div>
-<h2 class="font-h2 text-h2 text-primary">Le Coucou</h2>
-<span class="text-sm text-on-surface-variant flex items-center gap-1">
-<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
-                            138 Lafayette St, New York, NY 10013
-                        </span>
-</div>
-<button class="p-2 hover:bg-surface-container rounded-full transition-colors">
-<span class="material-symbols-outlined" data-icon="close">close</span>
-</button>
-</div>
-<!-- Social Stats -->
-<div class="grid grid-cols-3 gap-4 mb-8 bg-surface-container-low p-4 rounded-2xl border border-outline-variant/30">
-<div class="text-center">
-<div class="text-primary font-bold text-lg">12</div>
-<div class="text-[10px] text-on-surface-variant uppercase font-bold">Muses Active</div>
-</div>
-<div class="text-center border-x border-outline-variant/30">
-<div class="text-primary font-bold text-lg">84%</div>
-<div class="text-[10px] text-on-surface-variant uppercase font-bold">Spark Rate</div>
-</div>
-<div class="text-center">
-<div class="text-primary font-bold text-lg">4.9</div>
-<div class="text-[10px] text-on-surface-variant uppercase font-bold">Vibe Score</div>
-</div>
-</div>
-<!-- Who is here now -->
-<div class="mb-8">
-<h5 class="font-label-caps text-label-caps text-on-surface-variant mb-3 uppercase">Live at Venue</h5>
-<div class="flex -space-x-3">
-<img class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmY_XQEVgmkNoshxteq7upWJoSPWI_HIe1Hl8xTkqEzgwlfIYnF4oj7mseEkn8-xYvdSgRXIlp8UR05cAkmNxNNuIsAJbKmkZcXt1uNJ89bvKY52h4fKwcAHWUMDJI-R10JzBTaeR5t7U1uu5cm_-F00DazcbXrqrpKWF1liRBKvCIxO7I5Fol_bDjfVkukGRzVGPdnEowccZJ5l9K0L5FpHa9Op3axSw-yPfb2vOKCvt3jEv4DtsDHho7cBkWytXGHcWS9PLGkL4"/>
-<img class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmv2qaLnKX8taUsRWWi7REd4vmzeRTUXYeqL-W4AmRNmPnuvLJq3seZk5Ms5isXZwhdIzH7z9WBQzNLhqcFUwt_XX6UwKQOifs-MxobjYFRqnnRmCrjGeBKQ-2-mhZUOOJS0rhgpllOyOJ_09EelQQzMddAmjDluOVETkRvkgLwR9BpIdE22YBI3pLW9TTq5kll-It9npqOB2wcv5Z8E6frlycrT-pPx80ODjF0LSv8t80lKMVNvyI8d7cGEdiBjbCc1hx-2xrPA4"/>
-<img class="w-10 h-10 rounded-full border-2 border-white object-cover" data-alt="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALnACcQUust5N_0wtQYKxJQNTZf_EzeE8YGh7ysy2ldrQy8v40Z_2L4WDwmapewAf2wTbbOz51okTqgPH0nAiYktZL0n6ey2gLk-yBZPDE0ro6u36O50hleiYzb6PAZTZC6XbeipIZlZ5xC1YThfyGa8oXGUA9HiQPJ_EwqeIMtPVAsSCf6NkkiZmRRU6LZQBi2GIQIFv7yp0uqiuGTSt2qU2CFyWzul3586U6QDolKn_vWU2Uy38_t2cTCgYcLUcJeUfE-vViym4"/>
-<div class="w-10 h-10 rounded-full border-2 border-white bg-surface-container flex items-center justify-center text-[10px] font-bold text-on-surface-variant">+9</div>
-</div>
-</div>
-<!-- Itinerary Nodes -->
-<div class="mb-8">
-<h5 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase">The Experience Flow</h5>
-<div class="relative pl-6 space-y-6">
-<div class="absolute left-[7px] top-2 bottom-2 w-[2px] bg-primary/20"></div>
-<div class="relative">
-<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-primary-fixed"></div>
-<span class="block font-bold text-sm text-primary">Arrival &amp; Aperitif</span>
-<span class="text-xs text-on-surface-variant">Signature cocktails at the bar with crystal view.</span>
-</div>
-<div class="relative">
-<div class="absolute -left-6 top-1 w-4 h-4 rounded-full bg-tertiary ring-4 ring-tertiary-fixed"></div>
-<span class="block font-bold text-sm text-primary">Grand Dining</span>
-<span class="text-xs text-on-surface-variant">Three-course seasonal French classics.</span>
-</div>
-</div>
-</div>
-<div class="mt-auto flex gap-4">
-<button class="flex-1 bg-primary-container text-on-primary-container py-4 rounded-xl font-button shadow-lg">Reserve with Muse Concierge</button>
-<button class="p-4 border border-outline-variant rounded-xl text-primary"><span class="material-symbols-outlined" data-icon="ios_share">ios_share</span></button>
-</div>
-</div>
-</div>
-</div>
-<!-- Bottom Navigation Bar (Mobile Only) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#FDFCFB] dark:bg-[#121212] border-t border-[#E5E0DA] dark:border-[#2C2C2C] shadow-[0_-2px_10px_rgba(26,35,50,0.08)] rounded-t-xl md:hidden">
-<a class="flex flex-col items-center justify-center text-[#6B1D23] dark:text-[#E57373] bg-[#F5F0EB] dark:bg-[#2C1A1B] rounded-lg px-3 py-1" href="#">
-<span class="material-symbols-outlined" data-icon="calendar_heart" data-weight="fill">calendar_clock</span>
-<span class="font-serif text-[10px] font-medium uppercase tracking-widest mt-1">Planner</span>
+<nav class="flex-1 space-y-1">
+<a class="bg-[#6B1D23] text-[#FFFDF5] rounded-lg mx-2 px-4 py-3 shadow-md flex items-center space-x-3" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-serif text-base">Home</span>
 </a>
-<a class="flex flex-col items-center justify-center text-[#8D8D8D] dark:text-[#666666] hover:text-[#6B1D23] transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="radar">radar</span>
-<span class="font-serif text-[10px] font-medium uppercase tracking-widest mt-1">Radar</span>
+<a class="text-stone-700 dark:text-stone-300 mx-2 px-4 py-3 hover:bg-stone-100 dark:hover:bg-stone-900 rounded-lg hover:translate-x-1 transition-transform flex items-center space-x-3" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-serif text-base">Explore</span>
 </a>
-<a class="flex flex-col items-center justify-center text-[#8D8D8D] dark:text-[#666666] hover:text-[#6B1D23] transition-colors" href="#">
-<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
-<span class="font-serif text-[10px] font-medium uppercase tracking-widest mt-1">Host</span>
+<a class="text-stone-700 dark:text-stone-300 mx-2 px-4 py-3 hover:bg-stone-100 dark:hover:bg-stone-900 rounded-lg hover:translate-x-1 transition-transform flex items-center space-x-3" href="#">
+<span class="material-symbols-outlined" data-icon="location_city">location_city</span>
+<span class="font-serif text-base">Districts</span>
 </a>
-<a class="flex flex-col items-center justify-center text-[#8D8D8D] dark:text-[#666666] hover:text-[#6B1D23] transition-colors" href="#">
+<a class="text-stone-700 dark:text-stone-300 mx-2 px-4 py-3 hover:bg-stone-100 dark:hover:bg-stone-900 rounded-lg hover:translate-x-1 transition-transform flex items-center space-x-3" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-serif text-base">My Itineraries</span>
+</a>
+<a class="text-stone-700 dark:text-stone-300 mx-2 px-4 py-3 hover:bg-stone-100 dark:hover:bg-stone-900 rounded-lg hover:translate-x-1 transition-transform flex items-center space-x-3" href="#">
 <span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
-<span class="font-serif text-[10px] font-medium uppercase tracking-widest mt-1">Chat</span>
+<span class="font-serif text-base">Chats</span>
+</a>
+<a class="text-stone-700 dark:text-stone-300 mx-2 px-4 py-3 hover:bg-stone-100 dark:hover:bg-stone-900 rounded-lg hover:translate-x-1 transition-transform flex items-center space-x-3" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-serif text-base">Saved</span>
+</a>
+<a class="text-stone-700 dark:text-stone-300 mx-2 px-4 py-3 hover:bg-stone-100 dark:hover:bg-stone-900 rounded-lg hover:translate-x-1 transition-transform flex items-center space-x-3" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-serif text-base">Settings</span>
 </a>
 </nav>
-<!-- FAB (Contextual for Home/Planner) -->
-<div class="fixed bottom-24 right-6 md:right-88 z-40">
-<button class="bg-primary-container text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
-<span class="material-symbols-outlined" data-icon="magic_button">magic_button</span>
+<div class="px-4 py-6">
+<button class="w-full bg-primary-container text-on-primary py-4 rounded-lg font-button text-button shadow-lg hover:opacity-90 transition-opacity uppercase tracking-widest">
+                Plan a Date
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 pt-24 px-8 pb-12 max-w-screen-2xl mx-auto">
+<!-- Hero Section / Contextual Mode Header -->
+<section class="mb-12">
+<div class="relative rounded-2xl overflow-hidden h-[400px] flex items-end">
+<img alt="Manhattan night view" class="absolute inset-0 w-full h-full object-cover" data-alt="sweeping aerial night view of Manhattan skyline with glittering lights reflecting on the East River, soft hazy urban glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8CzrQJMwnQ2vWwYGB5Zo-ocEMZzAAF9nf-l7LGJ815WksUjQ-Gkz5ayhTCeoJGsHxKNx2qdXpojVtGCZL3bkt9c5m68ERTCyddTLJRz0afn0jUjnPzn6EqHD4wdrC_Qr48CYcEITKs5aEAeed0Bpw_oprqxngV2al-34ddxu-taur7dv2Edc6Y-8gxMZe7k8RGgH2rOFnPnGgKtpkPWhn-tQkc0IM7EX5TWJ5SGlxHEqkd603lD_v2f85kmwNTTymajuHEEgx9E4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#4d0610]/90 to-transparent"></div>
+<div class="relative p-12 w-full">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-label-caps font-label-caps mb-4 inline-block">Curated for The Wests</span>
+<h1 class="font-h1 text-h1 text-white mb-2">Elevate Your New York Night.</h1>
+<p class="text-white/80 font-body-lg text-body-lg max-w-xl">From candlelit West Village corners to rooftop rhythms in Williamsburg. Design your moment.</p>
+</div>
+</div>
+</section>
+<!-- Builder Grid (Planner Logic) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Selection Panel -->
+<div class="lg:col-span-1 space-y-6">
+<div class="bg-surface-container p-8 rounded-xl border border-outline-variant shadow-sm">
+<h3 class="font-h3 text-h3 text-primary mb-6">Build Your Plan</h3>
+<!-- Neighborhoods -->
+<div class="mb-8">
+<label class="block font-label-caps text-label-caps text-stone-500 uppercase tracking-widest mb-3">Neighborhood</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full border border-outline text-sm font-semibold hover:border-primary-container transition-all hover:bg-white active-chip">West Village</button>
+<button class="px-4 py-2 rounded-full border border-outline text-sm font-semibold hover:border-primary-container transition-all hover:bg-white">SoHo</button>
+<button class="px-4 py-2 rounded-full border border-outline text-sm font-semibold hover:border-primary-container transition-all hover:bg-white">Williamsburg</button>
+<button class="px-4 py-2 rounded-full border border-outline text-sm font-semibold hover:border-primary-container transition-all hover:bg-white">DUMBO</button>
+<button class="px-4 py-2 rounded-full border border-outline text-sm font-semibold hover:border-primary-container transition-all hover:bg-white">Lower Manhattan</button>
+</div>
+</div>
+<!-- Mood Icons -->
+<div class="mb-8">
+<label class="block font-label-caps text-label-caps text-stone-500 uppercase tracking-widest mb-3">The Mood</label>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center p-3 rounded-lg bg-white border border-primary-container/20 hover:shadow-md transition-all">
+<span class="material-symbols-outlined text-[#6B1D23] mb-1" data-icon="favorite">favorite</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Romantic</span>
 </button>
+<button class="flex flex-col items-center p-3 rounded-lg bg-surface hover:bg-white border border-outline-variant hover:border-primary-container/20 transition-all">
+<span class="material-symbols-outlined text-stone-600 mb-1" data-icon="self_improvement">self_improvement</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Calm</span>
+</button>
+<button class="flex flex-col items-center p-3 rounded-lg bg-surface hover:bg-white border border-outline-variant hover:border-primary-container/20 transition-all">
+<span class="material-symbols-outlined text-stone-600 mb-1" data-icon="celebration">celebration</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Fun</span>
+</button>
+<button class="flex flex-col items-center p-3 rounded-lg bg-surface hover:bg-white border border-outline-variant hover:border-primary-container/20 transition-all">
+<span class="material-symbols-outlined text-stone-600 mb-1" data-icon="rocket_launch">rocket_launch</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Spontaneous</span>
+</button>
+<button class="flex flex-col items-center p-3 rounded-lg bg-surface hover:bg-white border border-outline-variant hover:border-primary-container/20 transition-all">
+<span class="material-symbols-outlined text-stone-600 mb-1" data-icon="photo_camera">photo_camera</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Scenic</span>
+</button>
+<button class="flex flex-col items-center p-3 rounded-lg bg-surface hover:bg-white border border-outline-variant hover:border-primary-container/20 transition-all">
+<span class="material-symbols-outlined text-stone-600 mb-1" data-icon="coffee">coffee</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Coffee</span>
+</button>
+</div>
+</div>
+<!-- Budget -->
+<div class="mb-8">
+<label class="block font-label-caps text-label-caps text-stone-500 uppercase tracking-widest mb-3">Investment</label>
+<div class="space-y-3">
+<label class="flex items-center justify-between p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:border-primary-container transition-all">
+<div class="flex items-center">
+<input checked="" class="text-primary focus:ring-primary w-4 h-4 mr-3" name="budget" type="radio"/>
+<div>
+<p class="text-sm font-bold">Standard</p>
+<p class="text-xs text-stone-500">$50 - $150</p>
+</div>
+</div>
+<span class="text-primary font-bold">$$</span>
+</label>
+<label class="flex items-center justify-between p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:border-primary-container transition-all">
+<div class="flex items-center">
+<input class="text-primary focus:ring-primary w-4 h-4 mr-3" name="budget" type="radio"/>
+<div>
+<p class="text-sm font-bold">Premium</p>
+<p class="text-xs text-stone-500">$150 - $400</p>
+</div>
+</div>
+<span class="text-primary font-bold">$$$</span>
+</label>
+<label class="flex items-center justify-between p-4 bg-white border border-outline-variant rounded-xl cursor-pointer hover:border-primary-container transition-all">
+<div class="flex items-center">
+<input class="text-primary focus:ring-primary w-4 h-4 mr-3" name="budget" type="radio"/>
+<div>
+<p class="text-sm font-bold">Luxe</p>
+<p class="text-xs text-stone-500">$400+</p>
+</div>
+</div>
+<span class="text-primary font-bold">$$$$</span>
+</label>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary py-5 rounded-lg font-button text-button shadow-xl hover:opacity-95 transform active:scale-[0.98] transition-all uppercase tracking-[0.2em]">
+                        Build My Plan
+                    </button>
+</div>
+</div>
+<!-- Results Canvas (The Itinerary) -->
+<div class="lg:col-span-2 space-y-8">
+<div class="flex items-center justify-between">
+<h2 class="font-h2 text-h2 text-primary italic">Tonight's Suggestion</h2>
+<div class="flex space-x-2">
+<button class="p-2 bg-white rounded-full border border-outline-variant text-stone-500 hover:text-primary transition-all shadow-sm">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+</button>
+<button class="p-2 bg-white rounded-full border border-outline-variant text-stone-500 hover:text-primary transition-all shadow-sm">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+</div>
+<!-- Itinerary Timeline -->
+<div class="space-y-6 itinerary-line pb-8">
+<!-- Result Card 1 -->
+<div class="relative pl-12">
+<div class="absolute left-0 top-6 w-6 h-6 bg-primary-container rounded-full border-4 border-[#FFFDF5] z-10"></div>
+<div class="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row border border-stone-100">
+<div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
+<img alt="Cocktail bar" class="w-full h-full object-cover" data-alt="interior of a moody dimly lit high-end cocktail bar in West Village with dark wood and velvet accents, candlelit tables" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzv_HZnVHsW0z5mMA6wDnKMBgjptU-zDOklrFUN7DKW_Alik8jKIa7t4ALQXEbzF3FgYZM6NFAm6EIw-nXryqdbJpGH2tPnJsPVjOWSSZRvAZYJFmNkjfCqJt9RwjP9u0-I9BYuWmYpqasMSVftjPVghIUing9f9bnffnFifIwC8MW4YVFvohpPG74FAc56XtA7izxb1aEr3ECKsoafS3vLdXLZselONsP-YO66AFsnsvd_7WmBHuJS8DOMNYNLMKfVLLA81amFBw"/>
+</div>
+<div class="p-6 md:w-2/3">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="text-tertiary font-label-caps text-[10px] uppercase tracking-widest block mb-1">Pre-Dinner Drinks</span>
+<h4 class="font-h3 text-h3 leading-tight">Employees Only</h4>
+<p class="text-xs text-stone-500 italic mt-1">West Village • Spontaneous • $$</p>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-0.5 rounded font-bold">EXPERT PICK</span>
+</div>
+<p class="text-sm text-stone-600 mb-6 line-clamp-2">The legendary speakeasy where the psychic at the door is as real as the award-winning Manhattan cocktails.</p>
+<div class="flex items-center justify-between pt-4 border-t border-stone-100">
+<div class="flex -space-x-2">
+<img alt="User" class="w-7 h-7 rounded-full border-2 border-white" data-alt="small circular avatar of a person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnfJptyW70Mr2tJX2GlDsFptvGrvlf5EUTSDryWROEfGKRO2JfX0egXqGGZnq09QZaKlG8qAO3BJMsBxA8peq6cO4Eg4t6Di0sZhtLes8dcnSudvNRtymANfm4Qdxvv-12ZvA-9GpQdstTTSArhKdXc9IzekzK8DndOE4vI0Np20KuJggmRwnfsJ92Xs7J2YsK-nqaLp_jQp7cdfpq-OJu3SmotuWuMGkG7C9V7G95xCvVQhaJEbU2gLYnZiW1RzGUoX7gwbyK1nc"/>
+<img alt="User" class="w-7 h-7 rounded-full border-2 border-white" data-alt="small circular avatar of a person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgZuyd4KiO90fiphR47Wj2gOW4i6-2uXD9j1C1wlfPdf3kFhafQ7hZjwqhhiE4bTbxGVINXguSFKbOXcjCx7lfHMqcTSewIq06KkUy-0XKcRToJ2cI7D97-I62cm205YbKgv-_XFtJYi8W4GTQF0J-1dvz5qOh2yIpFxWJQdwM0yrbDwWdulOceFFO1Yldtw4DZ-EvCGmkXwiKyC1O0iHkDc_GSot1TdEcG3RTA3ZLVotYTJxnmuZnjGsd4nEkgP-vswf88T00tHQ"/>
+<div class="w-7 h-7 rounded-full bg-stone-100 border-2 border-white flex items-center justify-center text-[10px] font-bold text-stone-500">+12 Check-ins</div>
+</div>
+<div class="flex space-x-2">
+<button class="px-4 py-2 bg-surface-container-low text-primary border border-primary-container/20 text-xs font-button rounded-lg hover:bg-primary-container hover:text-white transition-all">Details</button>
+<button class="px-4 py-2 bg-primary-container text-white text-xs font-button rounded-lg shadow-md hover:opacity-90 transition-all">Check-in</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Result Card 2 -->
+<div class="relative pl-12">
+<div class="absolute left-0 top-6 w-6 h-6 bg-tertiary-container rounded-full border-4 border-[#FFFDF5] z-10"></div>
+<div class="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row border border-stone-100">
+<div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
+<img alt="French restaurant interior" class="w-full h-full object-cover" data-alt="exquisite interior of Le Coucou restaurant with crystal chandeliers, mural-painted walls, and white tablecloths" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQRolGrysd9wDXSQy0lBvMew7iSlHf0pHozztgT9vSYTXHB0UmNLsUCogVH_iPue8T3uRuYuJOFStLQwICWZlU5aDjSvJkSYaOIqyS771TMEFCPIGFCj7S5Yj-GDUehXBTWRT6yt5pTnCWKjL0mZcz1LM3ZfdamksUIKfSoGNeW4AAAABfmZ-Xnya56ejBdqQ6d0LzwMdxQRq0KH_wfq7wdoDp5Ve5T-MX7E_HRkdzh2FFcQgQfIssWMxfxgno9f5oTT5YslDlw60"/>
+</div>
+<div class="p-6 md:w-2/3">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="text-tertiary font-label-caps text-[10px] uppercase tracking-widest block mb-1">Main Event: Dinner</span>
+<h4 class="font-h3 text-h3 leading-tight">Le Coucou</h4>
+<p class="text-xs text-stone-500 italic mt-1">SoHo • Romantic • $$$$</p>
+</div>
+<div class="flex items-center text-primary-container">
+<span class="material-symbols-outlined text-sm" data-icon="star" data-weight="fill">star</span>
+<span class="text-xs font-bold ml-1">4.9</span>
+</div>
+</div>
+<p class="text-sm text-stone-600 mb-6 line-clamp-2">Refined French cuisine in a room that feels like a Parisian dream. Perfect for milestones or pure indulgence.</p>
+<div class="flex items-center justify-between pt-4 border-t border-stone-100">
+<span class="text-xs font-semibold text-[#6B1D23] bg-primary-fixed px-2 py-1 rounded">Reservation Found: 8:30 PM</span>
+<div class="flex space-x-2">
+<button class="px-4 py-2 bg-surface-container-low text-primary border border-primary-container/20 text-xs font-button rounded-lg hover:bg-primary-container hover:text-white transition-all">Details</button>
+<button class="px-4 py-2 bg-primary-container text-white text-xs font-button rounded-lg shadow-md hover:opacity-90 transition-all">Book Now</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Result Card 3 -->
+<div class="relative pl-12">
+<div class="absolute left-0 top-6 w-6 h-6 bg-stone-300 rounded-full border-4 border-[#FFFDF5] z-10"></div>
+<div class="bg-white rounded-xl overflow-hidden shadow-md flex flex-col md:flex-row border border-stone-100 opacity-80 hover:opacity-100 transition-opacity">
+<div class="md:w-1/3 h-48 md:h-auto overflow-hidden">
+<img alt="Jazz club" class="w-full h-full object-cover" data-alt="dimly lit basement jazz club with musicians on stage, warm orange lighting, and intimate seating" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrmwc4c90AoNT3vZpGQJ7sY50trj-sNsBIGG4SxkIaJBaLAxmhTFrajmKbP5wVuS8Ij7UauaUKqR9u-78BuBfO-_62Hl3UFi5vtS3iy7EFPW7upBHDYvVt499z89aPRXwc_stx6urzxTmyiqNTXYDbUjEd_iB0yr_8KU1bfqZnoearIi3NCva532IuUvy-NHgS3_SHuyADLIC2QHSfMUcOK6w2IMC_ilS1NeqboD_yTaSjSnbg4KWvtRTQyp9siBMG_cP2Kk13zJk"/>
+</div>
+<div class="p-6 md:w-2/3">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="text-tertiary font-label-caps text-[10px] uppercase tracking-widest block mb-1">Nightcap</span>
+<h4 class="font-h3 text-h3 leading-tight">Village Vanguard</h4>
+<p class="text-xs text-stone-500 italic mt-1">West Village • Calm • $$</p>
+</div>
+</div>
+<p class="text-sm text-stone-600 mb-6 line-clamp-2">Historic subterranean jazz sanctuary. No phones, just pure soul and a stiff drink to close the night.</p>
+<div class="flex items-center justify-between pt-4 border-t border-stone-100">
+<div class="flex items-center text-xs text-stone-500">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="schedule">schedule</span>
+                                        Closing: 2:00 AM
+                                    </div>
+<div class="flex space-x-2">
+<button class="px-4 py-2 bg-surface-container-low text-primary border border-primary-container/20 text-xs font-button rounded-lg hover:bg-primary-container hover:text-white transition-all">Details</button>
+<button class="px-4 py-2 border border-primary-container text-primary text-xs font-button rounded-lg hover:bg-primary-container/10 transition-all">Save</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Section: Party Radar -->
+<section class="mt-24">
+<div class="flex items-center justify-between mb-8 border-b border-stone-200 pb-4">
+<div>
+<h2 class="font-h2 text-h2 text-primary">Party Radar</h2>
+<p class="text-stone-500 font-body-md">What's happening in the city right now.</p>
+</div>
+<button class="text-[#6B1D23] font-button text-button border-b border-[#6B1D23] pb-1 hover:opacity-70 transition-opacity">Host a Vibe +</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Radar Item 1 -->
+<div class="bg-white rounded-xl shadow-sm border border-stone-100 overflow-hidden group">
+<div class="h-40 overflow-hidden relative">
+<img alt="Beach club" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="sunset beach party with people dancing on sand, glowing string lights, and modern outdoor furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVbzcECCIDjNdTykzu-sYazBMEHZEkkVGfJkjfOlQD0llw0O1CwIeV0z7Y1WaDuSGETiSXIGfyz6yPkR-sHftcuCtR2VMNvYLoLNeaNSxpZCFcUzB1HW8LnATnxI7l97YOoXdwG5UDyAfuWowrE3KT5W5riEUv-ofLtWy2X9rmWatBO68mBBuC7rjgaiuOik8pi-Lt3o3L6v85mXeTK2ev87TR_HlWlICwodpYKNA3oupOwZDi1tS7ofi-xKCXERt68lbnIe_-6OU"/>
+<div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold text-primary shadow-sm uppercase tracking-widest">LIVE NOW</div>
+</div>
+<div class="p-5">
+<h5 class="font-bold text-lg mb-1">Golden Hour Social</h5>
+<p class="text-xs text-stone-500 mb-3">DUMBO Rooftop • 150+ Attending</p>
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold uppercase text-tertiary">House / Afrobeat</span>
+<button class="text-primary-container hover:bg-primary-container/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Radar Item 2 -->
+<div class="bg-white rounded-xl shadow-sm border border-stone-100 overflow-hidden group">
+<div class="h-40 overflow-hidden relative">
+<img alt="Loft party" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="interior of a massive industrial loft with people mingling, art on the walls, and warm spotlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpTIxUQXfAM_uaPLAtCZnTDQ7ns9LYj81m29aAG57rt40p0G4qaJ9pIAMVRImBHg-DJymK8_DKYUYSOY1gb18LwlTExlRWpIGBzNHaP4ZLx8Ud3mDN5wnjIZuGkHAP6nmjjjGzzjw8LyoGsq4ZfID9f4CcCS7nEDk-i30LP6WSAKZDpL_kZCMup5CDzqS7Oa_tqZBUzX01Kb4JUBnyjxXHSF0U3yHbTQ4N5e7VEcMybaZ_Qu0obLxmkmAVB-2XoK6zmfC3VPdGaJU"/>
+<div class="absolute top-3 left-3 bg-[#6B1D23] px-2 py-1 rounded text-[10px] font-bold text-white shadow-sm uppercase tracking-widest">PRIVATE</div>
+</div>
+<div class="p-5">
+<h5 class="font-bold text-lg mb-1">Tribeca Loft Sessions</h5>
+<p class="text-xs text-stone-500 mb-3">Tribeca • Invitation Only</p>
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold uppercase text-tertiary">Ambient / Live Jazz</span>
+<button class="text-primary-container hover:bg-primary-container/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Radar Item 3 -->
+<div class="bg-white rounded-xl shadow-sm border border-stone-100 overflow-hidden group">
+<div class="h-40 overflow-hidden relative">
+<img alt="Club night" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="high-energy nightclub scene with neon lights, silhouettes of people dancing, and laser light show" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRiBNe3Hy1nSRO8QjqUfNFTNYlAYxVcdci9D8S-CPT2MKmOhaI4vODpqqNla_UZJXF66JocyWDpPbFMUws3UMkQ2qlknJbXz6BFNO53s5vl-YvgrjB2c14LT4nc5Z22ncdX-nbg8N2SkVi7-hLujAGjdvjMR-rfVcI_-v7FZHkpMZ9b2HCp8Ewv2FktZXy-1S59osYw1YVTweYTSyr4HUdL2m8q30nUPBsHpwUyOEScdKdH8CUYGw7609rqTYikpLS3RWNXd2eGyg"/>
+</div>
+<div class="p-5">
+<h5 class="font-bold text-lg mb-1">Underground Pulse</h5>
+<p class="text-xs text-stone-500 mb-3">Bushwick Warehouse • Midnight Start</p>
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold uppercase text-tertiary">Techno / Deep House</span>
+<button class="text-primary-container hover:bg-primary-container/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Radar Item 4: Add New -->
+<button class="border-2 border-dashed border-stone-200 rounded-xl flex flex-col items-center justify-center p-8 hover:border-primary-container hover:bg-primary-container/5 transition-all group">
+<div class="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center mb-4 group-hover:bg-primary-container group-hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+<span class="font-button text-button text-stone-500 uppercase tracking-widest">Host a Vibe</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Social Chat Panel (Floating Sidebar) -->
+<div class="fixed right-0 top-0 h-screen w-80 bg-white border-l border-stone-200 shadow-2xl z-[60] transform translate-x-full transition-transform duration-500 pt-20" id="chatPanel">
+<div class="p-6 h-full flex flex-col">
+<div class="flex items-center justify-between mb-8">
+<h4 class="font-h3 text-h3 text-primary">Mutual Vibe</h4>
+<button class="material-symbols-outlined text-stone-400 hover:text-primary transition-all" data-icon="close">close</button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-6">
+<!-- User Profile Intro -->
+<div class="text-center">
+<div class="relative inline-block mb-4">
+<img alt="Chat partner" class="w-20 h-20 rounded-full object-cover mx-auto border-4 border-primary-container/10" data-alt="portrait of a fashionable woman with short blonde hair in a luxury urban setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf369VWASQa0sEmkjBV7FXI6Lbhiaw_OQ3wXgKlkbQxlVAgEAYRdCLaBlfcr2S8gPOtjqLhtm9MOsiv2wo2SBuLWvbwcp3exGFEPAXbIn1WQBrsY8_gKHYohXzhfXJMcJ20iDEp3bVuFjKrpDqf73NycGK9uPjRJRsEw9NKwuWkq0XOc9Aa2uGwufJgwQReRX8nkLbyZhWXwQmbdKjoYaibUyAgxqv7z9Osztds-6fUKPaXQW-_QIVJVdFNFBizq_OEAqWHSILCJw"/>
+<div class="absolute bottom-0 right-0 w-5 h-5 bg-green-500 border-4 border-white rounded-full"></div>
+</div>
+<h5 class="font-bold text-lg">Eleanor S.</h5>
+<p class="text-xs text-stone-500">Checked into 'Employees Only' 5 mins ago</p>
+</div>
+<!-- Chat History -->
+<div class="space-y-4">
+<div class="bg-surface-container rounded-2xl p-4 text-sm max-w-[85%] rounded-tl-none">
+                        Hi there! Just saw your itinerary. We're also heading to Village Vanguard later.
+                    </div>
+<div class="bg-primary-container text-white rounded-2xl p-4 text-sm max-w-[85%] ml-auto rounded-tr-none">
+                        Oh great! We love it there. Are you seeing the 10 PM set?
+                    </div>
+<div class="bg-surface-container rounded-2xl p-4 text-sm max-w-[85%] rounded-tl-none">
+                        Yes! Catch you there for a drink? 🍸
+                    </div>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="pt-6 border-t border-stone-100">
+<div class="flex items-center bg-surface-container rounded-full px-4 py-2">
+<input class="bg-transparent border-none focus:ring-0 text-sm flex-1" placeholder="Type a message..." type="text"/>
+<button class="material-symbols-outlined text-primary-container" data-icon="send">send</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-[#6B1D23] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 z-50 group">
+<span class="material-symbols-outlined text-3xl" data-icon="add_location">add_location</span>
+<span class="absolute right-20 bg-[#6B1D23] text-white px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none uppercase tracking-widest">Share Location</span>
+</button>
+<!-- Success Modal (Hidden by default) -->
+<div class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" id="successOverlay">
+<div class="bg-white p-12 rounded-2xl shadow-2xl text-center max-w-sm">
+<div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-4xl" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<h3 class="font-h3 text-h3 text-primary mb-2">Plan Confirmed!</h3>
+<p class="text-stone-500 mb-8">We've sent your itinerary to your synced calendar and reserved your transportation.</p>
+<button class="w-full bg-primary-container text-on-primary py-4 rounded-lg font-button uppercase tracking-widest">Perfect</button>
+</div>
 </div>
 </body></html>

@@ -108,9 +108,7 @@
 <div class="hidden md:flex items-center space-x-8">
 <a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md nav-item home-nav nav-link-active" href="#" onclick="showView('home')">Home</a>
 <a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md" href="#">How It Works</a>
-<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md nav-item chats-nav flex items-center gap-1" href="#" onclick="showView('chats')">
-                    Chats <span class="w-2 h-2 rounded-full bg-primary hidden" id="chat-unread-dot"></span>
-</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md nav-item chats-nav flex items-center gap-1" href="#" onclick="showView('chats')">Chats <span class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-red-600 border-2 border-[#FCF9F5]"></span></span></a>
 </div>
 <button class="bg-primary-container text-white px-6 py-3 rounded-lg font-button hover:opacity-90 transition-all">
                 Plan Now
@@ -409,8 +407,14 @@
 <!-- Meetups Section -->
 <div class="space-y-4">
 <div class="flex items-center justify-between">
-<h4 class="font-label-caps text-xs text-stone-400 uppercase tracking-widest">Meetups at this Venue</h4>
-<button class="text-xs font-button text-primary hover:underline" onclick="toggleMeetupForm()">+ Create Meetup</button>
+<h4 class="font-label-caps text-xs text-stone-400 uppercase tracking-widest">Meetups at this Venue</h4><div class="flex items-center gap-2 px-2 py-1 bg-primary/5 rounded-full">
+<span class="material-symbols-outlined text-primary text-[14px]">group</span>
+<span class="text-[10px] font-bold text-primary uppercase tracking-tight">Notify my check-in circle</span>
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+</div>
+<button class="text-xs font-button text-primary hover:underline" onclick="toggleMeetupForm()">+ Create Meetup</button><button class="text-xs font-button text-primary hover:underline ml-3 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">share</span> Invite Friends
+</button>
 </div>
 <!-- New Meetup Form -->
 <div class="hidden bg-stone-50 border border-stone-200 rounded-xl p-4 space-y-4" id="create-meetup-form">

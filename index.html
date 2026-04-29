@@ -4,7 +4,259 @@
 <title>The NYC Concierge | Manhattan Muse</title>
 <meta content="Discover the best NYC date spots and party venues based on your mood, budget, and neighborhood." name="description"/>
 <!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">const seedData = [
+            { id: 'le-coucou', name: 'Le Coucou', district: 'SoHo / NoHo', type: 'French Restaurant', moods: ['romantic', 'culture_focused'], budget: 'premium', desc: 'Regal French fare in a spectacular setting with grand chandeliers and impeccable service.', img: 'https://images.unsplash.com/photo-1550966842-2849a2249865?q=80&w=2070' },
+            { id: 'manhatta', name: 'Manhatta', district: 'Financial District', type: 'Restaurant & Bar', moods: ['scenic', 'romantic'], budget: 'premium', desc: 'Stunning 60th-floor views of the Manhattan skyline and harbor with refined American cuisine.', img: 'https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=2070' },
+            { id: 'lilia', name: 'Lilia', district: 'Williamsburg', type: 'Italian', moods: ['fun', 'romantic'], budget: 'high', desc: 'Sought-after Italian outpost in a former auto-body shop serving incredible wood-fired seafood and pasta.', img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2070' },
+            { id: 'river-cafe', name: 'The River Café', district: 'DUMBO', type: 'Restaurant', moods: ['scenic', 'romantic'], budget: 'premium', desc: 'Waterside icon offering Michelin-starred dining and breathtaking Brooklyn Bridge views.', img: 'https://images.unsplash.com/photo-1467453222764-e8b3948f6bad?q=80&w=2070' },
+            { id: 'aoko-matcha', name: 'Aokō Matcha', district: 'West Village', type: 'Café', moods: ['coffee_dessert', 'spontaneous', 'calm'], budget: 'budget', desc: 'Minimalist matcha sanctuary with viral strawberry cream cakes and serene vibes.', img: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?q=80&w=2071' },
+            { id: 'dame', name: 'Dame', district: 'West Village', type: 'Seafood', moods: ['fun', 'spontaneous'], budget: 'high', desc: 'Vibrant, fashion-forward English seafood spot in the heart of the Village.', img: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070' },
+            { id: 'met-cloisters', name: 'The Met Cloisters', district: 'Uptown / Harlem', type: 'Museum', moods: ['culture_focused', 'scenic', 'calm'], budget: 'mid', desc: 'Medieval art and architecture in a stunning park setting overlooking the Hudson River.', img: 'https://images.unsplash.com/photo-1518998053574-53f0209f582d?q=80&w=2070' },
+            { id: 'summit-one', name: 'Summit One Vanderbilt', district: 'Midtown', type: 'Observation Deck', moods: ['scenic', 'spontaneous'], budget: 'high', desc: 'An immersive art experience and breathtaking 360-degree views of Manhattan.', img: 'https://images.unsplash.com/photo-1522083165195-3424ed129620?q=80&w=2070' },
+            { id: 'bbg', name: 'Brooklyn Botanic Garden', district: 'Williamsburg', type: 'Garden', moods: ['scenic', 'calm', 'culture_focused'], budget: 'budget', desc: '52 acres of specialty gardens and plant collections in the heart of Brooklyn.', img: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=2070' },
+            { id: 'la-lanterna', name: 'La Lanterna di Vittorio', district: 'West Village', type: 'Italian', moods: ['romantic', 'calm'], budget: 'mid', desc: 'Famous for its enchanting, candlelit garden and warm atmosphere.', img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070' },
+            { id: 'whitney', name: 'Whitney Museum', district: 'Chelsea / Meatpacking', type: 'Museum', moods: ['culture_focused', 'scenic'], budget: 'mid', desc: 'Contemporary art with outdoor terraces overlooking the Hudson.', img: 'https://images.unsplash.com/photo-1518998053574-53f0209f582d?q=80&w=2070' }
+        ];
+
+        let userCreatedEvents = [];
+        let currentMood = 'romantic';
+        let currentBudget = 'budget';
+        let currentVenue = null;
+        let activeChats = [];
+        let venueMeetups = {};
+
+        window.onload = () => {
+            document.querySelectorAll('.mood-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('chip-active'));
+                    this.classList.add('chip-active');
+                    currentMood = this.dataset.mood;
+                });
+            });
+
+            document.querySelectorAll('.budget-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('chip-active'));
+                    this.classList.add('chip-active');
+                    currentBudget = this.dataset.budget;
+                });
+            });
+        };
+
+        function showView(view) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-chats').classList.add('hidden');
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('nav-link-active'));
+            if (view === 'home') {
+                document.getElementById('view-home').classList.remove('hidden');
+                document.querySelector('.home-nav').classList.add('nav-link-active');
+            } else if (view === 'chats') {
+                document.getElementById('view-chats').classList.remove('hidden');
+                document.querySelector('.chats-nav').classList.add('nav-link-active');
+                renderChatList();
+            }
+        }
+
+        function switchMainMode(mode) {
+            const dateBtn = document.getElementById('mode-date');
+            const partyBtn = document.getElementById('mode-party');
+            const hostBtn = document.getElementById('mode-host');
+            const plannerForm = document.getElementById('planner-form-container');
+            const hostForm = document.getElementById('host-form-container');
+            const partyRadarInfo = document.getElementById('party-radar-info');
+
+            [dateBtn, partyBtn, hostBtn].forEach(b => b.className = 'px-6 md:px-8 py-3 rounded-lg font-button text-xs md:text-sm transition-all text-stone-500 hover:bg-stone-50');
+            plannerForm.classList.add('hidden');
+            hostForm.classList.add('hidden');
+            partyRadarInfo.classList.add('hidden');
+
+            if (mode === 'date') {
+                dateBtn.className = 'px-6 md:px-8 py-3 rounded-lg font-button text-xs md:text-sm transition-all mode-active';
+                plannerForm.classList.remove('hidden');
+            } else if (mode === 'party') {
+                partyBtn.className = 'px-6 md:px-8 py-3 rounded-lg font-button text-xs md:text-sm transition-all mode-active';
+                partyRadarInfo.classList.remove('hidden');
+            } else if (mode === 'host') {
+                hostBtn.className = 'px-6 md:px-8 py-3 rounded-lg font-button text-xs md:text-sm transition-all mode-active';
+                hostForm.classList.remove('hidden');
+            }
+        }
+
+        function buildPlan() {
+            const district = document.getElementById('neighborhood-select').value;
+            let filtered = seedData.filter(v => {
+                // Logic Fix: If district is selected, ONLY show venues in that district (Absolute Match)
+                if (district && v.district !== district) return false;
+                
+                const matchMood = v.moods.includes(currentMood);
+                const matchBudget = v.budget === currentBudget;
+                return matchMood || matchBudget;
+            });
+
+            if(filtered.length === 0 && !district) filtered = seedData.slice(0, 3);
+
+            document.getElementById('results-header').innerText = district ? `Matches in ${district}` : "Top Picks for You";
+            renderCards(filtered);
+        }
+
+        function renderCards(venues, isParty = false) {
+            const grid = document.getElementById('results-grid');
+            grid.innerHTML = '';
+            venues.forEach((v, index) => {
+                const card = `
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-outline-variant hover:shadow-md transition-all group venue-card-reveal" style="animation-delay: ${index * 0.1}s">
+<div class="relative h-48 overflow-hidden">
+<img alt="${v.name}" class="w-full h-full object-cover group-hover:scale-105 transition-all" src="${v.img}"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-stone-800 uppercase tracking-tight">
+                                ${isParty ? 'PARTY' : v.type}
+                            </div>
+</div>
+<div class="p-6">
+<h4 class="font-h3 text-xl text-primary mb-1">${v.name}</h4>
+<p class="text-xs text-stone-400 font-label-caps uppercase tracking-wider mb-4">${v.district}</p>
+<p class="text-sm text-stone-600 line-clamp-2 mb-6">${v.desc}</p>
+<div class="flex items-center justify-between pt-4 border-t border-stone-100">
+<span class="text-xs text-stone-400 font-button uppercase">${isParty ? 'Vibe' : v.budget}</span>
+<button class="text-primary font-button text-xs hover:underline flex items-center gap-1" onclick="openModal('${v.id}')">
+                                    Details <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>`;
+                grid.innerHTML += card;
+            });
+            document.getElementById('results-area').classList.remove('hidden');
+            document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hostVibe() {
+            const name = document.getElementById('host-name').value;
+            const district = document.getElementById('host-district').value;
+            const desc = document.getElementById('host-desc').value;
+            if (!name || !desc) return alert("Please fill in the event name and description.");
+            
+            const newVibe = {
+                id: 'host-' + Date.now(),
+                name: name,
+                district: district,
+                type: document.getElementById('host-type').value,
+                desc: desc,
+                img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070'
+            };
+            userCreatedEvents.push(newVibe);
+            document.getElementById('vibe-host-form').reset();
+            alert("Your event has been published to the Party Radar!");
+            switchMainMode('party');
+        }
+
+        function scanRadar() {
+            if (userCreatedEvents.length === 0) return alert("Scanning... No community events found yet. Be the first to host one!");
+            document.getElementById('results-header').innerText = "Live Party Radar";
+            renderCards(userCreatedEvents, true);
+        }
+
+        function openModal(id) {
+            const venue = [...seedData, ...userCreatedEvents].find(v => v.id === id);
+            if(!venue) return;
+            currentVenue = venue;
+            document.getElementById('modal-name').innerText = venue.name;
+            document.getElementById('modal-district').innerText = venue.district;
+            document.getElementById('modal-desc').innerText = venue.desc;
+            document.getElementById('modal-image').src = venue.img;
+            document.getElementById('details-modal').classList.remove('hidden');
+            document.getElementById('match-notification').classList.add('hidden');
+            renderMeetups();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('details-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleMeetupForm() {
+            document.getElementById('create-meetup-form').classList.toggle('hidden');
+        }
+
+        function submitNewMeetup() {
+            const name = document.getElementById('meetup-name').value;
+            const time = document.getElementById('meetup-time').value;
+            if(!name || !time) return alert("Please provide a name and time.");
+            if(!venueMeetups[currentVenue.id]) venueMeetups[currentVenue.id] = [];
+            venueMeetups[currentVenue.id].push({ name, time, joiners: 1 });
+            toggleMeetupForm();
+            renderMeetups();
+        }
+
+        function renderMeetups() {
+            const list = document.getElementById('modal-meetups-list');
+            const meetups = venueMeetups[currentVenue.id] || [];
+            list.innerHTML = meetups.length === 0 ? '<div class="text-stone-400 text-xs italic">No active meetups. Be the first to start one!</div>' : 
+                meetups.map(m => `
+                    <div class="flex items-center justify-between p-4 bg-stone-50 border border-stone-100 rounded-lg">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary-container text-white rounded-full flex items-center justify-center font-bold text-xs">${m.name.charAt(0).toUpperCase()}</div>
+<div>
+<p class="text-sm font-button text-primary">${m.name}</p>
+<p class="text-[10px] text-stone-500 uppercase">${m.time} • ${m.joiners} joining</p>
+</div>
+</div>
+<button class="px-4 py-1.5 border border-primary text-primary rounded-lg text-xs font-button hover:bg-primary hover:text-white transition-all">Join</button>
+</div>`).join('');
+        }
+
+        function handleCheckIn() {
+            const btn = document.getElementById('checkin-btn');
+            btn.innerText = "Checked In";
+            btn.disabled = true;
+            btn.classList.replace('bg-primary', 'bg-stone-400');
+            setTimeout(() => {
+                const matchedName = ["Alex", "Jordan", "Casey"][Math.floor(Math.random()*3)];
+                document.getElementById('match-notification-text').innerText = `${matchedName} is also at ${currentVenue.name} and wants to chat!`;
+                document.getElementById('match-notification').classList.remove('hidden');
+            }, 1000);
+        }
+
+        function openChatFromMatch() {
+            const name = document.getElementById('match-notification-text').innerText.split(' ')[0];
+            closeModal();
+            showView('chats');
+            openChatDrawer(name, currentVenue.name);
+        }
+
+        function openChatDrawer(user, venue) {
+            document.getElementById('chat-user-name').innerText = user;
+            document.getElementById('chat-venue-name').innerText = venue;
+            document.getElementById('chat-drawer').classList.remove('hidden');
+            setTimeout(() => document.getElementById('chat-drawer-content').classList.remove('translate-x-full'), 10);
+            renderMessages();
+        }
+
+        function closeChatDrawer() {
+            document.getElementById('chat-drawer-content').classList.add('translate-x-full');
+            setTimeout(() => document.getElementById('chat-drawer').classList.add('hidden'), 300);
+        }
+
+        function renderMessages() {
+            document.getElementById('chat-messages').innerHTML = `
+                <div class="flex flex-col items-start">
+<div class="max-w-[80%] px-4 py-3 rounded-2xl text-sm bg-white text-stone-700 shadow-sm">
+                        Hey! I'm also here. Want to grab a drink?
+                    </div>
+<span class="text-[10px] text-stone-400 mt-1">Just now</span>
+</div>`;
+        }
+
+        function resetFilters() {
+            document.getElementById('neighborhood-select').value = "";
+            document.getElementById('results-area').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getLocation() {
+            alert("Location access requested. Finding spots near you...");
+            buildPlan();
+        }</script>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -108,7 +360,7 @@
 <div class="hidden md:flex items-center space-x-8">
 <a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md nav-item home-nav nav-link-active" href="#" onclick="showView('home')">Home</a>
 <a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md" href="#">How It Works</a>
-<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md nav-item chats-nav flex items-center gap-1" href="#" onclick="showView('chats')">Chats <span class="relative flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-red-600 border-2 border-[#FCF9F5]"></span></span></a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md nav-item chats-nav flex items-center gap-1" href="#" onclick="showView('chats')">Chats <span class="relative flex items-center justify-center p-1 bg-primary/5 rounded-full ring-2 ring-primary/20"><span class="material-symbols-outlined text-[20px] text-primary">notifications</span><span class="absolute top-0 right-0 w-3 h-3 rounded-full bg-red-600 border-2 border-[#FCF9F5] shadow-sm"></span></span></a>
 </div>
 <button class="bg-primary-container text-white px-6 py-3 rounded-lg font-button hover:opacity-90 transition-all">
                 Plan Now
@@ -245,7 +497,7 @@
 </div>
 </div>
 <div class="pt-8 border-t border-outline-variant flex justify-center">
-<button class="w-full md:w-auto bg-primary-container text-white px-12 py-5 rounded-xl font-button text-lg hover:opacity-90 transition-all shadow-lg" id="build-plan-btn" onclick="buildPlan()">
+<button class="w-full md:w-auto bg-primary-container text-white px-12 py-5 rounded-xl font-button text-lg hover:opacity-90 transition-all shadow-lg focus:ring-4 focus:ring-primary/20" id="build-plan-btn" onclick="buildPlan()">
                                     Build My Plan
                                 </button>
 </div>
@@ -406,16 +658,18 @@
 </div>
 <!-- Meetups Section -->
 <div class="space-y-4">
-<div class="flex items-center justify-between">
-<h4 class="font-label-caps text-xs text-stone-400 uppercase tracking-widest">Meetups at this Venue</h4><div class="flex items-center gap-2 px-2 py-1 bg-primary/5 rounded-full">
-<span class="material-symbols-outlined text-primary text-[14px]">group</span>
-<span class="text-[10px] font-bold text-primary uppercase tracking-tight">Notify my check-in circle</span>
-<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+<div class="flex items-center justify-between"><h4 class="font-label-caps text-xs text-stone-400 uppercase tracking-widest">Meetups at this Venue</h4>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-primary text-white rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[14px]">group</span>
+<span class="text-[10px] font-bold uppercase tracking-tight">Notify Circle</span>
+<div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
 </div>
-<button class="text-xs font-button text-primary hover:underline" onclick="toggleMeetupForm()">+ Create Meetup</button><button class="text-xs font-button text-primary hover:underline ml-3 flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">share</span> Invite Friends
-</button>
-</div>
+<div class="flex items-center gap-3">
+<button class="text-xs font-bold text-primary hover:opacity-80 flex items-center gap-1 bg-primary/10 px-2 py-1 rounded" onclick="toggleMeetupForm()">+ New Meetup</button>
+<button class="text-xs font-bold text-primary hover:opacity-80 flex items-center gap-1 bg-primary/10 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]">share</span> Invite
+    </button>
+</div></div>
 <!-- New Meetup Form -->
 <div class="hidden bg-stone-50 border border-stone-200 rounded-xl p-4 space-y-4" id="create-meetup-form">
 <h5 class="text-xs font-bold text-stone-500 uppercase">Propose a Meetup</h5>
@@ -485,19 +739,17 @@
 </div>
 </div>
 </div>
-<script>
-        const seedData = [
+<script>const seedData = [
             { id: 'le-coucou', name: 'Le Coucou', district: 'SoHo / NoHo', type: 'French Restaurant', moods: ['romantic', 'culture_focused'], budget: 'premium', desc: 'Regal French fare in a spectacular setting with grand chandeliers and impeccable service.', img: 'https://images.unsplash.com/photo-1550966842-2849a2249865?q=80&w=2070' },
             { id: 'manhatta', name: 'Manhatta', district: 'Financial District', type: 'Restaurant & Bar', moods: ['scenic', 'romantic'], budget: 'premium', desc: 'Stunning 60th-floor views of the Manhattan skyline and harbor with refined American cuisine.', img: 'https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=2070' },
             { id: 'lilia', name: 'Lilia', district: 'Williamsburg', type: 'Italian', moods: ['fun', 'romantic'], budget: 'high', desc: 'Sought-after Italian outpost in a former auto-body shop serving incredible wood-fired seafood and pasta.', img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2070' },
             { id: 'river-cafe', name: 'The River Café', district: 'DUMBO', type: 'Restaurant', moods: ['scenic', 'romantic'], budget: 'premium', desc: 'Waterside icon offering Michelin-starred dining and breathtaking Brooklyn Bridge views.', img: 'https://images.unsplash.com/photo-1467453222764-e8b3948f6bad?q=80&w=2070' },
             { id: 'aoko-matcha', name: 'Aokō Matcha', district: 'West Village', type: 'Café', moods: ['coffee_dessert', 'spontaneous', 'calm'], budget: 'budget', desc: 'Minimalist matcha sanctuary with viral strawberry cream cakes and serene vibes.', img: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?q=80&w=2071' },
             { id: 'dame', name: 'Dame', district: 'West Village', type: 'Seafood', moods: ['fun', 'spontaneous'], budget: 'high', desc: 'Vibrant, fashion-forward English seafood spot in the heart of the Village.', img: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070' },
-            { id: 'the-standard-grill', name: 'The Standard Grill', district: 'Chelsea / Meatpacking', type: 'Bistro', moods: ['fun', 'scenic'], budget: 'high', desc: 'High-energy dining under the High Line with a classic NYC neighborhood pulse.', img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2070' },
+            { id: 'met-cloisters', name: 'The Met Cloisters', district: 'Uptown / Harlem', type: 'Museum', moods: ['culture_focused', 'scenic', 'calm'], budget: 'mid', desc: 'Medieval art and architecture in a stunning park setting overlooking the Hudson River.', img: 'https://images.unsplash.com/photo-1518998053574-53f0209f582d?q=80&w=2070' },
+            { id: 'summit-one', name: 'Summit One Vanderbilt', district: 'Midtown', type: 'Observation Deck', moods: ['scenic', 'spontaneous'], budget: 'high', desc: 'An immersive art experience and breathtaking 360-degree views of Manhattan.', img: 'https://images.unsplash.com/photo-1522083165195-3424ed129620?q=80&w=2070' },
+            { id: 'bbg', name: 'Brooklyn Botanic Garden', district: 'Williamsburg', type: 'Garden', moods: ['scenic', 'calm', 'culture_focused'], budget: 'budget', desc: '52 acres of specialty gardens and plant collections in the heart of Brooklyn.', img: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=2070' },
             { id: 'la-lanterna', name: 'La Lanterna di Vittorio', district: 'West Village', type: 'Italian', moods: ['romantic', 'calm'], budget: 'mid', desc: 'Famous for its enchanting, candlelit garden and warm atmosphere.', img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070' },
-            { id: 'balthazar', name: 'Balthazar', district: 'SoHo / NoHo', type: 'Brasserie', moods: ['fun', 'culture_focused'], budget: 'high', desc: 'The quintessential SoHo French brasserie experience.', img: 'https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?q=80&w=2071' },
-            { id: 'sugar-hill-creamery', name: 'Sugar Hill Creamery', district: 'Uptown / Harlem', type: 'Ice Cream', moods: ['coffee_dessert', 'budget_friendly'], budget: 'budget', desc: 'Harlem’s favorite artisanal ice cream with local, seasonal flavors.', img: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?q=80&w=2070' },
-            { id: 'pantry-harlem', name: 'Pantry Harlem', district: 'Uptown / Harlem', type: 'Café', moods: ['calm', 'coffee_dessert'], budget: 'budget', desc: 'Charming neighborhood haunt for coffee and quiet conversation.', img: 'https://images.unsplash.com/photo-1501339819358-ee5969a2f211?q=80&w=2070' },
             { id: 'whitney', name: 'Whitney Museum', district: 'Chelsea / Meatpacking', type: 'Museum', moods: ['culture_focused', 'scenic'], budget: 'mid', desc: 'Contemporary art with outdoor terraces overlooking the Hudson.', img: 'https://images.unsplash.com/photo-1518998053574-53f0209f582d?q=80&w=2070' }
         ];
 
@@ -508,7 +760,6 @@
         let activeChats = [];
         let venueMeetups = {};
 
-        // Initial Setup
         window.onload = () => {
             document.querySelectorAll('.mood-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -569,15 +820,15 @@
         function buildPlan() {
             const district = document.getElementById('neighborhood-select').value;
             let filtered = seedData.filter(v => {
+                // Logic Fix: If district is selected, ONLY show venues in that district (Absolute Match)
+                if (district && v.district !== district) return false;
+                
                 const matchMood = v.moods.includes(currentMood);
                 const matchBudget = v.budget === currentBudget;
-                const matchDistrict = !district || v.district === district;
-                return matchDistrict && (matchMood || matchBudget);
+                return matchMood || matchBudget;
             });
 
-            // Ensure exactly 3 items if possible for layout stability
-            if(filtered.length > 3) filtered = filtered.slice(0, 3);
-            if(filtered.length === 0) filtered = seedData.slice(0, 3);
+            if(filtered.length === 0 && !district) filtered = seedData.slice(0, 3);
 
             document.getElementById('results-header').innerText = district ? `Matches in ${district}` : "Top Picks for You";
             renderCards(filtered);
@@ -589,37 +840,28 @@
             venues.forEach((v, index) => {
                 const card = `
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-outline-variant hover:shadow-md transition-all group venue-card-reveal" style="animation-delay: ${index * 0.1}s">
-                        <div class="relative h-48 overflow-hidden">
-                            <img alt="${v.name}" class="w-full h-full object-cover group-hover:scale-105 transition-all" src="${v.img}"/>
-                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-stone-800 uppercase tracking-tight">
+<div class="relative h-48 overflow-hidden">
+<img alt="${v.name}" class="w-full h-full object-cover group-hover:scale-105 transition-all" src="${v.img}"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-stone-800 uppercase tracking-tight">
                                 ${isParty ? 'PARTY' : v.type}
                             </div>
-                        </div>
-                        <div class="p-6">
-                            <h4 class="font-h3 text-xl text-primary mb-1">${v.name}</h4>
-                            <p class="text-xs text-stone-400 font-label-caps uppercase tracking-wider mb-4">${v.district}</p>
-                            <p class="text-sm text-stone-600 line-clamp-2 mb-6">${v.desc}</p>
-                            <div class="flex items-center justify-between pt-4 border-t border-stone-100">
-                                <span class="text-xs text-stone-400 font-button uppercase">${isParty ? 'Vibe' : v.budget}</span>
-                                <button class="text-primary font-button text-xs hover:underline flex items-center gap-1" onclick="openModal('${v.id}')">
+</div>
+<div class="p-6">
+<h4 class="font-h3 text-xl text-primary mb-1">${v.name}</h4>
+<p class="text-xs text-stone-400 font-label-caps uppercase tracking-wider mb-4">${v.district}</p>
+<p class="text-sm text-stone-600 line-clamp-2 mb-6">${v.desc}</p>
+<div class="flex items-center justify-between pt-4 border-t border-stone-100">
+<span class="text-xs text-stone-400 font-button uppercase">${isParty ? 'Vibe' : v.budget}</span>
+<button class="text-primary font-button text-xs hover:underline flex items-center gap-1" onclick="openModal('${v.id}')">
                                     Details <span class="material-symbols-outlined text-xs">arrow_forward</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>`;
+</button>
+</div>
+</div>
+</div>`;
                 grid.innerHTML += card;
             });
             document.getElementById('results-area').classList.remove('hidden');
             document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function filterByInspiration(mood) {
-            currentMood = mood;
-            document.querySelectorAll('.mood-btn').forEach(b => {
-                b.classList.remove('chip-active');
-                if(b.dataset.mood === mood) b.classList.add('chip-active');
-            });
-            buildPlan();
         }
 
         function hostVibe() {
@@ -687,15 +929,15 @@
             list.innerHTML = meetups.length === 0 ? '<div class="text-stone-400 text-xs italic">No active meetups. Be the first to start one!</div>' : 
                 meetups.map(m => `
                     <div class="flex items-center justify-between p-4 bg-stone-50 border border-stone-100 rounded-lg">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-primary-container text-white rounded-full flex items-center justify-center font-bold text-xs">${m.name.charAt(0).toUpperCase()}</div>
-                            <div>
-                                <p class="text-sm font-button text-primary">${m.name}</p>
-                                <p class="text-[10px] text-stone-500 uppercase">${m.time} • ${m.joiners} joining</p>
-                            </div>
-                        </div>
-                        <button class="px-4 py-1.5 border border-primary text-primary rounded-lg text-xs font-button hover:bg-primary hover:text-white transition-all">Join</button>
-                    </div>`).join('');
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary-container text-white rounded-full flex items-center justify-center font-bold text-xs">${m.name.charAt(0).toUpperCase()}</div>
+<div>
+<p class="text-sm font-button text-primary">${m.name}</p>
+<p class="text-[10px] text-stone-500 uppercase">${m.time} • ${m.joiners} joining</p>
+</div>
+</div>
+<button class="px-4 py-1.5 border border-primary text-primary rounded-lg text-xs font-button hover:bg-primary hover:text-white transition-all">Join</button>
+</div>`).join('');
         }
 
         function handleCheckIn() {
@@ -733,11 +975,11 @@
         function renderMessages() {
             document.getElementById('chat-messages').innerHTML = `
                 <div class="flex flex-col items-start">
-                    <div class="max-w-[80%] px-4 py-3 rounded-2xl text-sm bg-white text-stone-700 shadow-sm">
+<div class="max-w-[80%] px-4 py-3 rounded-2xl text-sm bg-white text-stone-700 shadow-sm">
                         Hey! I'm also here. Want to grab a drink?
                     </div>
-                    <span class="text-[10px] text-stone-400 mt-1">Just now</span>
-                </div>`;
+<span class="text-[10px] text-stone-400 mt-1">Just now</span>
+</div>`;
         }
 
         function resetFilters() {
@@ -749,6 +991,5 @@
         function getLocation() {
             alert("Location access requested. Finding spots near you...");
             buildPlan();
-        }
-    </script>
+        }</script>
 </body></html>

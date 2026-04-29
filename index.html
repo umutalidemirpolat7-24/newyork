@@ -1,129 +1,11 @@
-<html class="scroll-smooth" lang="en"><head>
+<html class="scroll-smooth" lang="en"><head></head><body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">```html
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>The NYC Concierge | Manhattan Muse</title>
 <meta content="Discover the best NYC date spots and party venues based on your mood, budget, and neighborhood." name="description"/>
 <!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">const seedData = [
-    { id: 1, name: 'Le Coucou', district: 'SoHo', mood: 'romantic', budget: 'premium', img: 'https://images.unsplash.com/photo-1550966841-3ee5ad0110c3?auto=format&fit=crop&q=80', tip: 'Request a table in the lounge for a more intimate feel.', moodFit: 'High-end French dining with grand chandeliers.', culture: 'A revival of old-school NYC elegance.', desc: 'Award-winning French restaurant by Stephen Starr.' },
-    { id: 2, name: 'Manhatta', district: 'Lower Manhattan', mood: 'scenic', budget: 'premium', img: 'https://images.unsplash.com/photo-1544911835-3296a7b2964e?auto=format&fit=crop&q=80', tip: 'The bar offers the same views for the price of a cocktail.', moodFit: '60th-floor panoramic views of the entire city.', culture: 'Modern American dining in a skyscraper setting.', desc: 'High-end venue with 360-degree views of Manhattan.' },
-    { id: 3, name: 'Lilia', district: 'Williamsburg', mood: 'fun', budget: 'high', img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80', tip: 'The Mafaldini with pink peppercorn is non-negotiable.', moodFit: 'Bustling, chic, and incredibly lively energy.', culture: 'A cornerstone of the Brooklyn dining renaissance.', desc: 'Missy Robbins famous wood-fired Italian hotspot.' },
-    { id: 4, name: 'The Met', district: 'Upper East Side', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?auto=format&fit=crop&q=80', tip: 'The Rooftop Garden Bar is the best-kept secret in summer.', moodFit: 'Quiet reflection among centuries of art.', culture: 'One of the world\'s greatest art institutions.', desc: 'A massive museum spanning 5,000 years of art.' },
-    { id: 5, name: 'Brooklyn Bridge Park', district: 'DUMBO', mood: 'scenic', budget: 'budget', img: 'https://images.unsplash.com/photo-1523413363574-c3c444a118ad?auto=format&fit=crop&q=80', tip: 'Grab a pizza from Grimaldi\'s and eat it on the grass at sunset.', moodFit: 'Iconic skyline views without the price tag.', culture: 'A public space where all of New York gathers.', desc: 'Waterfront park with unbeatable views of the Manhattan skyline.' },
-    { id: 6, name: 'Buvette', district: 'West Village', mood: 'coffee_dessert', budget: 'mid', img: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80', tip: 'Arrive before 9 AM on weekends to avoid the 2-hour wait.', moodFit: 'Cozy, cramped, and quintessentially Parisian.', culture: 'A neighborhood staple for locals and visitors alike.', desc: 'Charming French bistro and coffee bar.' },
-    { id: 7, name: 'Cookshop', district: 'Chelsea', mood: 'spontaneous', budget: 'high', img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80', tip: 'The bar seating is often available even when reservations are full.', moodFit: 'Perfect for a post-High Line walk-in.', culture: 'An anchor of the Chelsea neighborhood for years.', desc: 'Farm-to-table American cuisine near the High Line.' },
-    { id: 8, name: 'The Nines', district: 'NoHo', mood: 'romantic', budget: 'premium', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80', tip: 'Dress to impress; the door can be selective.', moodFit: 'Sultry piano bar vibes with deep red velvet.', culture: 'A nod to classic New York supper clubs.', desc: 'Elegant piano lounge and supper club.' },
-    { id: 9, name: 'Raoul\'s', district: 'SoHo', mood: 'spontaneous', budget: 'high', img: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80', tip: 'The burger is only served at the bar and in limited quantities.', moodFit: 'Intimate, crowded, and full of history.', culture: 'A SoHo institution since the 70s.', desc: 'Classic French bistro with a legendary bar scene.' },
-    { id: 10, name: 'Peak', district: 'Midtown', mood: 'scenic', budget: 'premium', img: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80', tip: 'Dining here gives you complimentary access to the Edge observation deck.', moodFit: 'Dining literally above the clouds.', culture: 'The pinnacle of the new Hudson Yards development.', desc: 'Stunning restaurant on the 101st floor.' },
-    { id: 11, name: 'Veniero\'s', district: 'East Village', mood: 'coffee_dessert', budget: 'budget', img: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80', tip: 'Get the strawberry cheesecake to stay; it\'s better with their espresso.', moodFit: 'Old-world Italian charm and sugary bliss.', culture: 'Serving NYC since 1894.', desc: 'Famous Italian bakery and caffe.' },
-    { id: 12, name: 'Whitmans', district: 'West Village', mood: 'budget_friendly', budget: 'budget', img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&q=80', tip: 'The Juicy Lucy is their signature for a reason.', moodFit: 'Low-key, delicious, and friendly.', culture: 'A modern neighborhood burger joint.', desc: 'Specialty burgers in a cozy West Village nook.' },
-    { id: 13, name: 'The Whitney', district: 'Chelsea', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1518998053502-5190a021df30?auto=format&fit=crop&q=80', tip: 'The outdoor terraces offer incredible views of the High Line.', moodFit: 'Inspirational and visually striking.', culture: 'A hub for American contemporary art.', desc: 'Renzo Piano-designed museum in the Meatpacking District.' },
-    { id: 14, name: 'Bamonte\'s', district: 'Williamsburg', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80', tip: 'Look for the vintage telephone booths by the entrance.', moodFit: 'A time machine to 1950s Brooklyn.', culture: 'One of the oldest Italian restaurants in NYC.', desc: 'Traditional Italian fare with old-school waiters.' },
-    { id: 15, name: 'Dear Irving', district: 'Midtown', mood: 'romantic', budget: 'high', img: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80', tip: 'The \'Gatsby\' room is the most romantic spot in the house.', moodFit: 'Time-traveling cocktail experience.', culture: 'Elevated cocktail craft in a glamorous setting.', desc: 'Multi-room cocktail parlor inspired by different eras.' }
-];
-
-let userCreatedEvents = [];
-let currentVenue = null;
-
-function buildPlan() {
-    const mood = document.querySelector('.mood-btn.chip-active')?.dataset.mood;
-    const budget = document.querySelector('.budget-btn.chip-active')?.dataset.budget;
-    const neighborhood = document.getElementById('neighborhood-select').value;
-
-    const results = seedData.filter(v => {
-        const moodMatch = !mood || v.mood === mood;
-        const budgetMatch = !budget || v.budget === budget;
-        const neighborhoodMatch = !neighborhood || v.district === neighborhood;
-        return moodMatch && budgetMatch && neighborhoodMatch;
-    });
-
-    renderResults(results);
-    document.getElementById('results-area').classList.remove('hidden');
-    document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
-}
-
-function renderResults(data) {
-    const grid = document.getElementById('results-grid');
-    grid.innerHTML = data.length ? data.map(v => `
-        <div class="bg-white rounded-2xl overflow-hidden border border-outline-variant hover:shadow-xl transition-all cursor-pointer venue-card-reveal group" onclick="openModal(${v.id})">
-<div class="relative h-56 overflow-hidden">
-<img alt="${v.name}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" src="${v.img}"/>
-<div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-primary">${v.budget}</div>
-</div>
-<div class="p-6">
-<h4 class="font-h2 text-xl text-primary mb-1">${v.name}</h4>
-<p class="text-xs text-stone-400 uppercase tracking-widest mb-4">${v.district}</p>
-<p class="text-sm text-stone-600 line-clamp-2">${v.desc}</p>
-</div>
-</div>
-    `).join('') : '<div class="col-span-full py-20 text-center text-stone-400"><span class="material-symbols-outlined text-4xl mb-2">sentiment_dissatisfied</span><p>No matches found for this specific combination. Try expanding your search!</p></div>';
-}
-
-// Interaction Handlers
-document.querySelectorAll('.mood-btn').forEach(btn => {
-    btn.onclick = () => {
-        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('chip-active'));
-        btn.classList.add('chip-active');
-    };
-});
-
-document.querySelectorAll('.budget-btn').forEach(btn => {
-    btn.onclick = () => {
-        document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('chip-active'));
-        btn.classList.add('chip-active');
-    };
-});
-
-function switchMainMode(mode) {
-    document.querySelectorAll('.mode-active').forEach(btn => btn.classList.remove('mode-active', 'bg-primary', 'text-white'));
-    const btn = document.getElementById(`mode-${mode}`);
-    btn.classList.add('mode-active');
-    
-    const containers = ['planner-form-container', 'party-radar-info', 'host-form-container'];
-    containers.forEach(id => document.getElementById(id).classList.add('hidden'));
-    
-    if(mode === 'date') document.getElementById('planner-form-container').classList.remove('hidden');
-    if(mode === 'party') document.getElementById('party-radar-info').classList.remove('hidden');
-    if(mode === 'host') document.getElementById('host-form-container').classList.remove('hidden');
-}
-
-function openModal(id) {
-    const venue = seedData.find(v => v.id === id);
-    if(!venue) return;
-    currentVenue = venue;
-    document.getElementById('modal-name').innerText = venue.name;
-    document.getElementById('modal-district').innerText = venue.district;
-    document.getElementById('modal-image').src = venue.img;
-    
-    const descContainer = document.getElementById('modal-desc').parentElement;
-    descContainer.innerHTML = `
-        <div class="space-y-6">
-<div>
-<h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">Concierge's Insider Tip</h4>
-<p class="font-body-md text-stone-600 italic">"${venue.tip}"</p>
-</div>
-<div>
-<h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">Why this fits your mood</h4>
-<p class="font-body-md text-stone-600">${venue.moodFit}</p>
-</div>
-<div>
-<h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">Cultural Context</h4>
-<p class="font-body-md text-stone-600">${venue.culture}</p>
-</div>
-<div class="pt-4 border-t border-stone-200">
-<h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">About the Venue</h4>
-<p class="font-body-md text-stone-600">${venue.desc}</p>
-</div>
-</div>
-    `;
-    document.getElementById('details-modal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-    document.getElementById('details-modal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -217,8 +99,6 @@ function closeModal() {
             background-size: 1.5em;
         }
     </style>
-</head>
-<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
 <nav class="fixed top-0 w-full z-[60] bg-[#FCF9F5] border-b border-stone-200">
 <div class="flex justify-between items-center h-20 px-10 max-w-7xl mx-auto">
 <div class="font-serif italic font-bold text-2xl text-[#6B1D23] tracking-tight cursor-pointer" onclick="showView('home')">
@@ -241,7 +121,7 @@ function closeModal() {
 <section class="relative h-[60vh] md:h-[819px] flex items-center justify-center overflow-hidden">
 <div class="absolute inset-0 z-0">
 <div class="absolute inset-0 bg-black/40 z-10"></div>
-<img alt="NYC Twilight" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6B8H7FoIn2QWi86odJssAnWGxCADWFezJ9a9omEgcu1s5MwYa6dglXweUP5N9qk1_o-Sr_9vMMHVScQYPrI_Itkh-9hggs7SSpKIZptHkA33GpjmawTJJsU72MECjc2-A1j9IQZzJYC9wGg6aYu4pRuaUklAlKnANQu0T2HKePwFIkHs7r8L0IrlqCihuEt3WiulUQ-bj0fkADg36M90BOCX-9BDJkrN0Amqc2UI0no_6wcOHPMzw97EmNpj-_fD6lnv-FPU2-Jg"/>
+<img alt="NYC Twilight" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbdxuR2RacPE5BBxYUV21STYzG1WgY1bxhZh8APyVer2S_-JSG9NJCazk9HwK2vRr2iSS3F-hU3OIs0Tk2dbzPlNdASELCa_emXt33jYg1fAS9hohcc_rgTskYh63D9UailPH4a9bphy4Db_l_mpNSWE9e9xfpSTls7kRCsfufdA8X3b_kAis7CXAX_aq0_hm_SAeZ2CrwvSvwNPbPrP8QMD5M6iFnXUFJ-odUsOzdzRRma_uc0UjIO6oAwG9hTR_XDscy7i8ytKM"/>
 </div>
 <div class="relative z-20 text-center px-6 max-w-4xl mx-auto">
 <span class="font-label-caps text-label-caps text-white/90 mb-4 block uppercase tracking-widest">Urban Discovery Tool</span>
@@ -349,7 +229,18 @@ function closeModal() {
 <button class="w-full flex items-center justify-center gap-2 py-3 border border-outline text-primary font-button rounded-lg hover:bg-surface transition-all" onclick="getLocation()">
 <span class="material-symbols-outlined">my_location</span> Use My Location
                                         </button>
-<select class="w-full border-outline-variant rounded-lg py-3 px-4 font-body-md focus:border-primary focus:ring-primary appearance-none bg-white" id="neighborhood-select"><option value="">All Neighborhoods</option><option value="West Village">West Village</option><option value="SoHo">SoHo</option><option value="Chelsea">Chelsea</option><option value="Williamsburg">Williamsburg</option><option value="DUMBO">DUMBO</option><option value="Upper East Side">Upper East Side</option><option value="Midtown">Midtown</option></select>
+<select class="w-full border-outline-variant rounded-lg py-3 px-4 font-body-md focus:border-primary focus:ring-primary appearance-none bg-white" id="neighborhood-select">
+<option value="">All Neighborhoods</option>
+<option value="West Village">West Village</option>
+<option value="SoHo">SoHo</option>
+<option value="Chelsea">Chelsea</option>
+<option value="Williamsburg">Williamsburg</option>
+<option value="DUMBO">DUMBO</option>
+<option value="Lower Manhattan">Lower Manhattan</option>
+<option value="Midtown">Midtown</option>
+<option value="Upper West Side">Upper West Side</option>
+<option value="Upper East Side">Upper East Side</option>
+</select>
 </div>
 </div>
 </div>
@@ -439,7 +330,6 @@ function closeModal() {
 </div>
 </div>
 </section>
-<!-- Inspiration Section -->
 <!-- Results Area -->
 <section class="hidden py-12 bg-surface-container px-4 md:px-0 scroll-mt-20" id="results-area">
 <div class="max-w-7xl mx-auto">
@@ -502,31 +392,29 @@ function closeModal() {
 </div>
 <div class="flex flex-col items-end gap-2">
 <button class="bg-primary text-white px-8 py-3 rounded-xl font-button text-base hover:scale-105 transition-all shadow-lg ring-4 ring-primary/10" id="checkin-btn" onclick="handleCheckIn()">Check-In Now</button>
-<div class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 uppercase tracking-widest animate-pulse">
-<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-        Live Social Activity: 5 Checked In
+<div class="flex items-center -space-x-2 mt-2" id="profile-bubbles">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-stone-200 overflow-hidden"><img alt="User" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi_5IKCE0ZYowTVkV-6U7yoKfOWswTQ04NeANAa0PpMQbWdHsR6uSGE1GrfulUYg08ij9rmcpD6ZxEVt1zISG7hmTvaDqQNUglfjTnaEfLPT2HgdmcYzKEhcao8mBiEcBURW1Xm1bx7y0nvZuDyuN4HrIpRkA2yeKi3ElD28-RL-zQpC11GPbDel0_AaKfQIGUL2Y5bceXHjNI7bmi0D7FGo-OOUAB0C_C2YIKIo6NjVtGOoZfJTSM8GQZ5wlN0GVt42jfBb0dwB0"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-stone-200 overflow-hidden"><img alt="User" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe7bMZ0yfYvEhsattNB2ylHvLF72uSU9pr1HBbhWtDBNsOgLDYmiU49KL3LrCIYg-CmicZnt8_IyS0zV2pf7oo3-W2ynJCJcMTRurO8oteDvOI59y-jWCBuB-F0yOfpkv156lvA6BMOu3VvO9zh1Xuw_vzSvMsHF92LEwD8SwnWZ0yV2ObcuZw6vtPL0o9dbtq6MyvlUZkI5wbSHO6-Mx1Kz5hrVZgzRVbJlM_c4syyAdj4YyIj5FyP82j5u0bMu7HEy_2QOTA3iU"/></div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-stone-200 overflow-hidden text-[10px] flex items-center justify-center font-bold text-stone-500">+3</div>
+</div>
+<div class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 uppercase tracking-widest">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Who's here now: 5 Checked In
     </div>
 </div>
 </div>
 <div class="grid grid-cols-1 gap-8 mb-8">
-<div class="bg-surface-container p-6 rounded-xl">
-<h4 class="font-button text-primary mb-2">Concierge's Tip</h4>
-<p class="font-body-md text-stone-600" id="modal-desc"></p>
+<div class="bg-surface-container p-6 rounded-xl" id="concierge-panel">
+<!-- Concierge content injected here -->
 </div>
 <!-- Meetups Section -->
 <div class="space-y-4">
-<div class="flex items-center justify-between"><h4 class="font-label-caps text-xs text-stone-400 uppercase tracking-widest">Meetups at this Venue</h4>
-<div class="flex items-center gap-2 px-3 py-1.5 bg-primary text-white rounded-full shadow-sm">
-<span class="material-symbols-outlined text-[14px]">group</span>
-<span class="text-[10px] font-bold uppercase tracking-tight">Notify Circle</span>
-<div class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></div>
-</div>
+<div class="flex items-center justify-between">
+<h4 class="font-label-caps text-xs text-stone-400 uppercase tracking-widest">Meetups at this Venue</h4>
 <div class="flex items-center gap-3">
 <button class="text-xs font-bold text-primary hover:opacity-80 flex items-center gap-1 bg-primary/10 px-2 py-1 rounded" onclick="toggleMeetupForm()">+ New Meetup</button>
-<button class="text-xs font-bold text-primary hover:opacity-80 flex items-center gap-1 bg-primary/10 px-2 py-1 rounded">
-<span class="material-symbols-outlined text-[14px]">share</span> Invite
-    </button>
-</div></div>
+</div>
+</div>
 <!-- New Meetup Form -->
 <div class="hidden bg-stone-50 border border-stone-200 rounded-xl p-4 space-y-4" id="create-meetup-form">
 <h5 class="text-xs font-bold text-stone-500 uppercase">Propose a Meetup</h5>
@@ -551,71 +439,66 @@ function closeModal() {
 </div>
 </div>
 <div class="space-y-3" id="modal-meetups-list">
-<!-- Dynamic Meetups -->
-</div>
-</div>
-</div>
-<!-- Match Notification -->
-<div class="hidden mt-6 p-4 bg-tertiary/10 border border-tertiary rounded-xl flex items-center justify-between pulse-match" id="match-notification">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary">celebration</span>
-<div>
-<p class="font-button text-sm text-tertiary">Mutual Match!</p>
-<p class="text-xs text-tertiary/80" id="match-notification-text"></p>
-</div>
-</div>
-<button class="bg-tertiary text-white px-4 py-2 rounded-lg text-xs font-button hover:opacity-90" onclick="openChatFromMatch()">Start Chat</button>
+<div class="text-center py-8 text-stone-400 text-sm italic">No meetups planned yet. Be the first to host one!</div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<!-- Chat Slide-over -->
-<div class="fixed inset-0 z-[110] hidden" id="chat-drawer">
-<div class="absolute inset-0 bg-stone-900/30 backdrop-blur-sm" onclick="closeChatDrawer()"></div>
-<div class="absolute top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col transition-transform duration-300 transform translate-x-full" id="chat-drawer-content">
-<div class="p-6 border-b border-stone-100 flex items-center justify-between bg-white sticky top-0 z-10">
-<div class="flex items-center gap-4">
-<button class="text-stone-400 hover:text-primary transition-colors" onclick="closeChatDrawer()">
-<span class="material-symbols-outlined">arrow_back</span>
-</button>
-<div>
-<h4 class="font-button text-primary" id="chat-user-name"></h4>
-<p class="text-[10px] text-stone-400 uppercase tracking-widest" id="chat-venue-name"></p>
 </div>
 </div>
-</div>
-<div class="flex-1 overflow-y-auto p-6 space-y-6 bg-surface-container-low" id="chat-messages"></div>
-<div class="p-6 bg-white border-t border-stone-100">
-<form class="flex gap-2" onsubmit="event.preventDefault(); sendMessage();">
-<input class="flex-1 bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-primary placeholder:text-stone-400" id="chat-input" placeholder="Type a message..." type="text"/>
-<button class="bg-primary text-white w-12 h-12 rounded-xl flex items-center justify-center hover:opacity-90 transition-all shadow-md" type="submit">
-<span class="material-symbols-outlined">send</span>
-</button>
-</form>
-</div>
-</div>
-</div>
-<script>const seedData = [
-    { id: 1, name: 'Le Coucou', district: 'SoHo', mood: 'romantic', budget: 'premium', img: 'https://images.unsplash.com/photo-1550966841-3ee5ad0110c3?auto=format&fit=crop&q=80', tip: 'Request a table in the lounge for a more intimate feel.', moodFit: 'High-end French dining with grand chandeliers.', culture: 'A revival of old-school NYC elegance.', desc: 'Award-winning French restaurant by Stephen Starr.' },
-    { id: 2, name: 'Manhatta', district: 'Lower Manhattan', mood: 'scenic', budget: 'premium', img: 'https://images.unsplash.com/photo-1544911835-3296a7b2964e?auto=format&fit=crop&q=80', tip: 'The bar offers the same views for the price of a cocktail.', moodFit: '60th-floor panoramic views of the entire city.', culture: 'Modern American dining in a skyscraper setting.', desc: 'High-end venue with 360-degree views of Manhattan.' },
-    { id: 3, name: 'Lilia', district: 'Williamsburg', mood: 'fun', budget: 'high', img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80', tip: 'The Mafaldini with pink peppercorn is non-negotiable.', moodFit: 'Bustling, chic, and incredibly lively energy.', culture: 'A cornerstone of the Brooklyn dining renaissance.', desc: 'Missy Robbins famous wood-fired Italian hotspot.' },
-    { id: 4, name: 'The Met', district: 'Upper East Side', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?auto=format&fit=crop&q=80', tip: 'The Rooftop Garden Bar is the best-kept secret in summer.', moodFit: 'Quiet reflection among centuries of art.', culture: 'One of the world\'s greatest art institutions.', desc: 'A massive museum spanning 5,000 years of art.' },
-    { id: 5, name: 'Brooklyn Bridge Park', district: 'DUMBO', mood: 'scenic', budget: 'budget', img: 'https://images.unsplash.com/photo-1523413363574-c3c444a118ad?auto=format&fit=crop&q=80', tip: 'Grab a pizza from Grimaldi\'s and eat it on the grass at sunset.', moodFit: 'Iconic skyline views without the price tag.', culture: 'A public space where all of New York gathers.', desc: 'Waterfront park with unbeatable views of the Manhattan skyline.' },
-    { id: 6, name: 'Buvette', district: 'West Village', mood: 'coffee_dessert', budget: 'mid', img: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80', tip: 'Arrive before 9 AM on weekends to avoid the 2-hour wait.', moodFit: 'Cozy, cramped, and quintessentially Parisian.', culture: 'A neighborhood staple for locals and visitors alike.', desc: 'Charming French bistro and coffee bar.' },
-    { id: 7, name: 'Cookshop', district: 'Chelsea', mood: 'spontaneous', budget: 'high', img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80', tip: 'The bar seating is often available even when reservations are full.', moodFit: 'Perfect for a post-High Line walk-in.', culture: 'An anchor of the Chelsea neighborhood for years.', desc: 'Farm-to-table American cuisine near the High Line.' },
-    { id: 8, name: 'The Nines', district: 'NoHo', mood: 'romantic', budget: 'premium', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80', tip: 'Dress to impress; the door can be selective.', moodFit: 'Sultry piano bar vibes with deep red velvet.', culture: 'A nod to classic New York supper clubs.', desc: 'Elegant piano lounge and supper club.' },
-    { id: 9, name: 'Raoul\'s', district: 'SoHo', mood: 'spontaneous', budget: 'high', img: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80', tip: 'The burger is only served at the bar and in limited quantities.', moodFit: 'Intimate, crowded, and full of history.', culture: 'A SoHo institution since the 70s.', desc: 'Classic French bistro with a legendary bar scene.' },
-    { id: 10, name: 'Peak', district: 'Midtown', mood: 'scenic', budget: 'premium', img: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80', tip: 'Dining here gives you complimentary access to the Edge observation deck.', moodFit: 'Dining literally above the clouds.', culture: 'The pinnacle of the new Hudson Yards development.', desc: 'Stunning restaurant on the 101st floor.' },
-    { id: 11, name: 'Veniero\'s', district: 'East Village', mood: 'coffee_dessert', budget: 'budget', img: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&q=80', tip: 'Get the strawberry cheesecake to stay; it\'s better with their espresso.', moodFit: 'Old-world Italian charm and sugary bliss.', culture: 'Serving NYC since 1894.', desc: 'Famous Italian bakery and caffe.' },
-    { id: 12, name: 'Whitmans', district: 'West Village', mood: 'budget_friendly', budget: 'budget', img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&q=80', tip: 'The Juicy Lucy is their signature for a reason.', moodFit: 'Low-key, delicious, and friendly.', culture: 'A modern neighborhood burger joint.', desc: 'Specialty burgers in a cozy West Village nook.' },
-    { id: 13, name: 'The Whitney', district: 'Chelsea', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1518998053502-5190a021df30?auto=format&fit=crop&q=80', tip: 'The outdoor terraces offer incredible views of the High Line.', moodFit: 'Inspirational and visually striking.', culture: 'A hub for American contemporary art.', desc: 'Renzo Piano-designed museum in the Meatpacking District.' },
-    { id: 14, name: 'Bamonte\'s', district: 'Williamsburg', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80', tip: 'Look for the vintage telephone booths by the entrance.', moodFit: 'A time machine to 1950s Brooklyn.', culture: 'One of the oldest Italian restaurants in NYC.', desc: 'Traditional Italian fare with old-school waiters.' },
-    { id: 15, name: 'Dear Irving', district: 'Midtown', mood: 'romantic', budget: 'high', img: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80', tip: 'The \'Gatsby\' room is the most romantic spot in the house.', moodFit: 'Time-traveling cocktail experience.', culture: 'Elevated cocktail craft in a glamorous setting.', desc: 'Multi-room cocktail parlor inspired by different eras.' }
+<!-- Scripts -->
+<script>
+const seedData = [
+    // West Village
+    { id: 1, name: 'Buvette', district: 'West Village', mood: 'coffee_dessert', budget: 'mid', img: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80', tip: 'Arrive before 9 AM on weekends to avoid the 2-hour wait.', moodFit: 'Cozy, cramped, and quintessentially Parisian.', culture: 'A neighborhood staple for locals and visitors alike.', desc: 'Charming French bistro and coffee bar.', energy: 'Chic Parisian Cafe' },
+    { id: 2, name: 'Dante', district: 'West Village', mood: 'romantic', budget: 'high', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80', tip: 'Order the Garibaldi, it\'s what they\'re famous for.', moodFit: 'Sophisticated cocktail scene with historic flair.', culture: 'Repeatedly named the world\'s best bar.', desc: 'Legendary MacDougal Street institution known for martinis.', energy: 'Elegant Cocktails' },
+    { id: 3, name: 'Corner Bistro', district: 'West Village', mood: 'budget_friendly', budget: 'budget', img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&q=80', tip: 'Cash only. The Bistro Burger is a classic.', moodFit: 'Unpretentious and local beer-and-burger vibes.', culture: 'A survivor of the old Bohemian West Village.', desc: 'Classic NYC pub with legendary burgers.', energy: 'Old School Pub' },
+    
+    // SoHo
+    { id: 4, name: 'Raoul\'s', district: 'SoHo', mood: 'spontaneous', budget: 'high', img: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&q=80', tip: 'The burger is only served at the bar in limited quantities.', moodFit: 'Intimate, crowded, and full of history.', culture: 'A SoHo institution since the 70s.', desc: 'Classic French bistro with a legendary bar scene.', energy: 'Lively Bistro' },
+    { id: 5, name: 'Le Coucou', district: 'SoHo', mood: 'romantic', budget: 'premium', img: 'https://images.unsplash.com/photo-1550966841-3ee5ad0110c3?auto=format&fit=crop&q=80', tip: 'Request a table in the lounge for a more intimate feel.', moodFit: 'High-end French dining with grand chandeliers.', culture: 'A revival of old-school NYC elegance.', desc: 'Award-winning French restaurant by Stephen Starr.', energy: 'Grand Elegance' },
+    { id: 6, name: 'Fanelli Cafe', district: 'SoHo', mood: 'budget_friendly', budget: 'mid', img: 'https://images.unsplash.com/photo-1574936144220-f9d6a2a5eab4?auto=format&fit=crop&q=80', tip: 'Perfect for a casual pint after shopping.', moodFit: 'Gritty, authentic, and delightfully un-SoHo.', culture: 'One of the oldest licensed bars in the city.', desc: 'Traditional pub serving burgers and sandwiches.', energy: 'Historic Pub' },
+
+    // Chelsea
+    { id: 7, name: 'Buddakan', district: 'Chelsea', mood: 'fun', budget: 'premium', img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80', tip: 'The Great Room is visually stunning; ask for a seat there.', moodFit: 'High-energy, theatrical dining experience.', culture: 'A Meatpacking District pioneer.', desc: 'Lavish Asian fusion in a massive, ornate space.', energy: 'Glamorous Party' },
+    { id: 8, name: 'Cookshop', district: 'Chelsea', mood: 'calm', budget: 'high', img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80', tip: 'Great for brunch after a walk on the High Line.', moodFit: 'Breezy, bright, and ingredients-focused.', culture: 'A neighborhood anchor for sustainable dining.', desc: 'Farm-to-table American cuisine.', energy: 'Sophisticated Garden' },
+    { id: 9, name: 'The Whitney', district: 'Chelsea', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1518998053502-5190a021df30?auto=format&fit=crop&q=80', tip: 'The outdoor terraces offer incredible views of the High Line.', moodFit: 'Inspirational and visually striking.', culture: 'A hub for American contemporary art.', desc: 'Renzo Piano-designed museum in Meatpacking.', energy: 'Artistic Reflection' },
+
+    // Williamsburg
+    { id: 10, name: 'Lilia', district: 'Williamsburg', mood: 'romantic', budget: 'high', img: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&q=80', tip: 'Book 30 days out at midnight or try walk-in at 4:30.', moodFit: 'Bustling, chic, and incredibly lively energy.', culture: 'The heart of Brooklyn\'s high-end pasta scene.', desc: 'Missy Robbins famous wood-fired Italian hotspot.', energy: 'Chic Pasta Bar' },
+    { id: 11, name: 'Peter Luger', district: 'Williamsburg', mood: 'culture_focused', budget: 'premium', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80', tip: 'Cash or Luger Card only. No credit cards.', moodFit: 'Traditional, masculine, and historic steakhouse.', culture: 'The defining NYC steak experience since 1887.', desc: 'World-famous steakhouse with no-nonsense service.', energy: 'Old School Steakhouse' },
+    { id: 12, name: 'Joe\'s Pizza', district: 'Williamsburg', mood: 'budget_friendly', budget: 'budget', img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80', tip: 'The cheese slice is perfection in its simplest form.', moodFit: 'Quick, casual, and quintessentially New York.', culture: 'A modern expansion of the Greenwich Village classic.', desc: 'Iconic NYC thin-crust pizza.', energy: 'Classic NYC Slice' },
+
+    // DUMBO
+    { id: 13, name: 'Cecconi\'s', district: 'DUMBO', mood: 'scenic', budget: 'premium', img: 'https://images.unsplash.com/photo-1502301103665-0b95cc738def?auto=format&fit=crop&q=80', tip: 'Try to get an outdoor table facing the bridge.', moodFit: 'Glamorous waterfront dining with bridge views.', culture: 'High-end Italian chain known for luxury.', desc: 'Upscale Italian with stunning Manhattan views.', energy: 'Waterfront Glamour' },
+    { id: 14, name: 'Brooklyn Bridge Park', district: 'DUMBO', mood: 'calm', budget: 'budget', img: 'https://images.unsplash.com/photo-1523413363574-c3c444a118ad?auto=format&fit=crop&q=80', tip: 'Grab a coffee from Jane\'s Carousel nearby.', moodFit: 'Iconic skyline views without the price tag.', culture: 'A public space where all of New York gathers.', desc: 'Waterfront park with unbeatable skyline views.', energy: 'Peaceful Waterfront' },
+    { id: 15, name: 'Time Out Market', district: 'DUMBO', mood: 'spontaneous', budget: 'mid', img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80', tip: 'Head to the rooftop for some of the best views in the city.', moodFit: 'Diverse, social, and food-oriented.', culture: 'Curated selection of NYC\'s best chefs.', desc: 'Large food hall with various culinary options.', energy: 'Social Foodie' },
+
+    // Lower Manhattan
+    { id: 16, name: 'Manhatta', district: 'Lower Manhattan', mood: 'scenic', budget: 'premium', img: 'https://images.unsplash.com/photo-1544911835-3296a7b2964e?auto=format&fit=crop&q=80', tip: 'The bar offers the same views for the price of a cocktail.', moodFit: '60th-floor panoramic views of the entire city.', culture: 'Modern American dining in a skyscraper setting.', desc: 'High-end venue with 360-degree views.', energy: 'Sky-high Luxury' },
+    { id: 17, name: 'Dead Rabbit', district: 'Lower Manhattan', mood: 'fun', budget: 'high', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80', tip: 'The Taproom is more casual; the Parlor is for cocktails.', moodFit: 'Award-winning cocktails in a gritty tavern setting.', culture: 'Modern Irish pub with global acclaim.', desc: 'World-renowned cocktail bar and pub.', energy: 'Vibrant Irish Pub' },
+    { id: 18, name: 'Katz\'s Delicatessen', district: 'Lower Manhattan', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1621939514649-280e2ee1d446?auto=format&fit=crop&q=80', tip: 'Don\'t lose your ticket! They charge you a fee if you do.', moodFit: 'Loud, crowded, and authentically New York.', culture: 'The ultimate NYC Jewish deli since 1888.', desc: 'Famous for massive pastrami sandwiches.', energy: 'Bustling Historic Deli' },
+
+    // Midtown
+    { id: 19, name: 'Keens Steakhouse', district: 'Midtown', mood: 'romantic', budget: 'premium', img: 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&q=80', tip: 'The mutton chop is the legendary signature dish.', moodFit: 'Dark wood, history, and candlelight.', culture: 'Oldest steakhouse in Manhattan.', desc: 'Classic steakhouse with thousands of clay pipes.', energy: 'Gentleman\'s Club Style' },
+    { id: 20, name: 'Peak', district: 'Midtown', mood: 'scenic', budget: 'premium', img: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80', tip: 'Dining gives you free access to the Edge deck.', moodFit: 'Dining literally above the clouds.', culture: 'The pinnacle of Hudson Yards development.', desc: 'Stunning restaurant on the 101st floor.', energy: 'Futuristic Views' },
+    { id: 21, name: 'Los Tacos No. 1', district: 'Midtown', mood: 'budget_friendly', budget: 'budget', img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80', tip: 'Try the Adobada taco; it\'s their best seller.', moodFit: 'Fast-paced, flavorful, and exciting.', culture: 'The most authentic tacos in Manhattan.', desc: 'Street-style tacos in Chelsea Market/Midtown.', energy: 'Authentic Street Food' },
+
+    // Upper West Side
+    { id: 22, name: 'Jacob\'s Pickles', district: 'Upper West Side', mood: 'fun', budget: 'mid', img: 'https://images.unsplash.com/photo-1541014741259-df529411b96a?auto=format&fit=crop&q=80', tip: 'The Southern BLT biscuit is massive; plan to share.', moodFit: 'Comforting, loud, and community-driven.', culture: 'A Southern hospitality hub in Manhattan.', desc: 'Southern comfort food and craft cocktails.', energy: 'Southern Hospitality' },
+    { id: 23, name: 'Zabar\'s', district: 'Upper West Side', mood: 'culture_focused', budget: 'budget', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80', tip: 'Grab some lox and a bagel for a Central Park picnic.', moodFit: 'Frenetic energy of true NYC locals.', culture: 'The defining Jewish specialty food store.', desc: 'Gourmet emporium famous for smoked fish.', energy: 'Jewish Specialty Store' },
+    { id: 24, name: 'The Leopard at des Artistes', district: 'Upper West Side', mood: 'romantic', budget: 'premium', img: 'https://images.unsplash.com/photo-1550966841-3ee5ad0110c3?auto=format&fit=crop&q=80', tip: 'Request a seat under the Howard Chandler Christy murals.', moodFit: 'Museum-like beauty and high romance.', culture: 'Located in the historic Hotel des Artistes.', desc: 'Fine Italian dining in a historic setting.', energy: 'Old World Romance' },
+
+    // Upper East Side
+    { id: 25, name: 'The Met', district: 'Upper East Side', mood: 'culture_focused', budget: 'mid', img: 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?auto=format&fit=crop&q=80', tip: 'The Rooftop Garden Bar is amazing in the summer.', moodFit: 'Quiet reflection among centuries of art.', culture: 'World-renowned art institution.', desc: 'Massive museum spanning 5,000 years of art.', energy: 'Artistic Grandeur' },
+    { id: 26, name: 'Pastis', district: 'Upper East Side', mood: 'spontaneous', budget: 'high', img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80', tip: 'Great for celebrity spotting and people watching.', moodFit: 'Buzzing, stylish, and lively.', culture: 'A French brasserie favorite.', desc: 'Iconic French brasserie with a Meatpacking sister.', energy: 'Chic Brasserie' },
+    { id: 27, name: 'Bemelymans Bar', district: 'Upper East Side', mood: 'romantic', budget: 'premium', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80', tip: 'Go for the live jazz at night; there is a cover charge.', moodFit: 'Whimsical murals and dark, moody jazz.', culture: 'The ultimate UES social destination.', desc: 'Classic cocktail bar in the Carlyle Hotel.', energy: 'Jazz Age Sophistication' }
 ];
 
 let userCreatedEvents = [];
 let currentVenue = null;
+let meetups = {}; // Store meetups by venueId
 
 function buildPlan() {
     const mood = document.querySelector('.mood-btn.chip-active')?.dataset.mood;
@@ -630,25 +513,39 @@ function buildPlan() {
     });
 
     renderResults(results);
-    document.getElementById('results-area').classList.remove('hidden');
-    document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
+    const resultsArea = document.getElementById('results-area');
+    resultsArea.classList.remove('hidden');
+    
+    // Smooth scroll to results
+    resultsArea.scrollIntoView({ behavior: 'smooth' });
 }
 
 function renderResults(data) {
     const grid = document.getElementById('results-grid');
     grid.innerHTML = data.length ? data.map(v => `
         <div class="bg-white rounded-2xl overflow-hidden border border-outline-variant hover:shadow-xl transition-all cursor-pointer venue-card-reveal group" onclick="openModal(${v.id})">
-<div class="relative h-56 overflow-hidden">
-<img alt="${v.name}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" src="${v.img}"/>
-<div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-primary">${v.budget}</div>
-</div>
-<div class="p-6">
-<h4 class="font-h2 text-xl text-primary mb-1">${v.name}</h4>
-<p class="text-xs text-stone-400 uppercase tracking-widest mb-4">${v.district}</p>
-<p class="text-sm text-stone-600 line-clamp-2">${v.desc}</p>
-</div>
-</div>
-    `).join('') : '<div class="col-span-full py-20 text-center text-stone-400"><span class="material-symbols-outlined text-4xl mb-2">sentiment_dissatisfied</span><p>No matches found for this specific combination. Try expanding your search!</p></div>';
+            <div class="relative h-56 overflow-hidden">
+                <img alt="${v.name}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" src="${v.img}"/>
+                <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-primary">${v.budget}</div>
+            </div>
+            <div class="p-6">
+                <h4 class="font-h2 text-xl text-primary mb-1">${v.name}</h4>
+                <p class="text-xs text-stone-400 uppercase tracking-widest mb-4">${v.district}</p>
+                <p class="text-sm text-stone-600 line-clamp-2">${v.desc}</p>
+                <div class="mt-4 pt-4 border-t border-stone-100 flex items-center justify-between">
+                    <span class="text-[10px] font-bold text-stone-400 uppercase tracking-tight">${v.energy}</span>
+                    <button class="text-primary text-xs font-bold hover:underline flex items-center gap-1">
+                        View Details <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('') : `
+        <div class="col-span-full py-20 text-center text-stone-400">
+            <span class="material-symbols-outlined text-4xl mb-2">sentiment_dissatisfied</span>
+            <p>No matches found for this specific combination. Try expanding your search!</p>
+        </div>
+    `;
 }
 
 // Interaction Handlers
@@ -667,7 +564,7 @@ document.querySelectorAll('.budget-btn').forEach(btn => {
 });
 
 function switchMainMode(mode) {
-    document.querySelectorAll('.mode-active').forEach(btn => btn.classList.remove('mode-active', 'bg-primary', 'text-white'));
+    document.querySelectorAll('[id^="mode-"]').forEach(btn => btn.classList.remove('mode-active', 'bg-primary', 'text-white'));
     const btn = document.getElementById(`mode-${mode}`);
     btn.classList.add('mode-active');
     
@@ -683,31 +580,40 @@ function openModal(id) {
     const venue = seedData.find(v => v.id === id);
     if(!venue) return;
     currentVenue = venue;
+    
     document.getElementById('modal-name').innerText = venue.name;
     document.getElementById('modal-district').innerText = venue.district;
     document.getElementById('modal-image').src = venue.img;
     
-    const descContainer = document.getElementById('modal-desc').parentElement;
-    descContainer.innerHTML = `
+    const conciergePanel = document.getElementById('concierge-panel');
+    conciergePanel.innerHTML = `
         <div class="space-y-6">
-<div>
-<h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">Concierge's Insider Tip</h4>
-<p class="font-body-md text-stone-600 italic">"${venue.tip}"</p>
-</div>
-<div>
-<h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">Why this fits your mood</h4>
-<p class="font-body-md text-stone-600">${venue.moodFit}</p>
-</div>
-<div>
-<h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">Cultural Context</h4>
-<p class="font-body-md text-stone-600">${venue.culture}</p>
-</div>
-<div class="pt-4 border-t border-stone-200">
-<h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">About the Venue</h4>
-<p class="font-body-md text-stone-600">${venue.desc}</p>
-</div>
-</div>
+            <div>
+                <h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">Concierge's Insider Tip</h4>
+                <p class="font-body-md text-stone-600 italic">"${venue.tip}"</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <h4 class="font-button text-primary text-sm uppercase tracking-wider mb-1">Energy</h4>
+                    <p class="font-body-md text-stone-600">${venue.energy}</p>
+                </div>
+                <div>
+                    <h4 class="font-button text-primary text-sm uppercase tracking-wider mb-1">Budget</h4>
+                    <p class="font-body-md text-stone-600 text-capitalize">${venue.budget}</p>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">The Vibe</h4>
+                <p class="font-body-md text-stone-600">${venue.moodFit}</p>
+            </div>
+            <div>
+                <h4 class="font-button text-primary text-sm uppercase tracking-wider mb-2">About the Venue</h4>
+                <p class="font-body-md text-stone-600">${venue.desc}</p>
+            </div>
+        </div>
     `;
+
+    renderMeetups(id);
     document.getElementById('details-modal').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
@@ -715,5 +621,101 @@ function openModal(id) {
 function closeModal() {
     document.getElementById('details-modal').classList.add('hidden');
     document.body.style.overflow = 'auto';
-}</script>
-</body></html>
+    document.getElementById('create-meetup-form').classList.add('hidden');
+}
+
+function handleCheckIn() {
+    const btn = document.getElementById('checkin-btn');
+    if (btn.innerText === 'Checked In!') {
+        btn.innerText = 'Check-In Now';
+        btn.classList.remove('bg-emerald-600');
+        btn.classList.add('bg-primary');
+    } else {
+        btn.innerText = 'Checked In!';
+        btn.classList.remove('bg-primary');
+        btn.classList.add('bg-emerald-600');
+    }
+}
+
+function toggleMeetupForm() {
+    const form = document.getElementById('create-meetup-form');
+    form.classList.toggle('hidden');
+}
+
+function submitNewMeetup() {
+    const name = document.getElementById('meetup-name').value;
+    const time = document.getElementById('meetup-time').value;
+    const objective = document.getElementById('meetup-objective').value;
+    const policy = document.getElementById('meetup-policy').value;
+    
+    if (!name || !time || !objective) return alert('Please fill in all details');
+
+    const venueId = currentVenue.id;
+    if (!meetups[venueId]) meetups[venueId] = [];
+    
+    meetups[venueId].unshift({
+        id: Date.now(),
+        host: name,
+        time: time,
+        objective: objective.charAt(0).toUpperCase() + objective.slice(1),
+        policy: policy.includes('Open') ? 'Open to All' : 'Approval Required'
+    });
+
+    // Reset and render
+    document.getElementById('meetup-name').value = '';
+    document.getElementById('meetup-time').value = '';
+    document.getElementById('create-meetup-form').classList.add('hidden');
+    renderMeetups(venueId);
+}
+
+function renderMeetups(venueId) {
+    const list = document.getElementById('modal-meetups-list');
+    const venueMeetups = meetups[venueId] || [];
+    
+    if (venueMeetups.length === 0) {
+        list.innerHTML = '<div class="text-center py-8 text-stone-400 text-sm italic">No meetups planned yet. Be the first to host one!</div>';
+        return;
+    }
+
+    list.innerHTML = venueMeetups.map(m => `
+        <div class="bg-stone-50 border border-stone-100 p-4 rounded-xl flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                    ${m.host.charAt(0)}
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold text-stone-800">${m.host}'s ${m.objective}</h5>
+                    <p class="text-[10px] text-stone-500 uppercase tracking-widest">${m.time} • ${m.policy}</p>
+                </div>
+            </div>
+            <button class="bg-white border border-stone-200 text-primary px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-stone-50 transition-all">Join</button>
+        </div>
+    `).join('');
+}
+
+function resetFilters() {
+    document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('chip-active'));
+    document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('chip-active'));
+    document.querySelector('.mood-btn[data-mood="romantic"]').classList.add('chip-active');
+    document.querySelector('.budget-btn[data-budget="budget"]').classList.add('chip-active');
+    document.getElementById('neighborhood-select').value = '';
+    buildPlan();
+}
+
+function showView(viewId) {
+    document.querySelectorAll('main > div').forEach(v => v.classList.add('hidden'));
+    document.getElementById(`view-${viewId}`).classList.remove('hidden');
+    
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('nav-link-active'));
+    document.querySelector(`.${viewId}-nav`).classList.add('nav-link-active');
+}
+
+function getLocation() {
+    alert("Using your current location in Chelsea...");
+    document.getElementById('neighborhood-select').value = "Chelsea";
+}
+
+// Global Nav Handlers
+window.showView = showView;
+</script>
+```</body></html>

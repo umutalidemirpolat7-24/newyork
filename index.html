@@ -302,7 +302,29 @@
 <label class="block text-xs font-bold uppercase text-stone-400 mb-2">Short Description</label>
 <textarea class="w-full border-stone-200 rounded-lg p-3 h-24" id="host-desc" placeholder="Briefly describe your vibe..."></textarea>
 </div>
-<div class="col-span-2 pt-4">
+<div class="col-span-2 mt-4 p-6 bg-stone-50 border border-stone-200 rounded-xl">
+<h4 class="text-sm font-bold text-stone-800 uppercase tracking-wider mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">verified_user</span>
+        Safety &amp; Verification
+    </h4>
+<div class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-bold text-stone-700">Verified Identity Required</p>
+<p class="text-xs text-stone-500">Only allow users with verified IDs to view/join this vibe.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="border-2 border-dashed border-stone-300 rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-stone-400 group-hover:text-primary mb-2 text-3xl">upload_file</span>
+<p class="text-xs font-bold text-stone-500 group-hover:text-stone-700">ID Upload / Profile Verification</p>
+<p class="text-[10px] text-stone-400">Securely verify your identity to host premium events.</p>
+</div>
+</div>
+</div><div class="col-span-2 pt-4">
 <button class="w-full bg-primary text-white py-4 rounded-xl font-button shadow-lg hover:opacity-90" onclick="hostVibe()" type="button">Publish Event</button>
 </div>
 </form>
@@ -311,46 +333,6 @@
 </div>
 </section>
 <!-- Inspiration Section -->
-<section class="py-12 px-4 md:px-0" id="inspiration">
-<div class="max-w-7xl mx-auto">
-<div class="mb-12 text-center">
-<h2 class="font-h2 text-h2 text-primary mb-4">Date Night Inspiration</h2>
-<p class="font-body-md text-stone-500">Curated collections for a perfect evening.</p>
-</div>
-<div class="grid md:grid-cols-3 gap-8">
-<div class="group cursor-pointer" onclick="filterByInspiration('fun')">
-<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
-<img alt="Bar Scene" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr5vVDJTrqZciQtToak4ocYDGq8xs5NUzJE6jARoSN5m7Az7Q2R01hNt2N2UrSMYNK-r8lIYdBvMN2dNW-wYOVyUKBzB-mv0rRPsvbt21k8cgsRWPBUI8-i28ISl6juHevaNaWGjRLTJ9nWEiDQ1pVEZmWpDes96NACnnPvJOndfgQQFy7N2FJS7kMSOECM6n7GpPXgPYJS_3FTxWboAyD9LzXQMU43GWK_mJP0nyUBkjOWziUhtwOgdCPqXHJZAUhZVtyqReZvZY"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-<div class="absolute bottom-6 left-6 text-white">
-<h4 class="font-h3 text-xl">First Impressions</h4>
-<p class="text-white/80 text-sm">Low pressure, high energy spots</p>
-</div>
-</div>
-</div>
-<div class="group cursor-pointer" onclick="filterByInspiration('romantic')">
-<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
-<img alt="Dining Scene" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCki5kvSUig8UXXvgoSIMjhrvOKJRK55C10kZ5YC3tZRT-QTdT3uAUFPVUXkgJ-gw7HpPyoPHoxrOSxsUCP94jlRTkdFHF90LNsYLblFRtJLpWlzgm4O8J0v_pJksqL_4kkxoYzhJ7vziO9eGi-VE_feb9vEljlxrfyeYb_0y0GoIa7KTynaO7rZxkC2IGd3wCZ-cE-pI36TghyIowjjRJoHUqx9Oh3HxZn5Jep8JFiTGVk2zn2tS42TKJoX1rVKA3zZf52i78LH5M"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-<div class="absolute bottom-6 left-6 text-white">
-<h4 class="font-h3 text-xl">Anniversary Celebration</h4>
-<p class="text-white/80 text-sm">Fine dining and views</p>
-</div>
-</div>
-</div>
-<div class="group cursor-pointer" onclick="filterByInspiration('spontaneous')">
-<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
-<img alt="Street Scene" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh67gCoe57Bgfwmo-fVNxKfjRO05dLYv5l69AXpBocSVEnpkx-xMhwrADFowssUmKo0Swh7zdwDGjhrk6F-YMzXm1bfPM4bcT3jKWUc2URMW5woPLBYykuXD6ZTqT9iWsJMqgxbbwYJiIEe-xG8W8q8MK8jrGqNFaw6QXHhznSp6Pu0pHFVUdVadfWge7MgyfMHDY6v5ztABVvbptaXiXFZVIoCpPepUBzOhHF-jVLReNP13NEfjEu5ysIAH9ufYJKRHg8yF264HA"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-<div class="absolute bottom-6 left-6 text-white">
-<h4 class="font-h3 text-xl">Spontaneous Stroll</h4>
-<p class="text-white/80 text-sm">Art, snacks, and discovery</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
 <!-- Results Area -->
 <section class="hidden py-12 bg-surface-container px-4 md:px-0 scroll-mt-20" id="results-area">
 <div class="max-w-7xl mx-auto">
@@ -412,7 +394,11 @@
 <p class="font-body-md text-stone-500" id="modal-district"></p>
 </div>
 <div class="flex flex-col items-end gap-2">
-<button class="bg-primary text-white px-6 py-2 rounded-lg font-button text-sm hover:opacity-90 transition-all" id="checkin-btn" onclick="handleCheckIn()">Check-In</button>
+<button class="bg-primary text-white px-8 py-3 rounded-xl font-button text-base hover:scale-105 transition-all shadow-lg ring-4 ring-primary/10" id="checkin-btn" onclick="handleCheckIn()">Check-In Now</button>
+<div class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 uppercase tracking-widest animate-pulse">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        Live Social Activity: 5 Checked In
+    </div>
 </div>
 </div>
 <div class="grid grid-cols-1 gap-8 mb-8">
@@ -432,6 +418,17 @@
 <div class="grid grid-cols-2 gap-4">
 <input class="text-sm border-stone-200 rounded-lg p-2 focus:ring-primary" id="meetup-name" placeholder="Your Name" type="text"/>
 <input class="text-sm border-stone-200 rounded-lg p-2 focus:ring-primary" id="meetup-time" type="time"/>
+<select class="text-sm border-stone-200 rounded-lg p-2 focus:ring-primary" id="meetup-objective">
+<option value="">Select Objective</option>
+<option value="drinks">Drinks</option>
+<option value="networking">Networking</option>
+<option value="group_dinner">Group Dinner</option>
+<option value="activity">Activity/Game</option>
+</select>
+<select class="text-sm border-stone-200 rounded-lg p-2 focus:ring-primary" id="meetup-policy">
+<option value="open">Guest Policy: Open to All</option>
+<option value="approval">Guest Policy: Approval Required</option>
+</select>
 </div>
 <div class="flex gap-2">
 <button class="flex-1 bg-primary text-white py-2 rounded-lg text-xs font-button hover:opacity-90" onclick="submitNewMeetup()">Post Meetup</button>

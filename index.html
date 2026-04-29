@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head></head><body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">```html
 
-<html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8"/>
+
+
+    <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>The NYC Concierge | Social &amp; Party Edition</title>
 <meta content="Discover the best NYC date spots and party venues based on your mood, budget, and neighborhood." name="description"/>
@@ -92,8 +93,6 @@
             transform: translateX(100%);
         }
     </style>
-</head>
-<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-[60] bg-[#FCF9F5] border-b border-stone-200">
 <div class="flex justify-between items-center h-20 px-10 max-w-7xl mx-auto">
@@ -152,8 +151,8 @@
 <!-- Date/Party Content -->
 <div class="bg-white rounded-2xl shadow-sm border border-outline-variant p-8 md:p-12" id="planner-card">
 <div class="space-y-12" id="planner-form-container">
-<!-- Step 1: Mood -->
-<div>
+<!-- Step 1: Mood (Date Planner Only) -->
+<div id="mood-section">
 <h3 class="font-h3 text-h3 mb-6 flex items-center gap-3">
 <span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-sm">1</span>
 <span id="step-1-title">Select your mood</span>
@@ -194,10 +193,10 @@
 </div>
 </div>
 <!-- Step 2: Budget & Neighborhood -->
-<div class="grid md:grid-cols-2 gap-12">
-<div>
+<div class="grid md:grid-cols-2 gap-12" id="criteria-section">
+<div id="budget-container">
 <h3 class="font-h3 text-h3 mb-6 flex items-center gap-3">
-<span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-sm">2</span>
+<span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-sm" id="step-budget-num">2</span>
                                         Budget level
                                     </h3>
 <div class="flex bg-surface-container p-1 rounded-xl">
@@ -219,9 +218,9 @@
 </button>
 </div>
 </div>
-<div>
+<div id="neighborhood-container">
 <h3 class="font-h3 text-h3 mb-6 flex items-center gap-3">
-<span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-sm">3</span>
+<span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-sm" id="step-neighborhood-num">3</span>
                                         Neighborhood
                                     </h3>
 <div class="space-y-4">
@@ -249,6 +248,14 @@
                                 </button>
 </div>
 </div>
+<!-- Party Radar Simplified Placeholder -->
+<div class="hidden text-center py-12" id="party-radar-info">
+<h3 class="font-h3 text-2xl text-primary mb-4">Real-time Party Radar</h3>
+<p class="text-stone-500 max-w-lg mx-auto mb-8">Scan for active events hosted by the NYC community. Join vibes, meet people, and experience the city's pulse.</p>
+<button class="bg-primary-container text-white px-10 py-4 rounded-xl font-button text-lg hover:opacity-90 transition-all shadow-lg" id="scan-radar-btn">
+                                Scan Radar
+                            </button>
+</div>
 <!-- Host Creation Form (Hidden by default) -->
 <div class="hidden space-y-10" id="host-form-container">
 <div class="border-b border-stone-100 pb-4">
@@ -267,6 +274,7 @@
 <option value="SoHo / NoHo">SoHo / NoHo</option>
 <option value="Williamsburg / Greenpoint">Williamsburg / Greenpoint</option>
 <option value="West Village / Greenwich Village">West Village / Greenwich Village</option>
+<option value="West Side / Chelsea">West Side / Chelsea</option>
 </select>
 </div>
 <div>
@@ -438,9 +446,22 @@
 <div class="space-y-4">
 <div class="flex items-center justify-between">
 <h4 class="font-label-caps text-xs text-stone-400 uppercase tracking-widest">Meetups at this Venue</h4>
-<button class="text-xs font-button text-primary hover:underline" onclick="createMeetup()">+ Create Meetup</button>
+<button class="text-xs font-button text-primary hover:underline" onclick="toggleMeetupForm()">+ Create Meetup</button>
+</div>
+<!-- New Meetup Form (Hidden by default) -->
+<div class="hidden bg-stone-50 border border-stone-200 rounded-xl p-4 space-y-4" id="create-meetup-form">
+<h5 class="text-xs font-bold text-stone-500 uppercase">Propose a Meetup</h5>
+<div class="grid grid-cols-2 gap-4">
+<input class="text-sm border-stone-200 rounded-lg p-2 focus:ring-primary" id="meetup-name" placeholder="Meetup Name (e.g. Jazz Fans)" type="text"/>
+<input class="text-sm border-stone-200 rounded-lg p-2 focus:ring-primary" id="meetup-time" type="time"/>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary text-white py-2 rounded-lg text-xs font-button hover:opacity-90" onclick="submitNewMeetup()">Post Meetup</button>
+<button class="px-4 py-2 border border-stone-300 rounded-lg text-xs font-button hover:bg-stone-100" onclick="toggleMeetupForm()">Cancel</button>
+</div>
 </div>
 <div class="space-y-3" id="modal-meetups">
+<!-- Default/Static Meetups -->
 <div class="flex items-center justify-between p-4 bg-stone-50 border border-stone-100 rounded-lg">
 <div class="flex items-center gap-3">
 <div class="w-10 h-10 bg-primary-container text-white rounded-full flex items-center justify-center font-bold">M</div>
@@ -449,7 +470,7 @@
 <p class="text-[10px] text-stone-500 uppercase">3 joining · 21:00</p>
 </div>
 </div>
-<button class="px-4 py-1.5 border border-primary text-primary rounded-lg text-xs font-button hover:bg-primary hover:text-white transition-all">Join</button>
+<button class="px-4 py-1.5 border border-primary text-primary rounded-lg text-xs font-button hover:bg-primary hover:text-white transition-all" onclick="alert('Joined Matty\'s Group!')">Join</button>
 </div>
 </div>
 </div>
@@ -505,11 +526,12 @@
             { id: 'rafs', name: 'Raf’s', district: 'SoHo / NoHo', type: 'restaurant', moods: ['romantic', 'fun'], budget: 'mid_high', energy: 'medium', shortDesc: 'Italian-French bakery and evening parlor.', img: 'https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=2070' },
             { id: 'the-high-line', name: 'The High Line', district: 'West Side / Chelsea', type: 'walk_view', moods: ['scenic', 'calm'], budget: 'budget', energy: 'medium', shortDesc: 'Elevated park for a walk with perfect views.', img: 'https://images.unsplash.com/photo-1563245372-f21724e3ba2a?q=80&w=2072' },
             { id: 'hwaro', name: 'Hwaro', district: 'Midtown', type: 'restaurant', moods: ['fun', 'romantic'], budget: 'mid_high', energy: 'lively', shortDesc: 'Upscale Korean BBQ with a modern twist.', img: 'https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=2070' },
-            { id: 'manhatta', name: 'Manhatta', district: 'Lower Manhattan', type: 'party', moods: ['scenic', 'romantic'], budget: 'premium', energy: 'medium', shortDesc: 'Sky-high views and sophisticated atmosphere.', img: 'https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=2070' },
+            { id: 'manhatta', name: 'Manhatta', district: 'Lower Manhattan', type: 'restaurant', moods: ['scenic', 'romantic'], budget: 'premium', energy: 'medium', shortDesc: 'Sky-high views and sophisticated atmosphere.', img: 'https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=2070' },
             { id: 'the-oma-shop', name: 'The Oma Shop II', district: 'Uptown / Harlem', type: 'coffee_dessert', moods: ['calm', 'coffee_dessert'], budget: 'budget', energy: 'low', shortDesc: 'Cozy Harlem sanctuary for premium coffee and peace.', img: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?q=80&w=2071' }
         ];
 
         let userCreatedEvents = [];
+        let venueMeetups = {}; // Store meetups by venue ID
         let currentMainMode = 'date';
         let selectedMood = 'romantic';
         let selectedBudget = 'budget';
@@ -539,26 +561,30 @@
             const dateBtn = document.getElementById('mode-date');
             const partyBtn = document.getElementById('mode-party');
             const hostBtn = document.getElementById('mode-host');
+            
             const plannerForm = document.getElementById('planner-form-container');
             const hostForm = document.getElementById('host-form-container');
-            const step1Title = document.getElementById('step-1-title');
+            const partyRadarInfo = document.getElementById('party-radar-info');
+            
+            const moodSection = document.getElementById('mood-section');
+            const criteriaSection = document.getElementById('criteria-section');
             const buildBtn = document.getElementById('build-plan-btn');
 
             [dateBtn, partyBtn, hostBtn].forEach(btn => btn.className = 'px-6 md:px-8 py-3 rounded-lg font-button text-xs md:text-sm transition-all text-stone-500 hover:bg-stone-50');
             
             plannerForm.classList.add('hidden');
             hostForm.classList.add('hidden');
+            partyRadarInfo.classList.add('hidden');
 
             if (mode === 'date') {
                 dateBtn.className = 'px-6 md:px-8 py-3 rounded-lg font-button text-xs md:text-sm transition-all mode-active';
                 plannerForm.classList.remove('hidden');
-                step1Title.innerText = "Select your mood";
+                moodSection.classList.remove('hidden');
+                criteriaSection.classList.remove('hidden');
                 buildBtn.innerText = "Build My Plan";
             } else if (mode === 'party') {
                 partyBtn.className = 'px-6 md:px-8 py-3 rounded-lg font-button text-xs md:text-sm transition-all mode-active';
-                plannerForm.classList.remove('hidden');
-                step1Title.innerText = "What kind of energy?";
-                buildBtn.innerText = "Scan Radar";
+                partyRadarInfo.classList.remove('hidden');
             } else if (mode === 'host') {
                 hostBtn.className = 'px-6 md:px-8 py-3 rounded-lg font-button text-xs md:text-sm transition-all mode-active';
                 hostForm.classList.remove('hidden');
@@ -584,7 +610,7 @@
                 name: name,
                 district: district,
                 type: 'party',
-                moods: ['fun', 'spontaneous'],
+                moods: ['fun', 'spontaneous'], // Internal fallback
                 budget: 'mid',
                 shortDesc: `${type} • ${music} • ${fee}. ${desc}`,
                 img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070', // Default party image
@@ -592,44 +618,48 @@
             };
 
             userCreatedEvents.push(newEvent);
-            alert("Vibe successfully published! It will now appear on the Party Radar.");
-            switchMainMode('party');
+            alert("Vibe successfully published! It's now live on the Party Radar.");
+            
+            // Auto-trigger the results view for parties
+            document.getElementById('results-header').innerText = `Active Party Vibes`;
+            renderResults(userCreatedEvents);
         }
 
-        // Filter Logic
-        document.getElementById('build-plan-btn').addEventListener('click', () => {
-            const district = document.getElementById('neighborhood-select').value;
-            if (!district) {
-                alert("Please select a neighborhood.");
+        // Party Scan Handler
+        document.getElementById('scan-radar-btn').addEventListener('click', () => {
+            if (userCreatedEvents.length === 0) {
+                alert("No active vibes found. Be the first to host one!");
+                switchMainMode('host');
                 return;
             }
+            document.getElementById('results-header').innerText = `Active Party Vibes`;
+            renderResults(userCreatedEvents);
+        });
 
-            let combinedData = [...seedData];
-            if (currentMainMode === 'party') {
-                combinedData = [...seedData, ...userCreatedEvents];
-            }
-
-            let results = combinedData.filter(v => v.district === district);
-
-            let refined = results.filter(v => {
-                if (currentMainMode === 'party' && v.type !== 'party') return false;
-                if (currentMainMode === 'date' && v.type === 'party') return false;
-                return v.budget === selectedBudget || v.moods.includes(selectedMood);
+        // Date Plan Handler
+        document.getElementById('build-plan-btn').addEventListener('click', () => {
+            const district = document.getElementById('neighborhood-select').value;
+            
+            let filtered = seedData.filter(v => {
+                const matchesDistrict = !district || v.district === district;
+                const matchesBudget = v.budget === selectedBudget;
+                const matchesMood = v.moods.includes(selectedMood);
+                return matchesDistrict && (matchesBudget || matchesMood);
             });
 
-            const finalResults = refined.length > 0 ? refined : results;
-            document.getElementById('results-header').innerText = `Top 3 matches in ${district}`;
-            renderResults(finalResults.slice(0, 3));
+            document.getElementById('results-header').innerText = district ? `Top matches in ${district}` : `Top matches for your mood`;
+            renderResults(filtered.slice(0, 3));
         });
 
         function renderResults(venues) {
             const grid = document.getElementById('results-grid');
             const area = document.getElementById('results-area');
             const inspo = document.getElementById('inspiration');
+            const planner = document.getElementById('planner');
             
             grid.innerHTML = '';
             if (venues.length === 0) {
-                grid.innerHTML = '<p class="col-span-3 text-center text-stone-400 py-12">No suitable venues found in this neighborhood.</p>';
+                grid.innerHTML = '<div class="col-span-full py-12 text-center text-stone-400 bg-white rounded-xl">No venues found. Try adjusting your filters.</div>';
             } else {
                 venues.forEach(venue => {
                     grid.innerHTML += `
@@ -660,6 +690,78 @@
             area.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Meetup Logic
+        function toggleMeetupForm() {
+            const form = document.getElementById('create-meetup-form');
+            form.classList.toggle('hidden');
+        }
+
+        function submitNewMeetup() {
+            const name = document.getElementById('meetup-name').value;
+            const time = document.getElementById('meetup-time').value;
+
+            if (!name || !time) {
+                alert("Please provide both a name and time for your meetup.");
+                return;
+            }
+
+            if (!venueMeetups[currentVenue.id]) {
+                venueMeetups[currentVenue.id] = [];
+            }
+
+            venueMeetups[currentVenue.id].push({
+                userName: name,
+                time: time,
+                attendees: 1
+            });
+
+            // Reset form
+            document.getElementById('meetup-name').value = '';
+            document.getElementById('meetup-time').value = '';
+            toggleMeetupForm();
+            
+            // Refresh list
+            renderVenueMeetups(currentVenue.id);
+            alert("Your meetup proposal is live!");
+        }
+
+        function renderVenueMeetups(venueId) {
+            const container = document.getElementById('modal-meetups');
+            const meetups = venueMeetups[venueId] || [];
+            
+            // Start with the default one
+            let html = `
+                <div class="flex items-center justify-between p-4 bg-stone-50 border border-stone-100 rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-primary-container text-white rounded-full flex items-center justify-center font-bold">M</div>
+                        <div>
+                            <p class="text-sm font-button text-primary">Matty's Group</p>
+                            <p class="text-[10px] text-stone-500 uppercase">3 joining · 21:00</p>
+                        </div>
+                    </div>
+                    <button class="px-4 py-1.5 border border-primary text-primary rounded-lg text-xs font-button hover:bg-primary hover:text-white transition-all" onclick="alert('Joined Matty\'s Group!')">Join</button>
+                </div>
+            `;
+
+            // Add user created ones
+            meetups.forEach(m => {
+                html += `
+                    <div class="flex items-center justify-between p-4 bg-stone-50 border border-stone-100 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-secondary-container text-secondary rounded-full flex items-center justify-center font-bold">${m.userName.charAt(0).toUpperCase()}</div>
+                            <div>
+                                <p class="text-sm font-button text-primary">${m.userName}</p>
+                                <p class="text-[10px] text-stone-500 uppercase">${m.attendees} joining · ${m.time}</p>
+                            </div>
+                        </div>
+                        <button class="px-4 py-1.5 border border-primary text-primary rounded-lg text-xs font-button hover:bg-primary hover:text-white transition-all" onclick="alert('Joined this meetup!')">Join</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
         // Modal & Interactions
         function openModal(id) {
             let combinedData = [...seedData, ...userCreatedEvents];
@@ -672,13 +774,16 @@
             document.getElementById('modal-desc').innerText = venue.shortDesc;
             document.getElementById('modal-image').src = venue.img;
             
+            document.getElementById('create-meetup-form').classList.add('hidden');
+            renderVenueMeetups(venue.id);
+            
             document.getElementById('match-notification').classList.add('hidden');
             document.getElementById('details-modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
         function handleCheckIn() {
-            alert("Checked in! Other users at " + currentVenue.name + " can now see you.");
+            alert("Checked in! You're now visible to others at " + currentVenue.name);
             setTimeout(() => {
                 const names = ["Alex", "Jordan", "Casey", "Taylor"];
                 const matchedName = names[Math.floor(Math.random() * names.length)];
@@ -748,56 +853,4 @@
             }
             list.innerHTML = activeChats.map(chat => `
                 <div class="flex items-center justify-between p-6 hover:bg-stone-50 border-b border-stone-100 cursor-pointer" onclick="openChatDrawer('${chat.userName}', '${chat.venueName}')">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-primary-container text-white rounded-full flex items-center justify-center font-bold text-lg">${chat.userName.charAt(0)}</div>
-                        <div>
-                            <h4 class="font-button text-primary text-lg">${chat.userName}</h4>
-                            <p class="text-xs text-stone-500">Active at ${chat.venueName}</p>
-                        </div>
-                    </div>
-                </div>`).join('');
-        }
-
-        // Event Listeners
-        document.querySelectorAll('.mood-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('chip-active'));
-                btn.classList.add('chip-active');
-                selectedMood = btn.dataset.mood;
-            });
-        });
-
-        document.querySelectorAll('.budget-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('chip-active'));
-                btn.classList.add('chip-active');
-                selectedBudget = btn.dataset.budget;
-            });
-        });
-
-        document.querySelectorAll('.modal-close').forEach(el => {
-            el.addEventListener('click', () => {
-                document.getElementById('details-modal').classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-        });
-
-        function getLocation() {
-            alert("Getting your location... Neighborhood set to Lower Manhattan.");
-            document.getElementById('neighborhood-select').value = "Lower Manhattan";
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            document.getElementById('results-area').classList.add('hidden');
-            document.getElementById('inspiration').classList.remove('hidden');
-        }
-
-        function filterByInspiration(mood) {
-            selectedMood = mood;
-            const filtered = seedData.filter(v => v.moods.includes(mood)).slice(0, 3);
-            document.getElementById('results-header').innerText = `Inspiration: ${mood.charAt(0).toUpperCase() + mood.slice(1)}`;
-            renderResults(filtered);
-        }
-    </script>
-</body></html>
+                    <div class="flex items</script></body></html>

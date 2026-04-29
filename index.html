@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The NYC Concierge | Curated Date Discovery</title>
+<meta content="Discover the best NYC date spots based on your mood, budget, and neighborhood." name="description"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-secondary": "#ffffff",
+                "on-background": "#1b1c19",
+                "background": "#fbf9f4",
+                "tertiary": "#735c00",
+                "tertiary-container": "#cca72f",
+                "primary-container": "#6b1d23",
+                "on-primary-container": "#f08486",
+                "secondary": "#565f70",
+                "secondary-container": "#d7e0f4",
+                "surface": "#fbf9f4",
+                "surface-container": "#f0eee9",
+                "surface-container-low": "#f5f3ee",
+                "surface-container-high": "#eae8e3",
+                "primary": "#4d0610",
+                "outline": "#887271",
+                "outline-variant": "#dbc0c0",
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "label-caps": ["Plus Jakarta Sans"],
+                "button": ["Plus Jakarta Sans"],
+                "h1": ["Noto Serif"],
+                "h2": ["Noto Serif"],
+                "h3": ["Noto Serif"],
+                "body-md": ["Plus Jakarta Sans"],
+                "body-lg": ["Plus Jakarta Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .chip-active {
+            background-color: #4d0610;
+            color: #ffffff;
+        }
+        .itinerary-line::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #4d0610;
+            opacity: 0.2;
+        }
+        .pulse-match {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .7; }
+        }
+        .nav-link-active {
+            color: #6B1D23;
+            border-bottom: 2px solid #6B1D23;
+            padding-bottom: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-[60] bg-[#FCF9F5] border-b border-stone-200">
+<div class="flex justify-between items-center h-20 px-10 max-w-7xl mx-auto">
+<div class="font-serif italic font-bold text-2xl text-[#6B1D23] tracking-tight cursor-pointer" onclick="showView('home')">
+                The NYC Concierge
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md nav-item home-nav nav-link-active" href="#" onclick="showView('home')">Home</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md" href="#">How It Works</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md" href="#">Ready-Made Plans</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md" href="#">Saved</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-colors text-body-md nav-item chats-nav flex items-center gap-1" href="#" onclick="showView('chats')">
+                    Chats <span class="w-2 h-2 rounded-full bg-primary hidden" id="chat-unread-dot"></span>
+</a>
+</div>
+<button class="bg-primary-container text-white px-6 py-3 rounded-lg font-button hover:opacity-90 transition-all">
+                Plan a Date
+            </button>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Home View -->
+<div id="view-home">
+<!-- Hero Section -->
+<section class="relative h-[819px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-black/40 z-10"></div>
+<img alt="NYC Twilight" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5SUiZKBXFAcccKWsoySXO3-JAe0JdAl8jxAqYb-KRyL1wj9C-rJYVDa_GtYr1-sj5hgGEPud0tSWrNDG_cbbAZE5VFSNdLgKP8Fjrd4tnm5Db5rwg5vuz6JcoE44zKh2UKel238N8N2kXgXjaF9oNhouSGbT8Sn-CAoLzeBZFrcKoN08cYvVA5j-3xnzuUzvUuKH7u9JeDZ-PYDZGhJWiLr44FBAI6b_Q8oH9kX6myqIBwbfzh8nBdXOgEpTUyQHFNilf_PKwWrw"/>
+</div>
+<div class="relative z-20 text-center px-6 max-w-4xl mx-auto">
+<span class="font-label-caps text-label-caps text-white/90 mb-4 block uppercase tracking-widest">The Urban Discovery Tool</span>
+<h1 class="font-h1 text-h1 text-white mb-6 leading-tight">What should you do with your partner tonight? Find out in 60 seconds.</h1>
+<p class="font-body-lg text-body-lg text-white/80 mb-10 max-w-2xl mx-auto">Discover the best NYC date spots based on your mood, budget, and neighborhood.</p>
+<a class="inline-flex items-center gap-2 bg-background text-primary px-8 py-4 rounded-lg font-button hover:bg-surface-container transition-all shadow-xl" href="#planner">
+                        Start Planning <span class="material-symbols-outlined">arrow_downward</span>
+</a>
+</div>
+</section>
+<!-- Planner Section -->
+<section class="py-24 bg-surface-container-low px-4 md:px-0" id="planner">
+<div class="max-w-5xl mx-auto">
+<div class="bg-white rounded-2xl shadow-sm border border-outline-variant p-8 md:p-12">
+<div class="space-y-12">
+<!-- Step 1: Mood -->
+<div>
+<h3 class="font-h3 text-h3 mb-6 flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-sm">1</span>
+                                    What's the vibe?
+                                </h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="mood-grid">
+<button class="mood-btn border border-outline-variant p-4 rounded-xl flex flex-col items-center gap-2 hover:border-primary transition-all" data-mood="romantic">
+<span class="material-symbols-outlined text-primary">favorite</span>
+<span class="font-button text-sm">Romantic</span>
+</button>
+<button class="mood-btn border border-outline-variant p-4 rounded-xl flex flex-col items-center gap-2 hover:border-primary transition-all" data-mood="calm">
+<span class="material-symbols-outlined text-primary">potted_plant</span>
+<span class="font-button text-sm">Calm</span>
+</button>
+<button class="mood-btn border border-outline-variant p-4 rounded-xl flex flex-col items-center gap-2 hover:border-primary transition-all" data-mood="fun">
+<span class="material-symbols-outlined text-primary">celebration</span>
+<span class="font-button text-sm">Fun</span>
+</button>
+<button class="mood-btn border border-outline-variant p-4 rounded-xl flex flex-col items-center gap-2 hover:border-primary transition-all" data-mood="spontaneous">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<span class="font-button text-sm">Spontaneous</span>
+</button>
+<button class="mood-btn border border-outline-variant p-4 rounded-xl flex flex-col items-center gap-2 hover:border-primary transition-all" data-mood="scenic">
+<span class="material-symbols-outlined text-primary">landscape</span>
+<span class="font-button text-sm">Scenic</span>
+</button>
+<button class="mood-btn border border-outline-variant p-4 rounded-xl flex flex-col items-center gap-2 hover:border-primary transition-all" data-mood="coffee_dessert">
+<span class="material-symbols-outlined text-primary">icecream</span>
+<span class="font-button text-sm">Coffee &amp; Dessert</span>
+</button>
+<button class="mood-btn border border-outline-variant p-4 rounded-xl flex flex-col items-center gap-2 hover:border-primary transition-all" data-mood="budget_friendly">
+<span class="material-symbols-outlined text-primary">savings</span>
+<span class="font-button text-sm">Budget Friendly</span>
+</button>
+<button class="mood-btn border border-outline-variant p-4 rounded-xl flex flex-col items-center gap-2 hover:border-primary transition-all" data-mood="culture_focused">
+<span class="material-symbols-outlined text-primary">museum</span>
+<span class="font-button text-sm">Culture Focused</span>
+</button>
+</div>
+</div>
+<!-- Step 2: Budget & Neighborhood -->
+<div class="grid md:grid-cols-2 gap-12">
+<div>
+<h3 class="font-h3 text-h3 mb-6 flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-sm">2</span>
+                                        Set your budget
+                                    </h3>
+<div class="flex bg-surface-container p-1 rounded-xl">
+<button class="budget-btn flex-1 py-3 px-2 flex flex-col items-center gap-0.5 rounded-lg transition-all chip-active" data-budget="budget">
+<span class="font-button text-xs">Budget</span>
+<span class="text-[10px] opacity-70">Under $40 / p</span>
+</button>
+<button class="budget-btn flex-1 py-3 px-2 flex flex-col items-center gap-0.5 rounded-lg transition-all" data-budget="mid">
+<span class="font-button text-xs">Mid</span>
+<span class="text-[10px] opacity-70">$40–$90 / p</span>
+</button>
+<button class="budget-btn flex-1 py-3 px-2 flex flex-col items-center gap-0.5 rounded-lg transition-all" data-budget="mid_high">
+<span class="font-button text-xs">Mid-High</span>
+<span class="text-[10px] opacity-70">$90–$160 / p</span>
+</button>
+<button class="budget-btn flex-1 py-3 px-2 flex flex-col items-center gap-0.5 rounded-lg transition-all" data-budget="premium">
+<span class="font-button text-xs">Premium</span>
+<span class="text-[10px] opacity-70">$160+ / p</span>
+</button>
+</div>
+</div>
+<div>
+<h3 class="font-h3 text-h3 mb-6 flex items-center gap-3">
+<span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-sm">3</span>
+                                        Location
+                                    </h3>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 border border-outline text-primary font-button rounded-lg hover:bg-surface transition-all" onclick="getLocation()">
+<span class="material-symbols-outlined">my_location</span> Use My Location
+                                        </button>
+<select class="w-full border-outline-variant rounded-lg py-3 font-body-md focus:border-primary focus:ring-primary" id="neighborhood-select">
+<option value="">Select a Neighborhood</option>
+<option value="West Village / Greenwich Village">West Village / Greenwich Village</option>
+<option value="SoHo / NoHo">SoHo / NoHo</option>
+<option value="West Side / Chelsea">West Side / Chelsea</option>
+<option value="Midtown">Midtown</option>
+<option value="Williamsburg / Greenpoint">Williamsburg / Greenpoint</option>
+<option value="DUMBO / Brooklyn Heights">DUMBO / Brooklyn Heights</option>
+<option value="Lower Manhattan">Lower Manhattan</option>
+<option value="Uptown / Harlem / Hudson Heights">Uptown / Harlem / Hudson Heights</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Toggles & Action -->
+<div class="pt-8 border-t border-outline-variant">
+<div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+<div class="flex flex-col gap-4">
+<label class="inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="viral-toggle" type="checkbox"/>
+<div class="relative w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+<span class="ms-3 font-button text-sm text-stone-600">Include Viral / Trending Spots</span>
+</label>
+<label class="inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="mode-toggle" type="checkbox"/>
+<div class="relative w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-tertiary"></div>
+<span class="ms-3 font-button text-sm text-stone-600">Social Discovery Mode <span class="text-[10px] text-tertiary bg-tertiary/10 px-1.5 py-0.5 rounded-full ml-1">Beta</span></span>
+</label>
+</div>
+<button class="w-full md:w-auto bg-primary-container text-white px-12 py-5 rounded-xl font-button text-lg hover:opacity-90 transition-all shadow-lg" id="build-plan-btn">
+                                        Build My Plan
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Inspiration Section -->
+<section class="py-24 px-4 md:px-0" id="inspiration">
+<div class="max-w-7xl mx-auto">
+<div class="mb-12 text-center">
+<h2 class="font-h2 text-h2 text-primary mb-4">Date Night Inspiration</h2>
+<p class="font-body-md text-stone-500">Not sure where to start? Explore our curated collections.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+<img alt="Bar Scene" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG02pRAALYxKedJRDHtBbCCtWikbyXmo3DMDkmnk4JkKCkJkfzy_6XmeYNWZKhXs39IHhDWcfzKxhhAKeLa3v_w-MMZhkPINrkMNs1VGRH2jSNfHmC0Kspo0F4AaVjLgRfFQaLz8mhuqq8gYg_-UeCaOy4oHqyzJqHbjb80pZWOtCc_h_vGvdnWN82cigEVWZM6hLwO1sKs9g1gSXMxfV1v5iwHj172UdjgdwVQnBAOEHs0Vc94qYSkGAKy362o6JHcOGZleXGG5k"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h4 class="font-h3 text-xl">The First Impression</h4>
+<p class="text-white/80 text-sm">Low-pressure, high-vibe spots</p>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+<img alt="Dining Scene" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVoODxUqvPFgMl9rwJuX5SECRKesHLKG2qLkqlpXR54YGSN482fSAeMhaxr1Bjxx5afXmqXMquVp0Yi3n9gYs7bH8akwgFj4fN_THmIEj3clYqA95uCC_s1wEHzG83JuSTCBHYy2Mc7CQPW4fidTHN-slF1tw6tcsZ6gnl8zeq63bnrZ2PifJbjR8YUqy-oJaayN37wVAvDDjX8uzhAyW0nwrco6jit8N99n5VOqPWoDAjXGc53Zr20PjIBSoyBc-MMDnVSJIELfc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h4 class="font-h3 text-xl">The Anniversary Gala</h4>
+<p class="text-white/80 text-sm">Fine dining &amp; scenic views</p>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+<img alt="Street Scene" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-BJIFlvNVY26DnpzlKm1N4aklkpfzKVxHBaam76nlQsn4HiYxpIJ6RJtyKBNrtYFkZHnwWiD8j1Ydx3PeKRAri-mJhSGnCXnvcOOfdMd0Z9qrenwAPH_DcBlQBinFwIRtmdsIqSlo-qTtgGpIqpkwfCWWVc0zg63Y3_ts2x72-IB6V7JFETUTUQkAF4yMQ5OviX9yO0MY1fQlwfw8CTAfIOx0A2_yI9RUJe9K9P62UnIgkLXdoUmbB1Smeo7qtzwDKjw7k0ZiVcQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h4 class="font-h3 text-xl">The Spontaneous Walk</h4>
+<p class="text-white/80 text-sm">Art, snacks, and wandering</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Results Area -->
+<section class="hidden py-24 bg-surface-container px-4 md:px-0 scroll-mt-20" id="results-area">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<h2 class="font-h2 text-h2 text-primary mb-2" id="results-header">Curated for You</h2>
+<p class="font-body-md text-stone-600" id="results-subtext">Based on your mood and preferences, we think you'll love these.</p>
+</div>
+<button class="text-primary font-button flex items-center gap-2 hover:underline" onclick="scrollToTop()">
+<span class="material-symbols-outlined">restart_alt</span> Reset Filters
+                        </button>
+</div>
+<div class="grid md:grid-cols-3 gap-8" id="results-grid">
+<!-- Dynamic Venue Cards Inject Here -->
+</div>
+</div>
+</section>
+</div>
+<!-- Chats View (Inbox) -->
+<div class="hidden max-w-5xl mx-auto py-12 px-4" id="view-chats">
+<h2 class="font-h2 text-3xl text-primary mb-8">Active Conversations</h2>
+<div class="bg-white rounded-2xl shadow-sm border border-outline-variant overflow-hidden" id="chat-list">
+<!-- Dynamic chats injected here -->
+<div class="p-12 text-center text-stone-400">
+<span class="material-symbols-outlined text-5xl mb-4">forum</span>
+<p>No active matches yet. Try planning a date and checking in to find someone!</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-100 border-t border-stone-200 w-full py-12">
+<div class="flex flex-col items-center justify-center space-y-6 px-4">
+<div class="font-serif italic text-lg text-stone-800">The NYC Concierge</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="text-stone-500 hover:text-[#6B1D23] transition-all font-serif text-sm" href="#">About Us</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-all font-serif text-sm" href="#">Press</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-all font-serif text-sm" href="#">Terms</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-all font-serif text-sm" href="#">Privacy</a>
+<a class="text-stone-500 hover:text-[#6B1D23] transition-all font-serif text-sm" href="#">Contact</a>
+</div>
+<p class="font-serif text-sm text-stone-600">© 2024 The NYC Concierge. Curated for urban discovery.</p>
+</div>
+</footer>
+<!-- Venue Details Modal -->
+<div class="fixed inset-0 z-[100] hidden" id="details-modal">
+<div class="absolute inset-0 bg-stone-900/60 backdrop-blur-sm modal-close"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl px-4 h-[90vh] overflow-y-auto">
+<div class="bg-white rounded-2xl overflow-hidden shadow-2xl my-8">
+<div class="relative h-64">
+<img alt="Venue" class="w-full h-full object-cover" id="modal-image" src=""/>
+<button class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center modal-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="absolute bottom-4 left-6 px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-full text-xs font-bold uppercase tracking-wider" id="modal-badge">Expert Pick</div>
+</div>
+<div class="p-8">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-h2 text-h2 text-primary mb-1" id="modal-name">Venue Name</h3>
+<p class="font-body-md text-stone-500" id="modal-district">Neighborhood</p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm">payments</span>
+<span class="font-button text-sm" id="modal-budget-text">Mid-High</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary/5 text-primary transition-colors" onclick="handleInteraction('like')" title="Like">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary/5 text-primary transition-colors" onclick="handleInteraction('save')" title="Save">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+<div class="space-y-6">
+<div>
+<h4 class="font-label-caps text-xs text-stone-400 mb-2 uppercase tracking-widest">Couple Highlights</h4>
+<div class="flex flex-wrap gap-2" id="modal-highlights">
+<!-- Tags injected here -->
+</div>
+</div>
+<div>
+<h4 class="font-label-caps text-xs text-stone-400 mb-2 uppercase tracking-widest">Who's Here Tonight</h4>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-3" id="modal-checkins">
+<!-- Bubbles injected here -->
+</div>
+<span class="text-xs text-stone-500" id="checkin-count">3 couples checked in</span>
+</div>
+<button class="mt-3 text-xs font-button text-primary border-b border-primary/20 hover:border-primary" onclick="handleInteraction('checkin')">Check in to this venue</button>
+</div>
+</div>
+<div>
+<h4 class="font-label-caps text-xs text-stone-400 mb-2 uppercase tracking-widest">Recent Social Proof</h4>
+<div class="space-y-3" id="modal-comments">
+<!-- Comments injected here -->
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-6 border-l-4 border-primary">
+<h4 class="font-button text-primary mb-2">Concierge's Tip</h4>
+<p class="font-body-md text-stone-600" id="modal-desc">Full venue description goes here.</p>
+</div>
+<!-- Match Notification -->
+<div class="hidden mt-6 p-4 bg-tertiary/10 border border-tertiary rounded-xl flex items-center justify-between pulse-match" id="match-notification">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">celebration</span>
+<div>
+<p class="font-button text-sm text-tertiary">Mutual Match!</p>
+<p class="text-xs text-tertiary/80" id="match-notification-text">Someone here also likes your vibe.</p>
+</div>
+</div>
+<button class="bg-tertiary text-white px-4 py-2 rounded-lg text-xs font-button hover:opacity-90" onclick="openChatFromMatch()">Start Chat</button>
+</div>
+<button class="w-full mt-8 bg-primary-container text-white py-4 rounded-xl font-button hover:opacity-90 transition-all modal-close">
+                        Close Details
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Slide-over Drawer -->
+<div class="fixed inset-0 z-[110] hidden" id="chat-drawer">
+<div class="absolute inset-0 bg-stone-900/30 backdrop-blur-sm chat-drawer-close" onclick="closeChatDrawer()"></div>
+<div class="absolute top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col transition-transform duration-300 transform translate-x-full" id="chat-drawer-content">
+<!-- Chat Header -->
+<div class="p-6 border-b border-stone-100 flex items-center justify-between bg-white sticky top-0 z-10">
+<div class="flex items-center gap-4">
+<button class="text-stone-400 hover:text-primary transition-colors" onclick="closeChatDrawer()">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center font-bold" id="chat-user-avatar">?</div>
+<div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-button text-primary leading-tight" id="chat-user-name">User Name</h4>
+<span class="w-1.5 h-1.5 bg-green-500 rounded-full" title="Active Now"></span>
+</div>
+<p class="text-[10px] text-stone-400 uppercase tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">near_me</span> <span id="chat-venue-name">Venue Name</span>
+</p>
+</div>
+</div>
+</div>
+<button class="text-stone-400 hover:text-red-500 transition-colors" title="Report">
+<span class="material-symbols-outlined">report</span>
+</button>
+</div>
+<!-- Chat History -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6 bg-surface-container-low" id="chat-messages">
+<!-- Messages injected here -->
+</div>
+<!-- Chat Input -->
+<div class="p-6 bg-white border-t border-stone-100">
+<form class="flex gap-2" onsubmit="event.preventDefault(); sendMessage();">
+<input class="flex-1 bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-primary placeholder:text-stone-400" id="chat-input" placeholder="Say hello..." type="text"/>
+<button class="bg-primary text-white w-12 h-12 rounded-xl flex items-center justify-center hover:opacity-90 transition-all shadow-md" type="submit">
+<span class="material-symbols-outlined">send</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+<!-- Script Section -->
+<script>
+        const seedPlaces = [
+            { 
+                id: "aoko-matcha", 
+                name: "Aokō Matcha", 
+                district: "West Village / Greenwich Village", 
+                type: "coffee_dessert", 
+                moods: ["coffee_dessert", "spontaneous", "viral"], 
+                budget: "budget", 
+                energy: "medium", 
+                viralTag: "trending", 
+                shortDesc: "A sleek matcha café with destination-worthy desserts and a very social-media-friendly vibe.", 
+                img: "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?q=80&w=2071",
+                highlights: ["Cozy lighting", "Artistic vibes", "Soft music"],
+                checkins: ["Ava", "Noah", "Mia"],
+                comments: ["Perfect first-date energy", "The matcha is actually 10/10."]
+            },
+            { 
+                id: "dame", 
+                name: "Dame", 
+                district: "West Village / Greenwich Village", 
+                type: "restaurant", 
+                moods: ["romantic", "calm", "fun"], 
+                budget: "mid_high", 
+                energy: "medium", 
+                viralTag: "standard", 
+                shortDesc: "A buzzy but intimate seafood spot that works well for date night.", 
+                img: "https://images.unsplash.com/photo-1550966842-2849a2249865?q=80&w=2070",
+                highlights: ["Intimate seating", "Top-tier service", "Great cocktails"],
+                checkins: ["Liam", "Sophia"],
+                comments: ["Fish & chips are legendary.", "Hard to get a table but worth it."]
+            },
+            { 
+                id: "le-coucou", 
+                name: "Le Coucou", 
+                district: "SoHo / NoHo", 
+                type: "restaurant", 
+                moods: ["romantic", "premium", "special_occasion"], 
+                budget: "premium", 
+                energy: "calm", 
+                viralTag: "standard", 
+                shortDesc: "An elegant French dining room for serious date nights and anniversaries.", 
+                img: "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070",
+                highlights: ["Fine dining", "Quiet atmosphere", "Grand decor"],
+                checkins: ["Emma", "James", "Oliver"],
+                comments: ["The most romantic room in NYC.", "Expensive but a memory for life."]
+            },
+            { 
+                id: "manhatta", 
+                name: "Manhatta", 
+                district: "Lower Manhattan", 
+                type: "restaurant_bar", 
+                moods: ["romantic", "scenic", "premium", "special_occasion"], 
+                budget: "premium", 
+                energy: "medium", 
+                viralTag: "standard", 
+                shortDesc: "Sky-high views over Lower Manhattan make this one of the strongest wow-factor date picks.", 
+                img: "https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?q=80&w=2070",
+                highlights: ["Skyline views", "Impressive bar", "Floor-to-ceiling windows"],
+                checkins: ["Isabella", "Lucas"],
+                comments: ["Sunset here is unbeatable.", "Great for a big milestone."]
+            },
+            { 
+                id: "lilia", 
+                name: "Lilia", 
+                district: "Williamsburg / Greenpoint", 
+                type: "restaurant", 
+                moods: ["romantic", "fun", "spontaneous"], 
+                budget: "mid_high", 
+                energy: "medium", 
+                viralTag: "standard", 
+                shortDesc: "One of Brooklyn’s strongest date-night restaurants, especially if you want energy without chaos.", 
+                img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070",
+                highlights: ["Buzzy vibe", "Best pasta", "Outdoor seating"],
+                checkins: ["Mason", "Charlotte"],
+                comments: ["Classic Williamsburg date spot.", "Get the sheep's milk agnolotti."]
+            }
+        ];
+
+        let selectedMood = 'romantic';
+        let selectedBudget = 'budget';
+        let currentMatch = null;
+        let activeChats = []; // Array of chat objects { userName, venueName, messages }
+
+        // Selections
+        document.querySelectorAll('.mood-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('chip-active', 'border-primary'));
+                btn.classList.add('chip-active', 'border-primary');
+                selectedMood = btn.dataset.mood;
+            });
+        });
+
+        document.querySelectorAll('.budget-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('chip-active'));
+                btn.classList.add('chip-active');
+                selectedBudget = btn.dataset.budget;
+            });
+        });
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(() => {
+                    alert("Location found. We've optimized matches for your current borough.");
+                }, () => {
+                    alert("Location access denied. Please select a neighborhood manually.");
+                });
+            }
+        }
+
+        function showView(view) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-chats').classList.add('hidden');
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('nav-link-active', 'text-[#6B1D23]'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.add('text-stone-500'));
+
+            if (view === 'home') {
+                document.getElementById('view-home').classList.remove('hidden');
+                document.querySelector('.home-nav').classList.add('nav-link-active', 'text-[#6B1D23]');
+                document.querySelector('.home-nav').classList.remove('text-stone-500');
+            } else if (view === 'chats') {
+                document.getElementById('view-chats').classList.remove('hidden');
+                document.querySelector('.chats-nav').classList.add('nav-link-active', 'text-[#6B1D23]');
+                document.querySelector('.chats-nav').classList.remove('text-stone-500');
+                renderChatList();
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('results-area').classList.add('hidden');
+            document.getElementById('inspiration').classList.remove('hidden');
+        }
+
+        document.getElementById('build-plan-btn').addEventListener('click', () => {
+            const district = document.getElementById('neighborhood-select').value;
+            const viralOnly = document.getElementById('viral-toggle').checked;
+            const socialMode = document.getElementById('mode-toggle').checked;
+
+            const scores = seedPlaces.map(place => {
+                let score = 0;
+                if (district && place.district === district) score += 5;
+                if (place.budget === selectedBudget) score += 4;
+                if (place.moods.includes(selectedMood)) score += 5;
+                if (viralOnly && place.viralTag === 'trending') score += 3;
+                if (socialMode && place.checkins.length > 2) score += 2;
+                return { ...place, finalScore: score };
+            });
+
+            const filtered = scores
+                .sort((a, b) => b.finalScore - a.finalScore)
+                .slice(0, 3);
+
+            renderResults(filtered, district);
+        });
+
+        function renderResults(venues, district) {
+            const grid = document.getElementById('results-grid');
+            const area = document.getElementById('results-area');
+            const inspo = document.getElementById('inspiration');
+            const header = document.getElementById('results-header');
+
+            header.innerText = district ? `${district} Matches` : `Top NYC Matches`;
+            grid.innerHTML = '';
+
+            venues.forEach(venue => {
+                const budgetLabel = {
+                    'budget': 'Under $40',
+                    'mid': '$40-$90',
+                    'mid_high': '$90-$160',
+                    'premium': '$160+'
+                }[venue.budget];
+
+                const card = `
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-outline-variant hover:shadow-md transition-all group">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${venue.img}" class="w-full h-full object-cover group-hover:scale-105 transition-all" alt="${venue.name}">
+                            ${venue.viralTag === 'trending' ? '<span class="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter">Trending</span>' : ''}
+                            <div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-stone-500">
+                                ${venue.checkins.length} active tonight
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-h3 text-lg text-primary">${venue.name}</h4>
+                                <span class="text-[10px] font-button bg-surface-container px-2 py-1 rounded">${budgetLabel} / p</span>
+                            </div>
+                            <p class="text-xs text-stone-400 font-label-caps uppercase tracking-wider mb-4">${venue.district}</p>
+                            <p class="text-sm text-stone-600 line-clamp-2 mb-6">${venue.shortDesc}</p>
+                            <div class="flex items-center justify-between pt-4 border-t border-stone-100">
+                                <span class="text-xs text-stone-400 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-xs">bolt</span> ${venue.energy} energy
+                                </span>
+                                <button onclick="openModal('${venue.id}')" class="text-primary font-button text-xs hover:underline flex items-center gap-1">
+                                    View Details <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+
+            inspo.classList.add('hidden');
+            area.classList.remove('hidden');
+            area.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let currentVenue = null;
+
+        function openModal(id) {
+            const venue = seedPlaces.find(v => v.id === id);
+            if(!venue) return;
+            currentVenue = venue;
+
+            document.getElementById('modal-name').innerText = venue.name;
+            document.getElementById('modal-district').innerText = venue.district;
+            document.getElementById('modal-budget-text').innerText = venue.budget.replace('_', '-');
+            document.getElementById('modal-desc').innerText = venue.shortDesc;
+            document.getElementById('modal-image').src = venue.img;
+            
+            const highlightContainer = document.getElementById('modal-highlights');
+            highlightContainer.innerHTML = venue.highlights.map(h => `
+                <span class="text-[10px] px-2 py-1 bg-stone-100 text-stone-600 rounded-full font-button">${h}</span>
+            `).join('');
+
+            const checkinContainer = document.getElementById('modal-checkins');
+            checkinContainer.innerHTML = venue.checkins.map(name => `
+                <div class="w-8 h-8 rounded-full border-2 border-white bg-[#6B1D23] flex items-center justify-center text-[10px] text-white font-bold ring-1 ring-stone-200">
+                    ${name.charAt(0)}
+                </div>
+            `).join('');
+            document.getElementById('checkin-count').innerText = `${venue.checkins.length} groups checked in`;
+
+            const commentContainer = document.getElementById('modal-comments');
+            commentContainer.innerHTML = venue.comments.map(c => `
+                <div class="bg-stone-50 p-3 rounded-lg border border-stone-100">
+                    <p class="text-xs text-stone-600 italic">"${c}"</p>
+                </div>
+            `).join('');
+
+            document.getElementById('match-notification').classList.add('hidden');
+            document.getElementById('details-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function handleInteraction(type) {
+            if (type === 'like') {
+                if (currentVenue && currentVenue.checkins.length > 0) {
+                    const matchedUser = currentVenue.checkins[Math.floor(Math.random() * currentVenue.checkins.length)];
+                    currentMatch = { userName: matchedUser, venueName: currentVenue.name };
+                    
+                    setTimeout(() => {
+                        document.getElementById('match-notification-text').innerText = `${matchedUser} also likes your vibe here!`;
+                        document.getElementById('match-notification').classList.remove('hidden');
+                    }, 800);
+                }
+            } else if (type === 'checkin') {
+                alert("Success! You're checked in. Nearby matches can now see your profile bubble.");
+            } else {
+                alert("Added to your saved spots!");
+            }
+        }
+
+        // Chat Drawer Logic
+        function openChatDrawer(userName, venueName) {
+            // Set context
+            document.getElementById('chat-user-name').innerText = userName;
+            document.getElementById('chat-venue-name').innerText = venueName;
+            document.getElementById('chat-user-avatar').innerText = userName.charAt(0);
+            
+            // Find or create chat
+            let chat = activeChats.find(c => c.userName === userName && c.venueName === venueName);
+            if (!chat) {
+                const now = new Date();
+                const timeStr = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
+                chat = {
+                    userName: userName,
+                    venueName: venueName,
+                    lastTimestamp: timeStr,
+                    messages: [
+                        { sender: 'them', text: "Hey, I saw you also checked in here.", time: timeStr },
+                        { sender: 'me', text: "Yeah, first time here. The vibe is great.", time: timeStr },
+                        { sender: 'them', text: "Totally. Have you tried the cocktails yet?", time: timeStr }
+                    ]
+                };
+                activeChats.push(chat);
+                document.getElementById('chat-unread-dot').classList.remove('hidden');
+            }
+
+            renderMessages(chat);
+
+            // Show drawer
+            const drawer = document.getElementById('chat-drawer');
+            const content = document.getElementById('chat-drawer-content');
+            drawer.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('translate-x-full');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeChatDrawer() {
+            const content = document.getElementById('chat-drawer-content');
+            content.classList.add('translate-x-full');
+            setTimeout(() => {
+                document.getElementById('chat-drawer').classList.add('hidden');
+                if (document.getElementById('details-modal').classList.contains('hidden')) {
+                    document.body.style.overflow = 'hidden';
+                } else if (document.getElementById('view-chats').classList.contains('hidden')) {
+                    document.body.style.overflow = 'auto';
+                }
+            }, 300);
+            renderChatList();
+        }
+
+        function renderMessages(chat) {
+            const container = document.getElementById('chat-messages');
+            container.innerHTML = chat.messages.map(m => `
+                <div class="flex flex-col ${m.sender === 'me' ? 'items-end' : 'items-start'}">
+                    <div class="max-w-[80%] px-4 py-3 rounded-2xl text-sm ${m.sender === 'me' ? 'bg-primary text-white rounded-br-none' : 'bg-white border border-stone-100 text-stone-700 rounded-bl-none shadow-sm'}">
+                        ${m.text}
+                    </div>
+                    <span class="text-[10px] text-stone-400 mt-1 px-1">${m.time}</span>
+                </div>
+            `).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const userName = document.getElementById('chat-user-name').innerText;
+            const venueName = document.getElementById('chat-venue-name').innerText;
+            const chat = activeChats.find(c => c.userName === userName && c.venueName === venueName);
+
+            if (chat) {
+                const now = new Date();
+                const timeStr = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
+                chat.messages.push({ sender: 'me', text: text, time: timeStr });
+                chat.lastTimestamp = timeStr;
+                renderMessages(chat);
+                input.value = '';
+            }
+        }
+
+        function openChatFromMatch() {
+            if (currentMatch) {
+                document.getElementById('details-modal').classList.add('hidden');
+                openChatDrawer(currentMatch.userName, currentMatch.venueName);
+            }
+        }
+
+        function renderChatList() {
+            const list = document.getElementById('chat-list');
+            if (activeChats.length === 0) {
+                list.innerHTML = `
+                    <div class="p-12 text-center text-stone-400">
+                        <span class="material-symbols-outlined text-5xl mb-4">forum</span>
+                        <p>No active matches yet. Try planning a date and checking in to find someone!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = activeChats.map(chat => {
+                const lastMsg = chat.messages[chat.messages.length - 1];
+                return `
+                    <div class="flex items-center justify-between p-6 hover:bg-stone-50 border-b border-stone-100 cursor-pointer transition-colors" onclick="openChatDrawer('${chat.userName}', '${chat.venueName}')">
+                        <div class="flex items-center gap-4">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-lg">${chat.userName.charAt(0)}</div>
+                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                            </div>
+                            <div>
+                                <h4 class="font-button text-primary text-lg">${chat.userName}</h4>
+                                <p class="text-xs text-stone-500 line-clamp-1">${lastMsg.sender === 'me' ? 'You: ' : ''}${lastMsg.text}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] text-stone-400 uppercase tracking-widest mb-1">Matched at ${chat.venueName}</p>
+                            <p class="text-[10px] text-stone-400">${chat.lastTimestamp}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('chat-unread-dot').classList.add('hidden');
+        }
+
+        document.querySelectorAll('.modal-close').forEach(el => {
+            el.addEventListener('click', () => {
+                document.getElementById('details-modal').classList.add('hidden');
+                if (document.getElementById('view-chats').classList.contains('hidden')) {
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Default selection
+        document.querySelector('[data-mood="romantic"]').classList.add('chip-active', 'border-primary');
+    </script>
+</body></html>

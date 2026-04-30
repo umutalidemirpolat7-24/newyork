@@ -510,4 +510,163 @@ const venueDatabase = [
   { id: 42, name: "The Met Museum", neighborhood: "Upper East Side", budget: "Mid $40–$90", moods: ["Culture Focused", "Calm", "Romantic"], type: "Museum", why: "Perfect culture-first date with endless conversation starters.", dateIdea: "Pick one gallery, then coffee or dinner after.", checkedIn: 15, meetups: 3, img: "https://images.unsplash.com/photo-1518998053502-51dd0c694864?auto=format&fit=crop&q=80&w=800" },
   { id: 43, name: "Central Park Conservatory Garden", neighborhood: "Upper East Side", budget: "Budget Under $40", moods: ["Scenic", "Calm", "Budget Friendly"], type: "Garden", why: "Quiet scenic walk for low-cost romantic dates.", dateIdea: "Walk the garden, take photos, then get coffee nearby.", checkedIn: 7, meetups: 1, img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&q=80&w=800" },
   { id: 44, name: "Café Sabarsky", neighborhood: "Upper East Side", budget: "Mid $40–$90", moods: ["Coffee & Dessert", "Culture Focused", "Calm"], type: "Cafe", why: "Museum cafe energy, great for coffee and dessert after art.", dateIdea: "Neue Galerie visit followed by coffee and cake.", checkedIn: 5, meetups: 1, img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800" },
-  { id: 45, name: "Daniel", neighborhood: "Upper East Side", budget: "Premium $160+", moods: ["Romantic", "Culture Focused"], type: "Fine dining", why: "Premium serious-date destination for special occasions.", dateIdea: "Formal dinner date with luxury service and classic NYC feel.", checkedIn: 4, meetups: 0, img: "https://images.unsplash.com/photo-</script></body></html>
+  { id: 45, name: "Daniel", neighborhood: "Upper East Side", budget: "Premium $160+", moods: ["Romantic", "Culture Focused"], type: "Fine dining", why: "Premium serious-date destination for special occasions.", dateIdea: "Formal dinner date with luxury service and classic NYC feel.", checkedIn: 4, meetups: 0, img: "https://images.unsplash.com/photo-</script><script>
+let selectedMood = null;
+let selectedBudget = null;
+let userEvents = [];
+
+// Initialize UI Handlers
+document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('chip-active'));
+        btn.classList.add('chip-active');
+        selectedMood = btn.dataset.mood;
+    });
+});
+
+document.querySelectorAll('.budget-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('chip-active'));
+        btn.classList.add('chip-active');
+        selectedBudget = btn.dataset.budget;
+    });
+});
+
+function switchMainMode(mode) {
+    const modes = ['date', 'party', 'host'];
+    modes.forEach(m => {
+        document.getElementById(`mode-${m}`).classList.remove('mode-active');
+        document.getElementById(`mode-${m}`).classList.add('text-stone-500');
+    });
+    document.getElementById(`mode-${mode}`).classList.add('mode-active');
+    document.getElementById(`mode-${mode}`).classList.remove('text-stone-500');
+
+    document.getElementById('planner-form-container').classList.toggle('hidden', mode !== 'date');
+    document.getElementById('party-radar-info').classList.toggle('hidden', mode !== 'party');
+    document.getElementById('host-form-container').classList.toggle('hidden', mode !== 'host');
+    
+    if(mode === 'party') scanRadar();
+}
+
+function buildPlan() {
+    const neighborhood = document.getElementById('neighborhood-select').value;
+    
+    let results = venueDatabase.filter(v => {
+        const matchNB = neighborhood === 'All Neighborhoods' || v.neighborhood === neighborhood;
+        const matchMood = !selectedMood || v.moods.includes(selectedMood);
+        const matchBudget = !selectedBudget || v.budget === selectedBudget;
+        return matchNB && matchMood && matchBudget;
+    });
+
+    // Smart Fallback
+    if (results.length === 0 && selectedMood) {
+        results = venueDatabase.filter(v => 
+            (neighborhood === 'All Neighborhoods' || v.neighborhood === neighborhood) && 
+            v.moods.includes(selectedMood)
+        );
+    }
+
+    renderResults(results);
+    document.getElementById('results-area').classList.remove('hidden');
+    document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderResults(venues) {
+    const grid = document.getElementById('results-grid');
+    grid.innerHTML = venues.map(v => `
+        <div class="bg-white rounded-2xl shadow-sm border border-outline-variant overflow-hidden venue-card-reveal hover:shadow-md transition-all group">
+            <div class="relative h-48 overflow-hidden">
+                <img src="${v.img}" alt="${v.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">${v.neighborhood}</div>
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="font-h3 text-xl">${v.name}</h3>
+                    <span class="text-xs font-bold text-primary">${v.budget.split(' ')[0]}</span>
+                </div>
+                <div class="flex flex-wrap gap-1 mb-4">
+                    ${v.moods.map(m => `<span class="text-[10px] bg-surface-container px-2 py-0.5 rounded-full text-stone-500">${m}</span>`).join('')}
+                </div>
+                <p class="text-sm text-stone-600 mb-4 line-clamp-2">${v.why}</p>
+                <div class="flex items-center gap-4 text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-6">
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">person</span> ${v.checkedIn} Checked-in</span>
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">groups</span> ${v.meetups} Meetups</span>
+                </div>
+                <button onclick="openModal(${v.id})" class="w-full py-3 border border-primary text-primary font-button rounded-lg hover:bg-primary hover:text-white transition-all">View Details</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function openModal(id) {
+    const v = venueDatabase.find(venue => venue.id === id);
+    if(!v) return;
+    
+    document.getElementById('modal-name').innerText = v.name;
+    document.getElementById('modal-district').innerText = v.neighborhood + ' • ' + v.type;
+    document.getElementById('modal-image').src = v.img;
+    document.getElementById('modal-checked-count').innerText = v.checkedIn;
+    
+    document.getElementById('modal-mood-tags').innerHTML = v.moods.map(m => `<span class="bg-primary/5 text-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase">${m}</span>`).join('');
+    
+    document.getElementById('concierge-panel').innerHTML = `
+        <h4 class="font-bold text-primary mb-2">Concierge Note</h4>
+        <p class="text-sm text-stone-600 mb-4">${v.why}</p>
+        <h4 class="font-bold text-primary mb-2">Date Idea</h4>
+        <p class="text-sm text-stone-600 italic">"${v.dateIdea}"</p>
+    `;
+    
+    document.getElementById('details-modal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('details-modal').classList.add('hidden');
+}
+
+function hostVibe() {
+    const name = document.getElementById('host-name').value;
+    const district = document.getElementById('host-district').value;
+    const type = document.getElementById('host-type').value;
+    const desc = document.getElementById('host-desc').value;
+    
+    if(!name) return alert('Please enter an event name');
+    
+    userEvents.push({ name, district, type, desc, active: true });
+    alert('Your vibe is now live on the Party Radar!');
+    switchMainMode('party');
+}
+
+function scanRadar() {
+    const radarGrid = document.getElementById('party-radar-grid');
+    const allEvents = [
+        { name: "Chelsea Loft Party", district: "Chelsea", type: "Lounge", desc: "Late night deep house and cocktails.", active: true },
+        ...userEvents
+    ];
+    
+    radarGrid.innerHTML = allEvents.map(e => `
+        <div class="bg-white p-6 rounded-2xl border border-primary/10 shadow-sm pulse-match">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <span class="text-[10px] font-bold text-primary uppercase">LIVE • ${e.district}</span>
+                    <h4 class="font-h3 text-lg mt-1">${e.name}</h4>
+                </div>
+                <span class="material-symbols-outlined text-primary">sensors</span>
+            </div>
+            <p class="text-sm text-stone-500 mb-6">${e.desc}</p>
+            <button class="w-full py-2 bg-primary/5 text-primary text-xs font-bold rounded-lg uppercase tracking-widest hover:bg-primary/10">Request Access</button>
+        </div>
+    `).join('');
+}
+
+function showView(view) {
+    document.getElementById('view-home').classList.toggle('hidden', view !== 'home');
+    document.getElementById('view-chats').classList.toggle('hidden', view !== 'chats');
+    
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('nav-link-active'));
+    document.querySelector(`.${view}-nav`).classList.add('nav-link-active');
+}
+
+function toggleMeetupForm() {
+    document.getElementById('create-meetup-form').classList.toggle('hidden');
+}
+</script></body></html>
